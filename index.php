@@ -8,11 +8,11 @@ require_once("models/header.php");
 
 <body>
   <div id='wrapper'>
-    <div id='top'><div id='logo'></div></div>
+    <?php require_once("common/top.php"); ?>
     <div id='content'>
 
-      <h1>OpenSantaLeter</h1>
-      <h2>0.01</h2>
+      <?php require_once("common/title.php"); ?>
+      <h2>version 0.01</h2>
 
       <div id='left-nav'>
         <?php include("left-nav.php"); ?>
