@@ -1,18 +1,19 @@
 <?php
 
-require_once("models/config.php");
+$root = realpath($_SERVER["DOCUMENT_ROOT"]);
+require_once("$root/models/config.php");
 if (!securePage($_SERVER['PHP_SELF'])){die();}
-require_once("models/header.php");
+require_once("$root/models/header.php");
 
 ?>
 
 <body>
   <div id='wrapper'>
-    <?php include("common/top.php") ?>
+    <?php include("$root/common/top.php") ?>
     <div id='content'>
-      <?php include("common/title.php") ?>
+      <?php include("$root/common/title.php") ?>
       <h2>Account</h2>
-      <div id='left-nav'> <?php include("common/left-nav.php"); ?> </div>
+      <div id='left-nav'> <?php include("$root/common/left-nav.php"); ?> </div>
 
       <div id='main'>
         Hey, <?=$loggedInUser->displayname ?>. Your title <?=$loggedInUser->title ?>. Registered this account on <?= date("M d, Y", $loggedInUser->signupTimeStamp()) ?>.

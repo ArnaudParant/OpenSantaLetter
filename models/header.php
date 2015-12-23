@@ -4,6 +4,6 @@
     <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
     <title> <?= $websiteName ?></title>
     <link href='<?= $template ?>' rel='stylesheet' type='text/css' />
-    <script src='models/funcs.js' type='text/javascript'>
+    <script src='/models/funcs.js' type='text/javascript'>
     </script>
   </head>

@@ -3,7 +3,9 @@
 UserCake Version: 2.0.1
 http://usercake.com
 */
-require_once("models/config.php");
+
+$root = realpath($_SERVER["DOCUMENT_ROOT"]);
+require_once("$root/models/config.php");
 if (!securePage($_SERVER['PHP_SELF'])){die();}
 
 //Get token param
@@ -36,18 +38,18 @@ if(count($errors) == 0) {
 	$successes[] = lang("ACCOUNT_ACTIVATION_COMPLETE");
 }
 
-require_once("models/header.php");
+require_once("$root/models/header.php");
 
 ?>
 
 <body>
   <div id='wrapper'>
-    <? include("common/top.php"); ?>
+    <? include("$root/common/top.php"); ?>
     <div id='content'>
-      <? include("common/title.php"); ?>
+      <? include("$root/common/title.php"); ?>
       <h2>Activate Account</h2>
 
-      <div id='left-nav'><? include("common/left-nav.php"); ?>
+      <div id='left-nav'><? include("$root/common/left-nav.php"); ?>
 
       </div>
       <div id='main'><?=  resultBlock($errors,$successes); ?>

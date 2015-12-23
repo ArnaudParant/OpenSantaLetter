@@ -1,6 +1,7 @@
 <?php
 
-require_once("models/config.php");
+$root = realpath($_SERVER["DOCUMENT_ROOT"]);
+require_once("$root/models/config.php");
 if (!securePage($_SERVER['PHP_SELF'])){die();}
 
 //User has confirmed they want their password changed 
@@ -169,17 +170,17 @@ if(!empty($_POST))
 	}
 }
 
-require_once("models/header.php");
+require_once("$root/models/header.php");
 
 ?>
 
 <body>
   <div id='wrapper'>
-    <?php include("common/top.php"); ?>
+    <?php include("$root/common/top.php"); ?>
     <div id='content'>
-      <?php include("common/title.php"); ?>
+      <?php include("$root/common/title.php"); ?>
       <h2>Forgot Password</h2>
-      <div id='left-nav'><?php include("common/left-nav.php"); ?></div>
+      <div id='left-nav'><?php include("$root/common/left-nav.php"); ?></div>
       <div id='main'> <?= resultBlock($errors,$successes); ?>
 
         <div id='regbox'>

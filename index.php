@@ -1,21 +1,22 @@
 <?php
 
-require_once("models/config.php");
+$root = realpath($_SERVER["DOCUMENT_ROOT"]);
+require_once("$root/models/config.php");
 if (!securePage($_SERVER['PHP_SELF'])){die();}
-require_once("models/header.php");
+require_once("$root/models/header.php");
 
 ?>
 
 <body>
   <div id='wrapper'>
-    <?php require_once("common/top.php"); ?>
+    <?php require_once("$root/common/top.php"); ?>
     <div id='content'>
 
-      <?php require_once("common/title.php"); ?>
+      <?php require_once("$root/common/title.php"); ?>
       <h2>version 0.01</h2>
 
       <div id='left-nav'>
-        <?php include("common/left-nav.php"); ?>
+        <?php include("$root/common/left-nav.php"); ?>
       </div>
 
       <div id='main'>
