@@ -38,8 +38,11 @@ function getTemplateFiles()
 //Retrieve a list of all .php files in root files folder
 function getPageFiles()
 {
-	$pages = glob("/var/www/*.php");
-        $pages = array_merge($pages, glob("/var/www/admin/*.php"));
+	$public_pages = glob("/var/www/*.php");
+	$admin_pages = glob("/var/www/admin/*.php");
+	$user_pages = glob("/var/www/user/*.php");
+
+        $pages = array_merge($public_pages, $admin_pages, $user_pages);
 
 	//print each file name
 	foreach ($pages as $page){
