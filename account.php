@@ -12,7 +12,7 @@ require_once("models/header.php");
     <div id='content'>
       <?php include("common/title.php") ?>
       <h2>Account</h2>
-      <div id='left-nav'> <?php include("left-nav.php"); ?> </div>
+      <div id='left-nav'> <?php include("common/left-nav.php"); ?> </div>
 
       <div id='main'>
         Hey, <?=$loggedInUser->displayname ?>. Your title <?=$loggedInUser->title ?>. Registered this account on <?= date("M d, Y", $loggedInUser->signupTimeStamp()) ?>.

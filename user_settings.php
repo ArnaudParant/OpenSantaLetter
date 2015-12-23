@@ -107,7 +107,7 @@ require_once("models/header.php");
     <div id='content'>
       <? include("common/title.php") ?>
       <h2>User Settings</h2>
-      <div id='left-nav'> <? include("left-nav.php"); ?>
+      <div id='left-nav'> <? include("common/left-nav.php"); ?>
       </div>
       <div id='main'> <?= resultBlock($errors,$successes); ?>
 

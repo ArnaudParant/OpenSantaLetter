@@ -117,7 +117,7 @@ require_once("models/header.php");
     <div id='content'>
       <?php include("common/title.php"); ?>
       <h2>Resend Activation</h2>
-      <div id='left-nav'> <?php include("left-nav.php"); ?> </div>
+      <div id='left-nav'> <?php include("common/left-nav.php"); ?> </div>
       <div id='main'>
 
         <?= resultBlock($errors,$successes); ?>

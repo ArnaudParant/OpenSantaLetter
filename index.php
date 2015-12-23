@@ -15,7 +15,7 @@ require_once("models/header.php");
       <h2>version 0.01</h2>
 
       <div id='left-nav'>
-        <?php include("left-nav.php"); ?>
+        <?php include("common/left-nav.php"); ?>
       </div>
 
       <div id='main'>
