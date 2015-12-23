@@ -1,0 +1,39 @@
+<?php
+/*
+UserCake Version: 2.0.2
+http://usercake.com
+*/
+
+$root = realpath($_SERVER["DOCUMENT_ROOT"]);
+
+//Database Information
+$db_host = "localhost"; //Host address (most likely localhost)
+$db_name = "santa"; //Name of Database
+$db_user = "santa"; //Name of database user
+$db_pass = "chips56#"; //Password for database user
+$db_table_prefix = "gift_";
+
+GLOBAL $errors;
+GLOBAL $successes;
+
+$errors = array();
+$successes = array();
+
+/* Create a new mysqli object with database connection parameters */
+$mysqli = new mysqli($db_host, $db_user, $db_pass, $db_name);
+GLOBAL $mysqli;
+
+if(mysqli_connect_errno()) {
+	echo "Connection Failed: " . mysqli_connect_errno();
+	exit();
+}
+
+//Direct to install directory, if it exists
+if(is_dir("$root/install/"))
+{
+	header("Location: install/");
+	die();
+
+}
+
+?>
