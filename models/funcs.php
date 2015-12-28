@@ -263,6 +263,29 @@ function emailExists($email)
 	}
 }
 
+//Receive user id from email
+function userIdOfEmail($email)
+{
+	global $mysqli,$db_table_prefix;
+	$stmt = $mysqli->prepare("SELECT
+                id,
+                active
+		FROM ".$db_table_prefix."users
+		WHERE
+		email = ?
+		LIMIT 1");
+	$stmt->bind_param("s", $email);
+	$stmt->execute();
+	$stmt->bind_result($id, $active);
+	while ($stmt->fetch()){
+		$row[] = array('id' => $id, 'active' => $active);
+	}
+	$stmt->close();
+
+        return ($row[0]["id"]);
+}
+
+
 //Check if a user name and email belong to the same user
 function emailUsernameLinked($email,$username)
 {
@@ -447,6 +470,21 @@ function fetchGroupMember($group_id)
 	return ($row);
 }
 
+//Added group member
+function addGroupMember($group_id, $user_id, $permissions_id)
+{
+	global $mysqli,$db_table_prefix;
+	$stmt = $mysqli->prepare("INSERT
+                INTO ".$db_table_prefix."group_member
+                (group_id, user_id, permissions_id)
+                VALUES (".$group_id.",".$user_id.",".$permissions_id.")
+                ");
+	$added = $stmt->execute();
+	$stmt->close();
+
+	return $added;
+}
+
 //Create a group
 function createGroup($user_id, $name, $description)
 {
@@ -458,15 +496,9 @@ function createGroup($user_id, $name, $description)
                 ");
 	$stmt->execute();
         $group_id = $mysqli->insert_id;
-
-	$stmt = $mysqli->prepare("INSERT
-                INTO ".$db_table_prefix."group_member
-                (group_id, user_id, permissions_id)
-                VALUES (".$group_id.",".$user_id.",2)
-                ");
-	$stmt->execute();
-
 	$stmt->close();
+
+        addGroupMember($group_id, $user_id, 2);
 
 	return ($group_id);
 }

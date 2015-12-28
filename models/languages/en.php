@@ -62,6 +62,9 @@ $lang = array_merge($lang,array(
 	"GROUP_SPECIFY_DESCRIPTION"             => "Please enter a group description",
 	"GROUP_CREATED"                         => "Group successfuly created",
 	"GROUP_CREATION_FAILED"                 => "Failed to create the group",
+	"GROUP_UNKNOWN_EMAIL"                   => "Unknown email",
+	"GROUP_USER_ADDED"                      => "User successfuly added",
+	"GROUP_USER_ADD_FAILED"                 => "Failed to added user",
         ));
 
 //Configuration
