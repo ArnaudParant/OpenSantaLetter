@@ -23,29 +23,24 @@ if(!empty($_POST))
 $userData = fetchAllUsers(); //Fetch information for all users
 
 require_once("$root/models/header.php");
-echo "
+?>
+
 <body>
-<div id='wrapper'>
-<div id='top'><div id='logo'></div></div>
-<div id='content'>
-<h1>UserCake</h1>
-<h2>Admin Users</h2>
-<div id='left-nav'>";
+  <div id='wrapper'>
+    <?php include("$root/common/top.php"); ?>
+    <div id='content'>
+      <?php include("$root/common/title.php"); ?>
+      <h2>Admin Users</h2>
+      <div id='left-nav'> <?php include("$root/common/left-nav.php"); ?> </div>
+      <div id='main'> <?=resultBlock($errors,$successes); ?>
 
-include("$root/common/left-nav.php");
+        <form name='adminUsers' action='".$_SERVER['PHP_SELF']."' method='post'>
+          <table class='admin'>
+            <tr>
+              <th>Delete</th><th>Username</th><th>Display Name</th><th>Title</th><th>Last Sign In</th>
+            </tr>
 
-echo "
-</div>
-<div id='main'>";
-
-echo resultBlock($errors,$successes);
-
-echo "
-<form name='adminUsers' action='".$_SERVER['PHP_SELF']."' method='post'>
-<table class='admin'>
-<tr>
-<th>Delete</th><th>Username</th><th>Display Name</th><th>Title</th><th>Last Sign In</th>
-</tr>";
+<?php
 
 //Cycle through users
 foreach ($userData as $v1) {
@@ -70,14 +65,13 @@ foreach ($userData as $v1) {
 	</tr>";
 }
 
-echo "
-</table>
-<input type='submit' name='Submit' value='Delete' />
-</form>
-</div>
-<div id='bottom'></div>
-</div>
-</body>
-</html>";
-
 ?>
+
+          </table>
+          <input type='submit' name='Submit' value='Delete' />
+        </form>
+      </div>
+      <div id='bottom'></div>
+    </div>
+</body>
+</html>
