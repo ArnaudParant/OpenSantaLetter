@@ -447,6 +447,30 @@ function fetchGroupMember($group_id)
 	return ($row);
 }
 
+//Create a group
+function createGroup($user_id, $name, $description)
+{
+	global $mysqli,$db_table_prefix;
+	$stmt = $mysqli->prepare("INSERT
+                INTO ".$db_table_prefix."groups
+                (name, description)
+                VALUES ('".$name."','".$description."')
+                ");
+	$stmt->execute();
+        $group_id = $mysqli->insert_id;
+
+	$stmt = $mysqli->prepare("INSERT
+                INTO ".$db_table_prefix."group_member
+                (group_id, user_id, permissions_id)
+                VALUES (".$group_id.",".$user_id.",2)
+                ");
+	$stmt->execute();
+
+	$stmt->close();
+
+	return ($group_id);
+}
+
 
 //Toggle if lost password request flag on or off
 function flagLostPasswordRequest($username,$value)

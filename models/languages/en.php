@@ -56,6 +56,14 @@ $lang = array_merge($lang,array(
 	"ACCOUNT_INVALID_USERNAME"		=> "Invalid username",
 	));
 
+//Account
+$lang = array_merge($lang,array(
+	"GROUP_SPECIFY_NAME"                    => "Please enter a group name",
+	"GROUP_SPECIFY_DESCRIPTION"             => "Please enter a group description",
+	"GROUP_CREATED"                         => "Group successfuly created",
+	"GROUP_CREATION_FAILED"                 => "Failed to create the group",
+        ));
+
 //Configuration
 $lang = array_merge($lang,array(
 	"CONFIG_NAME_CHAR_LIMIT"		=> "Site name must be between %m1% and %m2% characters in length",

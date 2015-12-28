@@ -14,8 +14,6 @@ if(!empty($_POST))
 	$password = $_POST["password"];
 	$password_new = $_POST["passwordc"];
 	$password_confirm = $_POST["passwordcheck"];
-	
-	$errors = array();
 	$email = $_POST["email"];
 	
 	//Perform some validation

@@ -20,7 +20,9 @@ require_once("$root/models/header.php");
       <div id='left-nav'> <?php include("$root/common/left-nav.php"); ?> </div>
 
       <div id='main'>
-        
+
+        <div><a href="create_group.php">Create a group</a></div><br />
+
         <table>
           <tr>
             <th>Unsubscribe</th><th>Name</th><th>Description</th><th>Permissions</th>
