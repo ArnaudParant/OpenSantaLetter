@@ -362,6 +362,35 @@ function fetchUserDetails($username=NULL,$token=NULL, $id=NULL)
 	return ($row);
 }
 
+//Retrieve information of groups where the user is member
+function fetchGroups($id)
+{
+	global $mysqli,$db_table_prefix;
+	$stmt = $mysqli->prepare("SELECT
+		".$db_table_prefix."groups.id,
+		".$db_table_prefix."groups.name,
+                description,
+                permissions.name
+		FROM ".$db_table_prefix."groups
+                LEFT JOIN ".$db_table_prefix."group_member member
+                ON id = member.group_id
+                RIGHT JOIN ".$db_table_prefix."permissions permissions
+                ON member.permissions_id = permissions.id
+                WHERE user_id = ".$id."
+                ");
+        echo $mysqli->error;
+	$stmt->execute();
+	$stmt->bind_result($id, $name, $description, $permissions);
+	
+	while ($stmt->fetch()){
+		$row[] = array('id' => $id, 'name' => $name,
+                               'description' => $description,
+                               'permissions' => $permissions);
+	}
+	$stmt->close();
+	return ($row);
+}
+
 //Toggle if lost password request flag on or off
 function flagLostPasswordRequest($username,$value)
 {

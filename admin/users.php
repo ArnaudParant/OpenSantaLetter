@@ -23,6 +23,7 @@ if(!empty($_POST))
 $userData = fetchAllUsers(); //Fetch information for all users
 
 require_once("$root/models/header.php");
+
 ?>
 
 <body>

@@ -11,7 +11,7 @@ $db_host = "localhost"; //Host address (most likely localhost)
 $db_name = "santa"; //Name of Database
 $db_user = "santa"; //Name of database user
 $db_pass = "chips56#"; //Password for database user
-$db_table_prefix = "gift_";
+$db_table_prefix = "santa_";
 
 GLOBAL $errors;
 GLOBAL $successes;
