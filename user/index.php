@@ -16,7 +16,7 @@ require_once("$root/models/header.php");
       <div id='left-nav'> <?php include("$root/common/left-nav.php"); ?> </div>
 
       <div id='main'>
-        Hey, <?=$loggedInUser->displayname ?>. Your title <?=$loggedInUser->title ?>. Registered this account on <?= date("M d, Y", $loggedInUser->signupTimeStamp()) ?>.
+        Hey, <?=$loggedInUser->displayname ?>.
       </div>
       <div id='bottom'></div>
     </div>

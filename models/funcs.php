@@ -370,7 +370,7 @@ function fetchGroups($id)
 		".$db_table_prefix."groups.id,
 		".$db_table_prefix."groups.name,
                 description,
-                permissions.name
+                permissions.name AS permissions
 		FROM ".$db_table_prefix."groups
                 LEFT JOIN ".$db_table_prefix."group_member member
                 ON id = member.group_id
@@ -378,7 +378,6 @@ function fetchGroups($id)
                 ON member.permissions_id = permissions.id
                 WHERE user_id = ".$id."
                 ");
-        echo $mysqli->error;
 	$stmt->execute();
 	$stmt->bind_result($id, $name, $description, $permissions);
 	
@@ -390,6 +389,64 @@ function fetchGroups($id)
 	$stmt->close();
 	return ($row);
 }
+
+//Retrieve information of a specific group
+function fetchGroupDetail($user_id, $group_id)
+{
+	global $mysqli,$db_table_prefix;
+	$stmt = $mysqli->prepare("SELECT
+		".$db_table_prefix."groups.id,
+		".$db_table_prefix."groups.name,
+                description,
+                permissions.name AS permissions
+		FROM ".$db_table_prefix."groups
+                LEFT JOIN ".$db_table_prefix."group_member member
+                ON id = member.group_id
+                RIGHT JOIN ".$db_table_prefix."permissions permissions
+                ON member.permissions_id = permissions.id
+                WHERE user_id = ".$user_id."
+                AND group_id = ".$group_id."
+                LIMIT 1
+                ");
+	$stmt->execute();
+	$stmt->bind_result($id, $name, $description, $permissions);
+
+	while ($stmt->fetch()){
+		$row[] = array('id' => $id, 'name' => $name,
+                               'description' => $description,
+                               'permissions' => $permissions);
+	}
+	$stmt->close();
+	return ($row[0]);
+}
+
+
+//Retrieve member of a specific group
+function fetchGroupMember($group_id)
+{
+	global $mysqli,$db_table_prefix;
+	$stmt = $mysqli->prepare("SELECT
+                user.id,
+                user.display_name AS name,
+                permissions.name AS permissions
+		FROM ".$db_table_prefix."group_member
+                LEFT JOIN ".$db_table_prefix."users user
+                ON user_id = user.id
+                LEFT JOIN ".$db_table_prefix."permissions permissions
+                ON permissions_id = permissions.id
+                WHERE group_id = ".$group_id."
+                ");
+	$stmt->execute();
+	$stmt->bind_result($id, $name, $permissions);
+
+	while ($stmt->fetch()){
+		$row[] = array('id' => $id, 'name' => $name,
+                               'permissions' => $permissions);
+	}
+	$stmt->close();
+	return ($row);
+}
+
 
 //Toggle if lost password request flag on or off
 function flagLostPasswordRequest($username,$value)
