@@ -49,11 +49,23 @@ if(!empty($_POST))
   else if ($form == "deleteUser")
   {
     $user_id = $_POST["userId"];
-    deleteGroupMember($groupId, $user_id);
+    $deleted = deleteGroupMember($groupId, $user_id);
+
+    if ($deleted) {
+      $successes[] = lang("GROUP_USER_UNSUBSCRIBE");
+    } else {
+      $errors[] = lang("GROUP_USER_UNSUBSCRIBE_FAILED");
+    }
   }
   else if ($form == "deleteGroup")
   {
-    deleteGroup($groupId);
+    $deleted = deleteGroup($groupId);
+
+    if ($deleted) {
+      $successes[] = lang("GROUP_DELETED");
+    } else {
+      $errors[] = lang("GROUP_DELETE_FAILED");
+    }
   }
 
 }
@@ -106,7 +118,7 @@ require_once("$root/models/header.php");
 
         <table>
           <tr>
-            <th>Delete</th><th>Name</th><th>Permissions</th>
+            <th>Unsubscribe</th><th>Name</th><th>Permissions</th>
           </tr>
 <?php
 
@@ -122,7 +134,6 @@ foreach ($memberData as $member) {
         <input type='hidden' name='userId' value='<?=$member['id'] ?>' />
         <input type='submit' value='X' class='submit' />
       </form>
-
     </td>
     <td><?=$member['name'] ?></td>
     <td><?=$member['permissions'] ?></td>
