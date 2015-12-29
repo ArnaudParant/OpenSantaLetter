@@ -503,6 +503,41 @@ function createGroup($user_id, $name, $description)
 	return ($group_id);
 }
 
+//Delete a specific or all group member
+function deleteGroupMember($group_id, $user_id = null)
+{
+        $and = "";
+        if ($user_id) $and = "AND user_id = ". $user_id;
+
+	global $mysqli,$db_table_prefix;
+	$stmt = $mysqli->prepare("DELETE
+                FROM ".$db_table_prefix."group_member
+                WHERE group_id = ".$group_id."
+                ".$and."
+                ");
+	$deleted = $stmt->execute();
+	$stmt->close();
+
+	return $deleted;
+}
+
+//Delete a group
+function deleteGroup($group_id)
+{
+	global $mysqli,$db_table_prefix;
+	$stmt = $mysqli->prepare("DELETE
+                FROM ".$db_table_prefix."groups
+                WHERE id = ".$group_id."
+                LIMIT 1
+                ");
+	$deleted = $stmt->execute();
+	$stmt->close();
+
+        deleteGroupMember($group_id, null);
+
+	return ($deleted);
+}
+
 
 //Toggle if lost password request flag on or off
 function flagLostPasswordRequest($username,$value)

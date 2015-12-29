@@ -11,37 +11,45 @@ if(!isUserLoggedIn()) { header("Location: login.php"); die(); }
 
 if(!empty($_POST))
 {
-	$errors = array();
-	$successes = array();
-	$email = trim($_POST["email"]);
+  
+  $errors = array();
+  $successes = array();
+  $form = $_POST["form"];
+  
+  if ($form == "addUser")
+  {
 
-	if(!isValidEmail($email))
-	{
-	  $errors[] = lang("ACCOUNT_INVALID_EMAIL");
-	}
+    $email = trim($_POST["email"]);
 
-        if(count($errors) == 0)
-        {
-          $user_id = userIdOfEmail($email);
-          if (empty($user_id))
-          {
-            $errors[] = lang("GROUP_UNKNOWN_EMAIL");
-          }
-          else
-          {
-            $added = addGroupMember($groupId, $user_id, 1);
+    if(!isValidEmail($email))
+    {
+      $errors[] = lang("ACCOUNT_INVALID_EMAIL");
+    }
 
-            if ($added) {
-              $successes[] = lang("GROUP_USER_ADDED");
-            } else {
-              $errors[] = lang("GROUP_USER_ADD_FAILED");
-            }
-          }
+    if(count($errors) == 0)
+    {
+      $user_id = userIdOfEmail($email);
+      if (empty($user_id))
+      {
+        $errors[] = lang("GROUP_UNKNOWN_EMAIL");
+      }
+      else
+      {
+        $added = addGroupMember($groupId, $user_id, 1);
+
+        if ($added) {
+          $successes[] = lang("GROUP_USER_ADDED");
+        } else {
+          $errors[] = lang("GROUP_USER_ADD_FAILED");
         }
+      }
+    }
 
-	if(count($errors) == 0 AND count($successes) == 0){
-		$errors[] = lang("NOTHING_TO_UPDATE");
-	}
+  }
+  else if ($form == "deleteGroup")
+  {
+    deleteGroup($groupId);
+  }
 
 }
 
@@ -82,6 +90,7 @@ require_once("$root/models/header.php");
 
           <form name='addUser' action='<?= $_SERVER['PHP_SELF'] ?>?id=<?=$groupId ?>' method='post'>
             <p>
+              <input type='hidden' name='form' value='addUser' />
               <input type='text' name='email' placeholder="user email" />
               <input type='submit' value='Invite' class='submit' />
             </p>
@@ -108,6 +117,17 @@ foreach ($memberData as $v1) {
 
 ?>
         </table>
+
+        <div id='regbox'>
+
+          <form name='deleteGroup' action='<?= $_SERVER['PHP_SELF'] ?>?id=<?=$groupId ?>' method='post'>
+            <p>
+              <input type='hidden' name='form' value='deleteGroup' />
+              <input type='submit' value='Delete' class='submit' /> the group definitively.
+            </p>
+          </form>
+
+        </div>
 
       </div>
       <div id='bottom'></div>
