@@ -46,6 +46,11 @@ if(!empty($_POST))
     }
 
   }
+  else if ($form == "deleteUser")
+  {
+    $user_id = $_POST["userId"];
+    deleteGroupMember($groupId, $user_id);
+  }
   else if ($form == "deleteGroup")
   {
     deleteGroup($groupId);
@@ -106,13 +111,25 @@ require_once("$root/models/header.php");
 <?php
 
 //Cycle through users data
-foreach ($memberData as $v1) {
-  echo "
-   <tr>
-   <td><input type='checkbox' name='delete[".$v1['id']."]' id='delete[".$v1['id']."]' value='".$v1['id']."'></td>
-   <td>".$v1['name']."</a></td>
-   <td>".$v1['permissions']."</td>
-   </tr>";
+foreach ($memberData as $member) {
+
+?>
+
+  <tr>
+    <td>
+      <form name='deleteUser' action='<?= $_SERVER['PHP_SELF'] ?>?id=<?=$groupId ?>' method='post'>
+        <input type='hidden' name='form' value='deleteUser' />
+        <input type='hidden' name='userId' value='<?=$member['id'] ?>' />
+        <input type='submit' value='X' class='submit' />
+      </form>
+
+    </td>
+    <td><?=$member['name'] ?></td>
+    <td><?=$member['permissions'] ?></td>
+  </tr>
+
+<?php
+
 }
 
 ?>
