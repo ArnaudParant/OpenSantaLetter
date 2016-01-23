@@ -56,7 +56,7 @@ $lang = array_merge($lang,array(
 	"ACCOUNT_INVALID_USERNAME"		=> "Invalid username",
 	));
 
-//Account
+//Group
 $lang = array_merge($lang,array(
 	"GROUP_SPECIFY_NAME"                    => "Please enter a group name",
 	"GROUP_SPECIFY_DESCRIPTION"             => "Please enter a group description",
@@ -69,6 +69,14 @@ $lang = array_merge($lang,array(
 	"GROUP_USER_ADD_FAILED"                 => "Failed to add user",
 	"GROUP_USER_UNSUBSCRIBE"                => "User successfuly unsubscribe",
 	"GROUP_USER_UNSUBSCRIBE_FAILED"         => "Failed to unsubscribe user",
+        ));
+
+//User List
+$lang = array_merge($lang,array(
+	"USERLIST_ITEM_ADDED"                   => "Item successlufy added",
+	"USERLIST_ITEM_ADD_FAILED"              => "Failed to add item",
+	"USERLIST_ITEM_DELETED"                 => "Item successlufy deleted",
+	"USERLIST_ITEM_DELETE_FAILED"           => "Failed to delete item",
         ));
 
 //Configuration

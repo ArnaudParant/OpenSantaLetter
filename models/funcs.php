@@ -470,7 +470,7 @@ function fetchGroupMember($group_id)
 	return ($row);
 }
 
-//Added group member
+//Add group member
 function addGroupMember($group_id, $user_id, $permissions_id)
 {
 	global $mysqli,$db_table_prefix;
@@ -539,7 +539,7 @@ function deleteGroup($group_id)
 }
 
 //Retrieve information of a specific user list
-function fetchList($user_id)
+function fetchUserList($user_id)
 {
 	global $mysqli,$db_table_prefix;
 	$stmt = $mysqli->prepare("SELECT
@@ -560,6 +560,38 @@ function fetchList($user_id)
 	$stmt->close();
 	return ($row);
 }
+
+//Add a user list Item
+function addUserListItem($user_id, $item, $description)
+{
+	global $mysqli,$db_table_prefix;
+	$stmt = $mysqli->prepare("INSERT
+                INTO ".$db_table_prefix."list
+                (user_id, name, description)
+                VALUES (".$user_id.",'".$item."','".$description."')
+                ");
+	$added = $stmt->execute();
+	$stmt->close();
+
+	return $added;
+}
+
+//Delete a user list Item
+function deleteUserListItem($user_id, $item_id)
+{
+	global $mysqli,$db_table_prefix;
+	$stmt = $mysqli->prepare("DELETE
+                FROM ".$db_table_prefix."list
+                WHERE user_id = ".$user_id."
+                AND id = ".$item_id."
+                LIMIT 1
+                ");
+	$deleted = $stmt->execute();
+	$stmt->close();
+
+	return ($deleted);
+}
+
 
 //Toggle if lost password request flag on or off
 function flagLostPasswordRequest($username,$value)
