@@ -538,6 +538,28 @@ function deleteGroup($group_id)
 	return ($deleted);
 }
 
+//Retrieve information of a specific user list
+function fetchList($user_id)
+{
+	global $mysqli,$db_table_prefix;
+	$stmt = $mysqli->prepare("SELECT
+		id,
+		name,
+                description
+		FROM ".$db_table_prefix."list
+                WHERE user_id = ".$user_id."
+                ");
+	$stmt->execute();
+	$stmt->bind_result($id, $name, $description);
+
+	while ($stmt->fetch()){
+		$row[] = array('id' => $id,
+                               'name' => $name,
+                               'description' => $description);
+	}
+	$stmt->close();
+	return ($row);
+}
 
 //Toggle if lost password request flag on or off
 function flagLostPasswordRequest($username,$value)

@@ -12,6 +12,7 @@ if(isUserLoggedIn()) {
 	<ul>
 	<li><a href='/user/index.php'>Account Home</a></li>
 	<li><a href='/user/settings.php'>User Settings</a></li>
+	<li><a href='/user/list.php'>My List</a></li>
 	<li><a href='/user/groups.php'>My Groups</a></li>
 	<li><a href='/user/logout.php'>Logout</a></li>
 	</ul>";
