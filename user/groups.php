@@ -57,7 +57,7 @@ foreach ($groupData as $group) {
         <input type='submit' value='X' class='submit' />
       </form>
     </td>
-    <td><a href='group.php?id=<?= $group['id'] ?>'><?= $group['name'] ?></a></td>
+    <td><a href='group_list.php?id=<?= $group['id'] ?>'><?= $group['name'] ?></a></td>
     <td><?= $group['description'] ?></td>
     <td><?= $group['permissions'] ?></td>
   </tr>

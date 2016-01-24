@@ -11,11 +11,11 @@ if(!isUserLoggedIn()) { header("Location: login.php"); die(); }
 
 if(!empty($_POST))
 {
-  
+
   $errors = array();
   $successes = array();
   $form = $_POST["form"];
-  
+
   if ($form == "addUser")
   {
 
@@ -102,6 +102,10 @@ require_once("$root/models/header.php");
 ?>
 
         <?= resultBlock($errors,$successes); ?>
+
+        <p>
+          <a href="group_list.php?id=<?=$groupId?>">Group List</a>
+        </p>
 
         <div id='regbox'>
 

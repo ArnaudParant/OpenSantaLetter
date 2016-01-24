@@ -435,7 +435,8 @@ function fetchGroupDetail($user_id, $group_id)
 	$stmt->bind_result($id, $name, $description, $permissions);
 
 	while ($stmt->fetch()){
-		$row[] = array('id' => $id, 'name' => $name,
+		$row[] = array('id' => $id,
+                               'name' => $name,
                                'description' => $description,
                                'permissions' => $permissions);
 	}
@@ -592,6 +593,48 @@ function deleteUserListItem($user_id, $item_id)
 	return ($deleted);
 }
 
+//Retrieve information of a group member's lists
+function fetchGroupMemberLists($group_id)
+{
+	global $mysqli,$db_table_prefix;
+	$stmt = $mysqli->prepare("SELECT
+                ".$db_table_prefix."users.id AS 'user_id',
+                ".$db_table_prefix."users.user_name,
+		".$db_table_prefix."list.id,
+		".$db_table_prefix."list.name,
+                ".$db_table_prefix."list.description
+                FROM ".$db_table_prefix."group_member
+                LEFT JOIN ".$db_table_prefix."list
+                ON ".$db_table_prefix."group_member.user_id = ".$db_table_prefix."list.user_id
+                LEFT JOIN ".$db_table_prefix."users
+                ON ".$db_table_prefix."group_member.user_id = ".$db_table_prefix."users.id
+                WHERE group_id = ".$group_id."
+                ");
+	$stmt->execute();
+	$stmt->bind_result($user_id, $user_name, $item_id, $item_name, $description);
+
+        $lists = array();
+	while ($stmt->fetch())
+        {
+           if (!array_key_exists($user_id, $lists))
+           {
+             $lists[$user_id] = array(
+               "id" => $user_id,
+               "name" => $user_name,
+               "list" => array()
+             );
+           }
+    
+           array_push($lists[$user_id]["list"], array(
+             'id' => $item_id,
+             'name' => $item_name,
+             'description' => $description
+           ));
+	}
+
+	$stmt->close();
+	return ($lists);
+}
 
 //Toggle if lost password request flag on or off
 function flagLostPasswordRequest($username,$value)
