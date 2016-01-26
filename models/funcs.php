@@ -594,7 +594,7 @@ function deleteUserListItem($user_id, $item_id)
 }
 
 //Retrieve information of a group member's lists
-function fetchGroupMemberLists($group_id)
+function fetchGroupMemberLists($user_id, $group_id)
 {
 	global $mysqli,$db_table_prefix;
 	$stmt = $mysqli->prepare("SELECT
@@ -609,6 +609,7 @@ function fetchGroupMemberLists($group_id)
                 LEFT JOIN ".$db_table_prefix."users
                 ON ".$db_table_prefix."group_member.user_id = ".$db_table_prefix."users.id
                 WHERE group_id = ".$group_id."
+                AND ".$db_table_prefix."group_member.user_id != ".$user_id."
                 ");
 	$stmt->execute();
 	$stmt->bind_result($user_id, $user_name, $item_id, $item_name, $description);

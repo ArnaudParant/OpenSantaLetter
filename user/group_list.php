@@ -10,7 +10,7 @@ if(!isUserLoggedIn()) { header("Location: login.php"); die(); }
 //Fetch information of specific group
 $groupId = $_GET['id'];
 $groupData = fetchGroupDetail($loggedInUser->user_id, $groupId);
-$lists = fetchGroupMemberLists($groupData['id']);
+$lists = fetchGroupMemberLists($loggedInUser->user_id, $groupData['id']);
 
 require_once("$root/models/header.php");
 
