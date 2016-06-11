@@ -187,15 +187,15 @@ require_once("$root/models/header.php");
           <form name='newLostPass' action='<?= $_SERVER['PHP_SELF'] ?>' method='post'>
             <p>
               <label>Username:</label>
-              <input type='text' name='username' />
+              <input class="form-control" type='text' name='username' />
             </p>
             <p>    
               <label>Email:</label>
-              <input type='text' name='email' />
+              <input class="form-control" type='text' name='email' />
             </p>
             <p>
               <label>&nbsp;</label>
-              <input type='submit' value='Submit' class='submit' />
+              <input type='submit' class="btn btn-success" value='Submit' class='submit' />
             </p>
           </form>
         </div>

@@ -93,7 +93,7 @@ echo resultBlock($errors,$successes);
 echo "
 <form name='adminPage' action='".$_SERVER['PHP_SELF']."?id=".$pageId."' method='post'>
 <input type='hidden' name='process' value='1'>
-<table class='admin'>
+<table class='admin table table-striped'>
 <tr><td>
 <h3>Page Information</h3>
 <div id='regbox'>
@@ -149,7 +149,7 @@ echo"
 </table>
 <p>
 <label>&nbsp;</label>
-<input type='submit' value='Update' class='submit' />
+<input type='submit' class='btn btn-success' value='Update' class='submit' />
 </p>
 </form>
 </div>

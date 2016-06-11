@@ -96,15 +96,15 @@ require_once("$root/models/header.php");
           <form name='login' action='<?= $_SERVER['PHP_SELF'] ?>' method='post'>
             <p>
               <label>Username:</label>
-              <input type='text' name='username' />
+              <input type='text' class="form-control" name='username' />
             </p>
             <p>
               <label>Password:</label>
-              <input type='password' name='password' />
+              <input type='password' class="form-control" name='password' />
             </p>
             <p>
               <label>&nbsp;</label>
-              <input type='submit' value='Login' class='submit' />
+              <input type='submit' class="btn btn-success" value='Login' class='submit' />
             </p>
           </form>
         </div>

@@ -61,15 +61,15 @@ require_once("$root/models/header.php");
           <form name='createGroup' action='<?= $_SERVER['PHP_SELF'] ?>' method='post'>
             <p>
               <label>Name:</label>
-              <input type='text' name='name' />
+              <input type='text' class="form-control" name='name' />
             </p>
             <p>
               <label>Description:</label>
-              <input type='text' name='description' />
+              <input type='text' class="form-control" name='description' />
             </p>
             <p>
               <label>&nbsp;</label>
-              <input type='submit' value='Create' class='submit' />
+              <input type='submit' class="btn btn-success" value='Create' class='submit' />
             </p>
           </form>
 

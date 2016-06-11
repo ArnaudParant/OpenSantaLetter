@@ -11,7 +11,7 @@ $userId = $_GET['id'];
 
 //Check if selected user exists
 if(!userIdExists($userId)){
-	header("Location: admin_users.php"); die();
+	header("Location: users.php"); die();
 }
 
 $userdetails = fetchUserDetails(NULL, NULL, $userId); //Fetch user details
@@ -162,7 +162,7 @@ echo resultBlock($errors,$successes);
 
 echo "
 <form name='adminUser' action='".$_SERVER['PHP_SELF']."?id=".$userId."' method='post'>
-<table class='admin'><tr><td>
+<table class='admin table table-striped'><tr><td>
 <h3>User Information</h3>
 <div id='regbox'>
 <p>
@@ -175,11 +175,11 @@ echo "
 </p>
 <p>
 <label>Display Name:</label>
-<input type='text' name='display' value='".$userdetails['display_name']."' />
+<input type='text' class='form-control' name='display' value='".$userdetails['display_name']."' />
 </p>
 <p>
 <label>Email:</label>
-<input type='text' name='email' value='".$userdetails['email']."' />
+<input type='text' class='form-control' name='email' value='".$userdetails['email']."' />
 </p>
 <p>
 <label>Active:</label>";
@@ -201,7 +201,7 @@ echo "
 </p>
 <p>
 <label>Title:</label>
-<input type='text' name='title' value='".$userdetails['title']."' />
+<input type='text' class='form-control' name='title' value='".$userdetails['title']."' />
 </p>
 <p>
 <label>Sign Up:</label>
@@ -226,7 +226,7 @@ echo "
 </p>
 <p>
 <label>&nbsp;</label>
-<input type='submit' value='Update' class='submit' />
+<input type='submit' class='btn btn-success' value='Update' class='submit' />
 </p>
 </div>
 </td>

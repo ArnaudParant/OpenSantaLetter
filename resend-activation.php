@@ -138,15 +138,15 @@ else
   <form name='resendActivation' action='<?= $_SERVER['PHP_SELF'] ?>' method='post'>
     <p>
       <label>Username:</label>
-      <input type='text' name='username' />
+      <input type='text' class="form-control" name='username' />
     </p>     
     <p>
       <label>Email:</label>
-      <input type='text' name='email' />
+      <input type='text' class="form-control" name='email' />
     </p>    
     <p>
       <label>&nbsp;</label>
-      <input type='submit' value='Submit' class='submit' />
+      <input type='submit' class="btn btn-success" value='Submit' class='submit' />
     </p>
   </form>
 

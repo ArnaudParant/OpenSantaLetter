@@ -4,6 +4,9 @@
     <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
     <title> <?= $websiteName ?></title>
     <link href='<?= $template ?>' rel='stylesheet' type='text/css' />
-    <script src='/models/funcs.js' type='text/javascript'>
-    </script>
+    <link href='/css/bootstrap.min.css' rel='stylesheet' type='text/css' />
+    <link href='/css/santa.css' rel='stylesheet' type='text/css' />
+    <script src='/js/jquery-2.1.4.js' type='text/javascript'></script>
+    <script src='/js/bootstrap.min.js' type='text/javascript'></script>
+    <script src='/models/funcs.js' type='text/javascript'></script>
   </head>

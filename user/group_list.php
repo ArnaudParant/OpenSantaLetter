@@ -80,10 +80,12 @@ foreach ($lists as $list) {
 
 ?>
 
-  <br />
   <div>
     <h3><?=$list['name'] ?></h3>
-    <table>
+    <table class="table table-striped">
+      <tr>
+        <th>Action</th><th>Item</th><th>Description</th>
+      </tr>
 
       <?php
 
@@ -107,7 +109,7 @@ foreach ($lists as $list) {
                   <input type='hidden' name='form' value='unbookItem' />
                   <input type='hidden' name='user_id' value='<?=$list['id'] ?>' />
                   <input type='hidden' name='item_id' value='<?=$item['id'] ?>' />
-                  <input type='submit' value='Unbook' class='submit' />
+                  <input type='submit' class="btn btn-warning" value='Unbook' class='submit' />
                 </form>
               <?php
               }
@@ -120,7 +122,7 @@ foreach ($lists as $list) {
                 <input type='hidden' name='form' value='bookItem' />
                 <input type='hidden' name='user_id' value='<?=$list['id'] ?>' />
                 <input type='hidden' name='item_id' value='<?=$item['id'] ?>' />
-                <input type='submit' value='Book' class='submit' />
+                <input type='submit' class="btn btn-success" value='Book' class='submit' />
               </form>
             <?php } ?>
           </td>

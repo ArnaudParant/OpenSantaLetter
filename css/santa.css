@@ -1,0 +1,11 @@
+.form-control
+{
+    width: 300px;
+    display: inline-block;
+}
+
+form .btn
+{
+    margin-top: -4px;
+    display: inline-block;
+}

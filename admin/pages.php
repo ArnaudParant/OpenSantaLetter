@@ -58,7 +58,7 @@ include("$root/common/left-nav.php");
 echo "
 </div>
 <div id='main'>
-<table class='admin'>
+<table class='admin table table-striped'>
 <tr><th>Id</th><th>Page</th><th>Access</th></tr>";
 
 //Display list of pages

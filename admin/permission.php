@@ -11,7 +11,7 @@ $permissionId = $_GET['id'];
 
 //Check if selected permission level exists
 if(!permissionIdExists($permissionId)){
-	header("Location: admin_permissions.php"); die();	
+	header("Location: permissions.php"); die();	
 }
 
 $permissionDetails = fetchPermissionDetails($permissionId); //Fetch information specific to permission level
@@ -124,7 +124,7 @@ echo resultBlock($errors,$successes);
 
 echo "
 <form name='adminPermission' action='".$_SERVER['PHP_SELF']."?id=".$permissionId."' method='post'>
-<table class='admin'>
+<table class='admin table table-striped'>
 <tr><td>
 <h3>Permission Information</h3>
 <div id='regbox'>
@@ -134,7 +134,7 @@ echo "
 </p>
 <p>
 <label>Name:</label>
-<input type='text' name='name' value='".$permissionDetails['name']."' />
+<input type='text' class='form-control' name='name' value='".$permissionDetails['name']."' />
 </p>
 <label>Delete:</label>
 <input type='checkbox' name='delete[".$permissionDetails['id']."]' id='delete[".$permissionDetails['id']."]' value='".$permissionDetails['id']."'>
@@ -209,7 +209,7 @@ echo"
 </table>
 <p>
 <label>&nbsp;</label>
-<input type='submit' value='Update' class='submit' />
+<input type='submit' class='btn btn-success' value='Update' class='submit' />
 </p>
 </form>
 </div>

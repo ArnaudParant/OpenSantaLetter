@@ -160,23 +160,23 @@ echo "
 <form name='adminConfiguration' action='".$_SERVER['PHP_SELF']."' method='post'>
 <p>
 <label>Website Name:</label>
-<input type='text' name='settings[".$settings['website_name']['id']."]' value='".$websiteName."' />
+<input type='text' class='form-control' name='settings[".$settings['website_name']['id']."]' value='".$websiteName."' />
 </p>
 <p>
 <label>Website URL:</label>
-<input type='text' name='settings[".$settings['website_url']['id']."]' value='".$websiteUrl."' />
+<input type='text' class='form-control' name='settings[".$settings['website_url']['id']."]' value='".$websiteUrl."' />
 </p>
 <p>
 <label>Email:</label>
-<input type='text' name='settings[".$settings['email']['id']."]' value='".$emailAddress."' />
+<input type='text' class='form-control' name='settings[".$settings['email']['id']."]' value='".$emailAddress."' />
 </p>
 <p>
 <label>Activation Threshold:</label>
-<input type='text' name='settings[".$settings['resend_activation_threshold']['id']."]' value='".$resend_activation_threshold."' />
+<input type='text' class='form-control' name='settings[".$settings['resend_activation_threshold']['id']."]' value='".$resend_activation_threshold."' />
 </p>
 <p>
 <label>Language:</label>
-<select name='settings[".$settings['language']['id']."]'>";
+<select class='form-control' name='settings[".$settings['language']['id']."]'>";
 
 //Display language options
 foreach ($languages as $optLang){
@@ -193,7 +193,7 @@ echo "
 </p>
 <p>
 <label>Email Activation:</label>
-<select name='settings[".$settings['activation']['id']."]'>";
+<select class='form-control' name='settings[".$settings['activation']['id']."]'>";
 
 //Display email activation options
 if ($emailActivation == "true"){
@@ -212,7 +212,7 @@ else {
 echo "</p>
 <p>
 <label>Template:</label>
-<select name='settings[".$settings['template']['id']."]'>";
+<select class='form-control' name='settings[".$settings['template']['id']."]'>";
 
 //Display template options
 foreach ($templates as $temp){
@@ -227,7 +227,7 @@ foreach ($templates as $temp){
 echo "
 </select>
 </p>
-<input type='submit' name='Submit' value='Submit' />
+<input type='submit' class='btn btn-success' name='Submit' value='Submit' />
 </form>
 </div>
 </div>

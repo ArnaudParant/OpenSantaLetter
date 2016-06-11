@@ -40,7 +40,7 @@ require_once("$root/models/header.php");
 
         <div><a href="create_group.php">Create a group</a></div><br />
 
-        <table>
+        <table class="table table-striped">
           <tr>
             <th>Unsubscribe</th><th>Name</th><th>Description</th><th>Permissions</th>
           </tr>
@@ -54,7 +54,7 @@ foreach ($groupData as $group) {
     <td>
       <form name='unsubscribe' action='<?= $_SERVER['PHP_SELF'] ?>' method='post'>
         <input type='hidden' name='groupId' value='<?= $group['id'] ?>' />
-        <input type='submit' value='X' class='submit' />
+        <input type='submit' class="btn btn-danger" value='X' class='submit' />
       </form>
     </td>
     <td><a href='group_list.php?id=<?= $group['id'] ?>'><?= $group['name'] ?></a></td>

@@ -63,7 +63,7 @@ require_once("$root/models/header.php");
 
         <?= resultBlock($errors,$successes); ?>
 
-        <table>
+        <table class="table table-striped">
           <tr>
             <th>Delete</th><th>Item</th><th>Description</th>
           </tr>
@@ -79,7 +79,7 @@ foreach ($items as $item) {
       <form name='deleteItem' action='<?= $_SERVER['PHP_SELF'] ?>' method='post'>
         <input type='hidden' name='form' value='deleteItem' />
         <input type='hidden' name='item_id' value='<?=$item['id'] ?>' />
-        <input type='submit' value='X' class='submit' />
+        <input type='submit' class="btn btn-danger" value='X' class='submit' />
       </form>
 
     </td>
@@ -99,9 +99,9 @@ foreach ($items as $item) {
           <form name='addItem' action='<?= $_SERVER['PHP_SELF'] ?>' method='post'>
             <p>
               <input type='hidden' name='form' value='addItem' />
-              <input type='text' name='item' placeholder="item name" />
-              <input type='text' name='description' placeholder="description" />
-              <input type='submit' value='Add' class='submit' />
+              <input type='text' class="form-control" name='item' placeholder="item name" />
+              <input type='text' class="form-control" name='description' placeholder="description" />
+              <input type='submit' class="btn btn-success" value='Add' class='submit' />
             </p>
           </form>
 

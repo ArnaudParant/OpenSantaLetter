@@ -114,23 +114,23 @@ require_once("$root/models/header.php");
           <form name='updateAccount' action='<?= $_SERVER['PHP_SELF'] ?>' method='post'>
             <p>
               <label>Password:</label>
-              <input type='password' name='password' />
+              <input type='password' class="form-control" name='password' />
             </p>
             <p>
               <label>Email:</label>
-              <input type='text' name='email' value='<?= $loggedInUser->email ?>' />
+              <input type='text' class="form-control" name='email' value='<?= $loggedInUser->email ?>' />
             </p>
             <p>
               <label>New Pass:</label>
-              <input type='password' name='passwordc' />
+              <input type='password' class="form-control" name='passwordc' />
             </p>
             <p>
               <label>Confirm Pass:</label>
-              <input type='password' name='passwordcheck' />
+              <input type='password' class="form-control" name='passwordcheck' />
             </p>
             <p>
               <label>&nbsp;</label>
-              <input type='submit' value='Update' class='submit' />
+              <input type='submit' class="btn btn-success" value='Update' class='submit' />
             </p>
           </form>
         </div>

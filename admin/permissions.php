@@ -64,7 +64,7 @@ echo resultBlock($errors,$successes);
 
 echo "
 <form name='adminPermissions' action='".$_SERVER['PHP_SELF']."' method='post'>
-<table class='admin'>
+<table class='admin table table-striped'>
 <tr>
 <th>Delete</th><th>Permission Name</th>
 </tr>";
@@ -74,7 +74,7 @@ foreach ($permissionData as $v1) {
 	echo "
 	<tr>
 	<td><input type='checkbox' name='delete[".$v1['id']."]' id='delete[".$v1['id']."]' value='".$v1['id']."'></td>
-	<td><a href='admin_permission.php?id=".$v1['id']."'>".$v1['name']."</a></td>
+	<td><a href='permission.php?id=".$v1['id']."'>".$v1['name']."</a></td>
 	</tr>";
 }
 
@@ -82,9 +82,9 @@ echo "
 </table>
 <p>
 <label>Permission Name:</label>
-<input type='text' name='newPermission' />
+<input type='text' class='form-control' name='newPermission' />
 </p>                                
-<input type='submit' name='Submit' value='Submit' />
+<input type='submit' class='btn btn-success' name='Submit' value='Submit' />
 </form>
 </div>
 <div id='bottom'></div>

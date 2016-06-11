@@ -112,15 +112,15 @@ require_once("$root/models/header.php");
           <form name='addUser' action='<?= $_SERVER['PHP_SELF'] ?>?id=<?=$groupId ?>' method='post'>
             <p>
               <input type='hidden' name='form' value='addUser' />
-              <input type='text' name='email' placeholder="user email" />
-              <input type='submit' value='Invite' class='submit' />
+              <input type='text' class="form-control" name='email' placeholder="user email" />
+              <input type='submit' class="btn btn-success" value='Invite' class='submit' />
             </p>
           </form>
 
         </div>
 
 
-        <table>
+        <table class="table table-striped">
           <tr>
             <th>Unsubscribe</th><th>Name</th><th>Permissions</th>
           </tr>
@@ -136,7 +136,7 @@ foreach ($memberData as $member) {
       <form name='deleteUser' action='<?= $_SERVER['PHP_SELF'] ?>?id=<?=$groupId ?>' method='post'>
         <input type='hidden' name='form' value='deleteUser' />
         <input type='hidden' name='userId' value='<?=$member['id'] ?>' />
-        <input type='submit' value='X' class='submit' />
+        <input type='submit' class="btn btn-danger" value='X' class='submit' />
       </form>
     </td>
     <td><?=$member['name'] ?></td>
@@ -155,7 +155,7 @@ foreach ($memberData as $member) {
           <form name='deleteGroup' action='<?= $_SERVER['PHP_SELF'] ?>?id=<?=$groupId ?>' method='post'>
             <p>
               <input type='hidden' name='form' value='deleteGroup' />
-              <input type='submit' value='Delete' class='submit' /> the group definitively.
+              <input type='submit' class="btn btn-danger" value='Delete' class='submit' /> the group definitively.
             </p>
           </form>
 

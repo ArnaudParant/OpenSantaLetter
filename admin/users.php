@@ -36,7 +36,7 @@ require_once("$root/models/header.php");
       <div id='main'> <?=resultBlock($errors,$successes); ?>
 
         <form name='adminUsers' action='".$_SERVER['PHP_SELF']."' method='post'>
-          <table class='admin'>
+          <table class='admin table table-striped'>
             <tr>
               <th>Delete</th><th>Username</th><th>Display Name</th><th>Title</th><th>Last Sign In</th>
             </tr>
@@ -48,7 +48,7 @@ foreach ($userData as $v1) {
 	echo "
 	<tr>
 	<td><input type='checkbox' name='delete[".$v1['id']."]' id='delete[".$v1['id']."]' value='".$v1['id']."'></td>
-	<td><a href='admin_user.php?id=".$v1['id']."'>".$v1['user_name']."</a></td>
+	<td><a href='user.php?id=".$v1['id']."'>".$v1['user_name']."</a></td>
 	<td>".$v1['display_name']."</td>
 	<td>".$v1['title']."</td>
 	<td>
@@ -69,7 +69,7 @@ foreach ($userData as $v1) {
 ?>
 
           </table>
-          <input type='submit' name='Submit' value='Delete' />
+          <input type='submit' class='btn btn-danger' name='Submit' value='Delete' />
         </form>
       </div>
       <div id='bottom'></div>

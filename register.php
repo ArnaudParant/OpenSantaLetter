@@ -103,33 +103,33 @@ require_once("$root/models/header.php");
 
             <p>
               <label>User Name:</label>
-              <input type='text' name='username' />
+              <input type='text' class="form-control" name='username' />
             </p>
             <p>
               <label>Display Name:</label>
-              <input type='text' name='displayname' />
+              <input type='text' class="form-control" name='displayname' />
             </p>
             <p>
               <label>Password:</label>
-              <input type='password' name='password' />
+              <input type='password' class="form-control" name='password' />
             </p>
             <p>
               <label>Confirm:</label>
-              <input type='password' name='passwordc' />
+              <input type='password' class="form-control" name='passwordc' />
             </p>
             <p>
               <label>Email:</label>
-              <input type='text' name='email' />
+              <input type='text' class="form-control" name='email' />
             </p>
             <p>
               <label>Security Code:</label>
               <img src='/models/captcha.php'>
             </p>
             <label>Enter Security Code:</label>
-            <input name='captcha' type='text'>
+            <input name='captcha' class="form-control" type='text'>
             </p>
             <label>&nbsp;<br>
-              <input type='submit' value='Register'/>
+              <input type='submit' class="btn btn-success" value='Register'/>
             </p>
 
           </form>

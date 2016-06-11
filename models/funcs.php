@@ -159,27 +159,25 @@ function resultBlock($errors,$successes){
 	//Error block
 	if(count($errors) > 0)
 	{
-		echo "<div id='error'>
+		echo "<div id='error' class='alert alert-danger'>
 		<a href='#' onclick=\"showHide('error');\">[X]</a>
-		<ul>";
+                <strong>Error!</strong> ";
 		foreach($errors as $error)
 		{
-			echo "<li>".$error."</li>";
+			echo "<span>".$error."</span>";
 		}
-		echo "</ul>";
 		echo "</div>";
 	}
 	//Success block
 	if(count($successes) > 0)
 	{
-		echo "<div id='success'>
+		echo "<div id='success' class='alert alert-success'>
 		<a href='#' onclick=\"showHide('success');\">[X]</a>
-		<ul>";
+                <strong>Success!</strong> ";
 		foreach($successes as $success)
 		{
-			echo "<li>".$success."</li>";
+			echo "<span>".$success."</span>";
 		}
-		echo "</ul>";
 		echo "</div>";
 	}
 }
