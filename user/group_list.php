@@ -7,6 +7,36 @@ if (!securePage($_SERVER['PHP_SELF'])){die();}
 //Prevent the user visiting the logged in page if he is not logged in
 if(!isUserLoggedIn()) { header("Location: login.php"); die(); }
 
+if(!empty($_POST))
+{
+
+  $errors = array();
+  $successes = array();
+  $form = $_POST["form"];
+
+  $user_id = $_POST["user_id"];
+  $item_id = $_POST["item_id"];
+
+  if ($form == "bookItem")
+  {
+    $booked = bookItem($user_id, $item_id, $loggedInUser->user_id, $loggedInUser->username);
+    if ($booked) {
+      $successes[] = lang("USERLIST_ITEM_BOOKED");
+    } else {
+      $errors[] = lang("USERLIST_ITEM_BOOK_FAILED");
+    }
+  }
+  else if ($form == "unbookItem")
+  {
+    $unbooked = unbookItem($user_id, $item_id, $loggedInUser->user_id, $loggedInUser->username);
+    if ($unbooked) {
+      $successes[] = lang("USERLIST_ITEM_UNBOOKED");
+    } else {
+      $errors[] = lang("USERLIST_ITEM_UNBOOK_FAILED");
+    }
+  }
+}
+
 //Fetch information of specific group
 $groupId = $_GET['id'];
 $groupData = fetchGroupDetail($loggedInUser->user_id, $groupId);
@@ -66,19 +96,31 @@ foreach ($lists as $list) {
           <td>
             <?php
 
-            if (strlen($item['reserved']['id']) > 0)
+            if (strlen($item['booked']['id']) > 0)
             {
-              echo ("Reserved by ".$item['reserved']['name']);
+              if ($item['booked']['id'] != $loggedInUser->user_id)
+                echo "Booked";
+              else
+              {
+              ?>
+                <form name='unbookItem' action='<?= $_SERVER['PHP_SELF'] ?>?id=<?=$groupId?>' method='post'>
+                  <input type='hidden' name='form' value='unbookItem' />
+                  <input type='hidden' name='user_id' value='<?=$list['id'] ?>' />
+                  <input type='hidden' name='item_id' value='<?=$item['id'] ?>' />
+                  <input type='submit' value='Unbook' class='submit' />
+                </form>
+              <?php
+              }
             }
             else
             {
 
             ?>
-              <form name='reserveItem' action='<?= $_SERVER['PHP_SELF'] ?>?id=<?=$groupId?>' method='post'>
-                <input type='hidden' name='form' value='reserveItem' />
+              <form name='bookItem' action='<?= $_SERVER['PHP_SELF'] ?>?id=<?=$groupId?>' method='post'>
+                <input type='hidden' name='form' value='bookItem' />
                 <input type='hidden' name='user_id' value='<?=$list['id'] ?>' />
                 <input type='hidden' name='item_id' value='<?=$item['id'] ?>' />
-                <input type='submit' value='Reserve' class='submit' />
+                <input type='submit' value='Book' class='submit' />
               </form>
             <?php } ?>
           </td>

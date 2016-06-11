@@ -37,7 +37,7 @@ $lang = array_merge($lang,array(
 	"ACCOUNT_PASSWORD_INVALID"		=> "Current password doesn't match the one we have on record",	
 	"ACCOUNT_DETAILS_UPDATED"		=> "Account details updated",
 	"ACCOUNT_ACTIVATION_MESSAGE"		=> "You will need to activate your account before you can login. Please follow the link below to activate your account. \n\n
-	%m1%activate-account.php?token=%m2%",							
+	%m1%activate-account.php?token=%m2%",
 	"ACCOUNT_ACTIVATION_COMPLETE"		=> "You have successfully activated your account. You can now login <a href=\"login.php\">here</a>.",
 	"ACCOUNT_REGISTRATION_COMPLETE_TYPE1"	=> "You have successfully registered. You can now login <a href=\"login.php\">here</a>.",
 	"ACCOUNT_REGISTRATION_COMPLETE_TYPE2"	=> "You have successfully registered. You will soon receive an activation email. 
@@ -77,6 +77,10 @@ $lang = array_merge($lang,array(
 	"USERLIST_ITEM_ADD_FAILED"              => "Failed to add item",
 	"USERLIST_ITEM_DELETED"                 => "Item successlufy deleted",
 	"USERLIST_ITEM_DELETE_FAILED"           => "Failed to delete item",
+	"USERLIST_ITEM_BOOKED"                  => "Item successlufy booked",
+	"USERLIST_ITEM_BOOK_FAILED"             => "Failed to book item",
+	"USERLIST_ITEM_UNBOOKED"                => "Item successlufy unbooked",
+	"USERLIST_ITEM_UNBOOK_FAILED"           => "Failed to unbook item",
         ));
 
 //Configuration

@@ -593,6 +593,68 @@ function deleteUserListItem($user_id, $item_id)
 	return ($deleted);
 }
 
+//Item is booked
+function itemIsBooked($user_id, $item_id)
+{
+  global $mysqli,$db_table_prefix;
+  $stmt = $mysqli->prepare("SELECT
+     user_id,
+     item_id
+     FROM ".$db_table_prefix."book
+     WHERE user_id = ".$user_id."
+     AND item_id = ".$item_id."
+     LIMIT 1
+     ");
+  $stmt->execute();
+  $stmt->bind_result($user_id, $item_id);
+
+  $booked = array();
+  while ($stmt->fetch()) {
+    $booked[] = array('user_id' => $user_id,
+                      'item_id' => $item_id);
+  }
+  $stmt->close();
+
+  return (count($booked) > 0);
+}
+
+//Book an item
+function bookItem($user_id, $item_id, $booked_by_id, $booked_by_name)
+{
+	global $mysqli,$db_table_prefix;
+
+        if (itemIsBooked($user_id, $item_id)) return false;
+
+	$stmt = $mysqli->prepare("INSERT
+                INTO ".$db_table_prefix."book
+                (user_id, item_id, booked_by_id, booked_by_name)
+                VALUES ('".$user_id."','".$item_id."','".$booked_by_id."','".$booked_by_name."')
+                ");
+	$booked = $stmt->execute();
+	$stmt->close();
+
+	return ($booked);
+}
+
+//Unbook an item
+function unbookItem($user_id, $item_id, $booked_by_id, $booked_by_name)
+{
+  global $mysqli,$db_table_prefix;
+
+  $stmt = $mysqli->prepare("DELETE
+     FROM ".$db_table_prefix."book
+     WHERE user_id = ".$user_id."
+     AND item_id = ".$item_id."
+     AND booked_by_id = ".$booked_by_id."
+     AND booked_by_name = '".$booked_by_name."'
+     LIMIT 1
+  ");
+  $unbooked = $stmt->execute();
+  $stmt->close();
+
+  return ($unbooked);
+}
+
 //Retrieve information of a group member's lists
 function fetchGroupMemberLists($user_id, $group_id)
 {
@@ -603,20 +665,20 @@ function fetchGroupMemberLists($user_id, $group_id)
 		list.id,
 		list.name,
                 list.description,
-                reservation.reserved_by_id,
-                reservation.reserved_by_name
+                book.booked_by_id,
+                book.booked_by_name
                 FROM ".$db_table_prefix."group_member
                 LEFT JOIN ".$db_table_prefix."users AS users
                 ON ".$db_table_prefix."group_member.user_id = users.id
                 LEFT JOIN ".$db_table_prefix."list AS list
                 ON ".$db_table_prefix."group_member.user_id = list.user_id
-                LEFT JOIN ".$db_table_prefix."reservation AS reservation
-                ON list.id = reservation.item_id
+                LEFT JOIN ".$db_table_prefix."book AS book
+                ON list.id = book.item_id
                 WHERE group_id = ".$group_id."
                 AND ".$db_table_prefix."group_member.user_id != ".$user_id."
                 ");
 	$stmt->execute();
-	$stmt->bind_result($user_id, $user_name, $item_id, $item_name, $description, $reserved_by_id, $reserved_by_name);
+	$stmt->bind_result($user_id, $user_name, $item_id, $item_name, $description, $booked_by_id, $booked_by_name);
 
         $lists = array();
 	while ($stmt->fetch())
@@ -634,9 +696,9 @@ function fetchGroupMemberLists($user_id, $group_id)
              'id' => $item_id,
              'name' => $item_name,
              'description' => $description,
-             'reserved' => array(
-               'id' => $reserved_by_id,
-               'name' => $reserved_by_name
+             'booked' => array(
+               'id' => $booked_by_id,
+               'name' => $booked_by_name
            )));
 	}
 
