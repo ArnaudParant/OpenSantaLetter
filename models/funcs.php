@@ -598,21 +598,25 @@ function fetchGroupMemberLists($user_id, $group_id)
 {
 	global $mysqli,$db_table_prefix;
 	$stmt = $mysqli->prepare("SELECT
-                ".$db_table_prefix."users.id AS 'user_id',
-                ".$db_table_prefix."users.user_name,
-		".$db_table_prefix."list.id,
-		".$db_table_prefix."list.name,
-                ".$db_table_prefix."list.description
+                users.id AS 'user_id',
+                users.user_name,
+		list.id,
+		list.name,
+                list.description,
+                reservation.reserved_by_id,
+                reservation.reserved_by_name
                 FROM ".$db_table_prefix."group_member
-                LEFT JOIN ".$db_table_prefix."list
-                ON ".$db_table_prefix."group_member.user_id = ".$db_table_prefix."list.user_id
-                LEFT JOIN ".$db_table_prefix."users
-                ON ".$db_table_prefix."group_member.user_id = ".$db_table_prefix."users.id
+                LEFT JOIN ".$db_table_prefix."users AS users
+                ON ".$db_table_prefix."group_member.user_id = users.id
+                LEFT JOIN ".$db_table_prefix."list AS list
+                ON ".$db_table_prefix."group_member.user_id = list.user_id
+                LEFT JOIN ".$db_table_prefix."reservation AS reservation
+                ON list.id = reservation.item_id
                 WHERE group_id = ".$group_id."
                 AND ".$db_table_prefix."group_member.user_id != ".$user_id."
                 ");
 	$stmt->execute();
-	$stmt->bind_result($user_id, $user_name, $item_id, $item_name, $description);
+	$stmt->bind_result($user_id, $user_name, $item_id, $item_name, $description, $reserved_by_id, $reserved_by_name);
 
         $lists = array();
 	while ($stmt->fetch())
@@ -629,8 +633,11 @@ function fetchGroupMemberLists($user_id, $group_id)
            array_push($lists[$user_id]["list"], array(
              'id' => $item_id,
              'name' => $item_name,
-             'description' => $description
-           ));
+             'description' => $description,
+             'reserved' => array(
+               'id' => $reserved_by_id,
+               'name' => $reserved_by_name
+           )));
 	}
 
 	$stmt->close();

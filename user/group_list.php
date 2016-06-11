@@ -63,6 +63,25 @@ foreach ($lists as $list) {
       ?>
 
         <tr>
+          <td>
+            <?php
+
+            if (strlen($item['reserved']['id']) > 0)
+            {
+              echo ("Reserved by ".$item['reserved']['name']);
+            }
+            else
+            {
+
+            ?>
+              <form name='reserveItem' action='<?= $_SERVER['PHP_SELF'] ?>?id=<?=$groupId?>' method='post'>
+                <input type='hidden' name='form' value='reserveItem' />
+                <input type='hidden' name='user_id' value='<?=$list['id'] ?>' />
+                <input type='hidden' name='item_id' value='<?=$item['id'] ?>' />
+                <input type='submit' value='Reserve' class='submit' />
+              </form>
+            <?php } ?>
+          </td>
           <td><?=$item['name'] ?></td>
           <td><?=$item['description'] ?></td>
         </tr>
