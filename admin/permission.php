@@ -9,6 +9,8 @@ require_once("$root/models/config.php");
 if (!securePage($_SERVER['PHP_SELF'])){die();}
 $permissionId = $_GET['id'];
 
+$location = "/admin/permissions.php";
+
 //Check if selected permission level exists
 if(!permissionIdExists($permissionId)){
 	header("Location: permissions.php"); die();	
@@ -114,7 +116,7 @@ echo "
 <h2>Admin Permissions</h2>
 <div id='left-nav'>";
 
-include("left-nav.php");
+include("$root/common/left-nav.php");
 
 echo "
 </div>

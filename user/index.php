@@ -5,6 +5,8 @@ require_once("$root/models/config.php");
 if (!securePage($_SERVER['PHP_SELF'])){die();}
 require_once("$root/models/header.php");
 
+$location = "/user/index.php";
+
 ?>
 
 <body>

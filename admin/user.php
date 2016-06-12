@@ -9,6 +9,8 @@ require_once("$root/models/config.php");
 if (!securePage($_SERVER['PHP_SELF'])){die();}
 $userId = $_GET['id'];
 
+$location = "/admin/users.php";
+
 //Check if selected user exists
 if(!userIdExists($userId)){
 	header("Location: users.php"); die();
@@ -152,7 +154,7 @@ echo "
 <h2>Admin User</h2>
 <div id='left-nav'>";
 
-include("left-nav.php");
+include("$root/common/left-nav.php");
 
 echo "
 </div>

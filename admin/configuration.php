@@ -9,6 +9,8 @@ require_once("$root/models/config.php");
 
 if (!securePage($_SERVER['PHP_SELF'])){die();}
 
+$location = "/admin/configuration.php";
+
 //Forms posted
 if(!empty($_POST))
 {

@@ -8,6 +8,8 @@ $root = realpath($_SERVER["DOCUMENT_ROOT"]);
 require_once("$root/models/config.php");
 if (!securePage($_SERVER['PHP_SELF'])){die();}
 
+$location = "/user/logout.php";
+
 //Log the user out
 if(isUserLoggedIn())
 {

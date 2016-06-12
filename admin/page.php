@@ -9,6 +9,8 @@ require_once("$root/models/config.php");
 if (!securePage($_SERVER['PHP_SELF'])){die();}
 $pageId = $_GET['id'];
 
+$location = "/admin/pages.php";
+
 //Check if selected pages exist
 if(!pageIdExists($pageId)){
 	header("Location: admin_pages.php"); die();	

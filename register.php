@@ -11,6 +11,8 @@ if (!securePage($_SERVER['PHP_SELF'])){die();}
 //Prevent the user visiting the logged in page if he/she is already logged in
 if(isUserLoggedIn()) { header("Location: account.php"); die(); }
 
+$location = "/register.php";
+
 //Forms posted
 if(!empty($_POST))
 {

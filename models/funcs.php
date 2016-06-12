@@ -659,7 +659,7 @@ function fetchGroupMemberLists($user_id, $group_id)
 	global $mysqli,$db_table_prefix;
 	$stmt = $mysqli->prepare("SELECT
                 users.id AS 'user_id',
-                users.user_name,
+                users.display_name,
 		list.id,
 		list.name,
                 list.description,
@@ -676,7 +676,7 @@ function fetchGroupMemberLists($user_id, $group_id)
                 AND ".$db_table_prefix."group_member.user_id != ".$user_id."
                 ");
 	$stmt->execute();
-	$stmt->bind_result($user_id, $user_name, $item_id, $item_name, $description, $booked_by_id, $booked_by_name);
+	$stmt->bind_result($user_id, $display_name, $item_id, $item_name, $description, $booked_by_id, $booked_by_name);
 
         $lists = array();
 	while ($stmt->fetch())
@@ -685,7 +685,7 @@ function fetchGroupMemberLists($user_id, $group_id)
            {
              $lists[$user_id] = array(
                "id" => $user_id,
-               "name" => $user_name,
+               "name" => $display_name,
                "list" => array()
              );
            }

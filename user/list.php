@@ -4,6 +4,8 @@ $root = realpath($_SERVER["DOCUMENT_ROOT"]);
 require_once("$root/models/config.php");
 if (!securePage($_SERVER['PHP_SELF'])){die();}
 
+$location = "/user/list.php";
+
 //Prevent the user visiting the logged in page if he is not logged in
 if(!isUserLoggedIn()) { header("Location: login.php"); die(); }
 

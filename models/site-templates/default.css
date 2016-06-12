@@ -70,10 +70,6 @@ a {
 	text-decoration:none;
 }
 
-#content #left-nav ul li a:hover {
-	color:#ff0505;
-	text-decoration:underline;
-}
 
 #content #main {
 	float:left;

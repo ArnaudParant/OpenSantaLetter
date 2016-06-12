@@ -4,6 +4,8 @@ $root = realpath($_SERVER["DOCUMENT_ROOT"]);
 require_once("$root/models/config.php");
 if (!securePage($_SERVER['PHP_SELF'])){die();}
 
+$location = "/user/groups.php";
+
 if(!empty($_POST))
 {
 
@@ -38,7 +40,10 @@ require_once("$root/models/header.php");
 
         <?= resultBlock($errors,$successes); ?>
 
-        <div><a href="create_group.php">Create a group</a></div><br />
+        <div><a href="create_group.php">
+          <button class="btn btn-success">Create a group</button>
+        </a></div>
+        <br />
 
         <table class="table table-striped">
           <tr>

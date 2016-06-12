@@ -9,3 +9,14 @@ form .btn
     margin-top: -4px;
     display: inline-block;
 }
+
+#content #left-nav
+{
+    width: 12%;
+    margin-right: 25px;
+}
+
+#content #main
+{
+    width: calc(88% - 25px);
+}

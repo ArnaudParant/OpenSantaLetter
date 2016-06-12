@@ -8,6 +8,8 @@ $root = realpath($_SERVER["DOCUMENT_ROOT"]);
 require_once("$root/models/config.php");
 if (!securePage($_SERVER['PHP_SELF'])){die();}
 
+$location = "/admin/pages.php";
+
 $pages = getPageFiles(); //Retrieve list of pages in root usercake folder
 $dbpages = fetchAllPages(); //Retrieve list of pages in pages table
 $creations = array();
