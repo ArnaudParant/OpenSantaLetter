@@ -11,7 +11,12 @@ $groupId = $_GET['id'];
 //Prevent the user visiting the logged in page if he is not logged in
 if(!isUserLoggedIn()) { header("Location: login.php"); die(); }
 
-if(!empty($_POST))
+//Fetch member of specific group
+$permissions_id = fetchMemberPermission($groupId, $loggedInUser->user_id);
+$admin = false;
+if ($permissions_id == 2) { $admin = true; }
+
+if($admin and !empty($_POST))
 {
 
   $errors = array();
@@ -111,6 +116,7 @@ require_once("$root/models/header.php");
           </a>
         </p>
 
+        <?php if ($admin) { ?>
         <div id='regbox'>
 
           <form name='addUser' action='<?= $_SERVER['PHP_SELF'] ?>?id=<?=$groupId ?>' method='post'>
@@ -122,11 +128,12 @@ require_once("$root/models/header.php");
           </form>
 
         </div>
-
+        <?php } ?>
 
         <table class="table table-striped">
           <tr>
-            <th>Unsubscribe</th><th>Name</th><th>Permissions</th>
+            <?php if ($admin) { echo "<th>Unsubscribe</th>"; } ?>
+            <th>Name</th><th>Permissions</th>
           </tr>
 <?php
 
@@ -136,6 +143,7 @@ foreach ($memberData as $member) {
 ?>
 
   <tr>
+    <?php if ($admin) { ?>
     <td>
       <form name='deleteUser' action='<?= $_SERVER['PHP_SELF'] ?>?id=<?=$groupId ?>' method='post'>
         <input type='hidden' name='form' value='deleteUser' />
@@ -143,6 +151,7 @@ foreach ($memberData as $member) {
         <input type='submit' class="btn btn-danger" value='X' class='submit' />
       </form>
     </td>
+    <?php } ?>
     <td><?=$member['name'] ?></td>
     <td><?=$member['permissions'] ?></td>
   </tr>
@@ -154,6 +163,7 @@ foreach ($memberData as $member) {
 ?>
         </table>
 
+        <?php if ($admin) { ?>
         <div id='regbox'>
 
           <form name='deleteGroup' action='<?= $_SERVER['PHP_SELF'] ?>?id=<?=$groupId ?>' method='post'>
@@ -164,6 +174,7 @@ foreach ($memberData as $member) {
           </form>
 
         </div>
+        <?php } ?>
 
       </div>
       <div id='bottom'></div>

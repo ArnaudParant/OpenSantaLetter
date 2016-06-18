@@ -443,6 +443,27 @@ function fetchGroupDetail($user_id, $group_id)
 }
 
 
+//Retrieve group permissions of a specific member
+function fetchMemberPermission($group_id, $user_id)
+{
+	global $mysqli,$db_table_prefix;
+	$stmt = $mysqli->prepare("SELECT
+                permissions_id
+		FROM ".$db_table_prefix."group_member
+                WHERE group_id = ".$group_id."
+                AND user_id = ".$user_id."
+                ");
+	$stmt->execute();
+	$stmt->bind_result($permissions_id);
+
+	while ($stmt->fetch()) {
+		$pid = $permissions_id;
+	}
+	$stmt->close();
+	return ($pid);
+}
+
+
 //Retrieve member of a specific group
 function fetchGroupMember($group_id)
 {
