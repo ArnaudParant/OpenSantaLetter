@@ -20,3 +20,13 @@ form .btn
 {
     width: calc(88% - 25px);
 }
+
+.booked
+{
+    display: inline-block;
+    margin: -8px;
+    padding: 8px 15px;
+    background-color: #FFD967;
+    color: #E56717;
+    font-weight: bold;
+}

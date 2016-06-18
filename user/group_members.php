@@ -106,7 +106,9 @@ require_once("$root/models/header.php");
         <?= resultBlock($errors,$successes); ?>
 
         <p>
-          <a href="group_list.php?id=<?=$groupId?>">Group List</a>
+          <a href="group_list.php?id=<?=$groupId?>">
+            <button class="btn btn-info">Group List</button>
+          </a>
         </p>
 
         <div id='regbox'>

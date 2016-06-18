@@ -72,7 +72,9 @@ require_once("$root/models/header.php");
         <?= resultBlock($errors,$successes); ?>
 
         <p>
-          <a href="group_members.php?id=<?=$groupId?>">Group Members</a>
+          <a href="group_members.php?id=<?=$groupId?>">
+            <button class="btn btn-info">Group Members</button>
+          </a>
         </p>
 
 <?php
@@ -103,7 +105,9 @@ foreach ($lists as $list) {
             if (strlen($item['booked']['id']) > 0)
             {
               if ($item['booked']['id'] != $loggedInUser->user_id)
-                echo "Booked";
+              {
+                echo "<div class='booked'>Booked</div>";
+              }
               else
               {
               ?>

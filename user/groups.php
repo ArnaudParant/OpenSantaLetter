@@ -41,7 +41,7 @@ require_once("$root/models/header.php");
         <?= resultBlock($errors,$successes); ?>
 
         <div><a href="create_group.php">
-          <button class="btn btn-success">Create a group</button>
+          <button class="btn btn-info">Create a group</button>
         </a></div>
         <br />
 
