@@ -1,1 +1,1 @@
-<h1>OpenSantaLetter</h1>
+<h1>SantaLetter</h1>

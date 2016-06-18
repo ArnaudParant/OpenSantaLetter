@@ -22,7 +22,7 @@ $location = "/index.php";
       </div>
 
       <div id='main'>
-        <p>OpenSantaLetter is an open source and free of charge project.</p>
+        <p>SantaLetter is an open source and free of charge project.</p>
         <p>The goal is to offer an easy way to manager Chritmas (or birthday) wishes list into a familly or a group of friends.</p>
       </div>
       <div id='bottom'></div>
