@@ -1,9 +1,13 @@
 <?php
 
-$root = realpath($_SERVER["DOCUMENT_ROOT"]);
-require_once("$root/models/config.php");
+/* ini_set('display_errors', 1);
+   ini_set('display_startup_errors', 1);
+   error_reporting(E_ALL); */
+
+$path = getcwd();
+require_once("$path/models/config.php");
 if (!securePage($_SERVER['PHP_SELF'])){die();}
-require_once("$root/models/header.php");
+require_once("$path/models/header.php");
 
 $location = "/index.php";
 
@@ -11,14 +15,14 @@ $location = "/index.php";
 
 <body>
   <div id='wrapper'>
-    <?php require_once("$root/common/top.php"); ?>
+    <?php require_once("$path/common/top.php"); ?>
     <div id='content'>
 
-      <?php require_once("$root/common/title.php"); ?>
+      <?php require_once("$path/common/title.php"); ?>
       <h2>version 0.01</h2>
 
       <div id='left-nav'>
-        <?php include("$root/common/left-nav.php"); ?>
+        <?php include("$path/common/left-nav.php"); ?>
       </div>
 
       <div id='main'>

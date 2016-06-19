@@ -4,7 +4,7 @@ UserCake Version: 2.0.2
 http://usercake.com
 */
 
-$root = realpath($_SERVER["DOCUMENT_ROOT"]);
+$path = getcwd();
 
 //Functions that do not interact with DB
 //------------------------------------------------------------------------------

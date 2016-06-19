@@ -1,7 +1,7 @@
 <?php
 
-$root = realpath($_SERVER["DOCUMENT_ROOT"]);
-require_once("$root/models/config.php");
+$path = getcwd();
+require_once("$path/models/config.php");
 if (!securePage($_SERVER['PHP_SELF'])){die();}
 
 $location = "/user/settings.php";
@@ -98,17 +98,17 @@ if(!empty($_POST))
 	}
 }
 
-require_once("$root/models/header.php");
+require_once("$path/models/header.php");
 
 ?>
 
 <body>
   <div id='wrapper'>
-    <? include("$root/common/top.php") ?>
+    <? include("$path/common/top.php") ?>
     <div id='content'>
-      <? include("$root/common/title.php") ?>
+      <? include("$path/common/title.php") ?>
       <h2>User Settings</h2>
-      <div id='left-nav'> <? include("$root/common/left-nav.php"); ?>
+      <div id='left-nav'> <? include("$path/common/left-nav.php"); ?>
       </div>
       <div id='main'> <?= resultBlock($errors,$successes); ?>
 

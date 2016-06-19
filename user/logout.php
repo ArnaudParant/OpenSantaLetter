@@ -4,8 +4,8 @@ UserCake Version: 2.0.2
 http://usercake.com
 */
 
-$root = realpath($_SERVER["DOCUMENT_ROOT"]);
-require_once("$root/models/config.php");
+$path = getcwd();
+require_once("$path/models/config.php");
 if (!securePage($_SERVER['PHP_SELF'])){die();}
 
 $location = "/user/logout.php";

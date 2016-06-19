@@ -4,7 +4,7 @@ UserCake Version: 2.0.2
 http://usercake.com
 */
 
-$root = realpath($_SERVER["DOCUMENT_ROOT"]);
+$path = getcwd();
 
 //Database Information
 $db_host = "localhost"; //Host address (most likely localhost)
@@ -29,7 +29,7 @@ if(mysqli_connect_errno()) {
 }
 
 //Direct to install directory, if it exists
-if(is_dir("$root/install/"))
+if(is_dir("$path/install/"))
 {
 	header("Location: install/");
 	die();

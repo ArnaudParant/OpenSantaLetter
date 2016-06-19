@@ -4,8 +4,8 @@ UserCake Version: 2.0.2
 http://usercake.com
 */
 
-$root = realpath($_SERVER["DOCUMENT_ROOT"]);
-require_once("$root/models/config.php");
+$path = getcwd();
+require_once("$path/models/config.php");
 if (!securePage($_SERVER['PHP_SELF'])){die();}
 
 //Prevent the user visiting the logged in page if he/she is already logged in
@@ -83,18 +83,18 @@ if(!empty($_POST))
 	}
 }
 
-require_once("$root/models/header.php");
+require_once("$path/models/header.php");
 
 ?>
 
 <body>
   <div id='wrapper'>
-    <?php include("$root/common/top.php"); ?>
+    <?php include("$path/common/top.php"); ?>
     <div id='content'>
-      <?php include("$root/common/title.php"); ?>
+      <?php include("$path/common/title.php"); ?>
       <h2>Register</h2>
 
-      <div id='left-nav'><?php include("$root/common/left-nav.php"); ?></div>
+      <div id='left-nav'><?php include("$path/common/left-nav.php"); ?></div>
 
       <div id='main'>
 

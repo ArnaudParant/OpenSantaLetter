@@ -4,8 +4,8 @@ UserCake Version: 2.0.1
 http://usercake.com
 */
 
-$root = realpath($_SERVER["DOCUMENT_ROOT"]);
-require_once("$root/models/config.php");
+$path = getcwd();
+require_once("$path/models/config.php");
 if (!securePage($_SERVER['PHP_SELF'])){die();}
 
 $location = "/register.php";
@@ -40,18 +40,18 @@ if(count($errors) == 0) {
 	$successes[] = lang("ACCOUNT_ACTIVATION_COMPLETE");
 }
 
-require_once("$root/models/header.php");
+require_once("$path/models/header.php");
 
 ?>
 
 <body>
   <div id='wrapper'>
-    <? include("$root/common/top.php"); ?>
+    <? include("$path/common/top.php"); ?>
     <div id='content'>
-      <? include("$root/common/title.php"); ?>
+      <? include("$path/common/title.php"); ?>
       <h2>Activate Account</h2>
 
-      <div id='left-nav'><? include("$root/common/left-nav.php"); ?>
+      <div id='left-nav'><? include("$path/common/left-nav.php"); ?>
 
       </div>
       <div id='main'><?=  resultBlock($errors,$successes); ?>

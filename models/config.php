@@ -4,12 +4,12 @@ UserCake Version: 2.0.2
 http://usercake.com
 */
 
-$root = realpath($_SERVER["DOCUMENT_ROOT"]);
-require_once("$root/models/db-settings.php"); //Require DB connection
+$path = getcwd();
+require_once("$path/models/db-settings.php"); //Require DB connection
 
 //Retrieve settings
 $stmt = $mysqli->prepare("SELECT id, name, value
-	FROM ".$db_table_prefix."configuration");	
+	FROM ".$db_table_prefix."configuration");
 $stmt->execute();
 $stmt->bind_result($id, $name, $value);
 
@@ -20,7 +20,7 @@ $stmt->close();
 
 //Set Settings
 $emailActivation = $settings['activation']['value'];
-$mail_templates_dir = "$root/models/mail-templates/";
+$mail_templates_dir = "$path/models/mail-templates/";
 $websiteName = $settings['website_name']['value'];
 $websiteUrl = $settings['website_url']['value'];
 $emailAddress = $settings['email']['value'];
@@ -35,17 +35,17 @@ $default_hooks = array("#WEBSITENAME#","#WEBSITEURL#","#DATE#");
 $default_replace = array($websiteName,$websiteUrl,$emailDate);
 
 if (!file_exists($language)) {
-	$language = "$root/models/languages/en.php";
+	$language = "$path/models/languages/en.php";
 }
 
-if(!isset($language)) $language = "$root/models/languages/en.php";
+if(!isset($language)) $language = "$path/models/languages/en.php";
 
 //Pages to require
 require_once($language);
-require_once("$root/models/class.mail.php");
-require_once("$root/models/class.user.php");
-require_once("$root/models/class.newuser.php");
-require_once("$root/models/funcs.php");
+require_once("$path/models/class.mail.php");
+require_once("$path/models/class.user.php");
+require_once("$path/models/class.newuser.php");
+require_once("$path/models/funcs.php");
 
 session_start();
 
