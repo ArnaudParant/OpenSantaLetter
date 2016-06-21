@@ -4,7 +4,8 @@ UserCake Version: 2.0.2
 http://usercake.com
 */
 
-$uri = preg_replace("/\/[^\/]*\/?$/", "", $_SERVER['REQUEST_URI']);
+$root = preg_replace("/\/+/", "/", $_SERVER['DOCUMENT_ROOT']);
+$uri = str_replace($root, "", dirname(dirname(__FILE__)));
 
 if (!securePage($_SERVER['PHP_SELF'])){die();}
 

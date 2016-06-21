@@ -1,6 +1,7 @@
 <?php
 
-$uri = preg_replace("/\/[^\/]*\/?$/", "", $_SERVER['REQUEST_URI']);
+$root = preg_replace("/\/+/", "/", $_SERVER['DOCUMENT_ROOT']);
+$uri = str_replace($root, "", dirname(dirname(__FILE__)));
 
 ?>
 <!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
@@ -8,7 +9,7 @@ $uri = preg_replace("/\/[^\/]*\/?$/", "", $_SERVER['REQUEST_URI']);
   <head>
     <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
     <title> <?= $websiteName ?></title>
-    <link href='<?= $uri ?><?= $template ?>' rel='stylesheet' type='text/css' />
+    <link href='<?= $template ?>' rel='stylesheet' type='text/css' />
     <link href='<?= $uri ?>/css/bootstrap.min.css' rel='stylesheet' type='text/css' />
     <link href='<?= $uri ?>/css/santa.css' rel='stylesheet' type='text/css' />
     <script src='<?= $uri ?>/js/jquery-2.1.4.js' type='text/javascript'></script>

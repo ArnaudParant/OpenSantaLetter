@@ -4,7 +4,8 @@ UserCake Version: 2.0.2
 http://usercake.com
 */
 
-$path = getcwd();
+$root = preg_replace("/\/+/", "/", $_SERVER['DOCUMENT_ROOT']);
+$models = dirname(__FILE__);
 
 //Functions that do not interact with DB
 //------------------------------------------------------------------------------
@@ -12,27 +13,33 @@ $path = getcwd();
 //Retrieve a list of all .php files in models/languages
 function getLanguageFiles()
 {
-	$directory = "/var/www/models/languages/";
-	$languages = glob($directory . "*.php");
+  $models = $GLOBALS["models"];
+  $root = $GLOBALS["root"];
 
-	//print each file name
-	foreach ($languages as $language){
-		$row[$language] = str_replace("/var/www", "", $language);
-	}
-	return $row;
+  $directory = "$models/languages/";
+  $languages = glob($directory . "*.php");
+
+  //print each file name
+  foreach ($languages as $language){
+    $row[$language] = str_replace($root, "", $language);
+  }
+  return $row;
 }
 
 //Retrieve a list of all .css files in models/site-templates 
 function getTemplateFiles()
 {
-	$directory = "/var/www/models/site-templates/";
-	$templates = glob($directory . "*.css");
+  $models = $GLOBALS["models"];
+  $root = $GLOBALS["root"];
 
-	//print each file name
-	foreach ($templates as $template){
-		$row[$template] = str_replace("/var/www", "", $template);
-	}
-	return $row;
+  $directory = "$models/site-templates/";
+  $templates = glob($directory . "*.css");
+
+  //print each file name
+  foreach ($templates as $template){
+    $row[$template] = str_replace($root, "", $template);
+  }
+  return $row;
 }
 
 //Retrieve a list of all .php files in root files folder

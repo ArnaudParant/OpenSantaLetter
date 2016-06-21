@@ -4,7 +4,7 @@ UserCake Version: 2.0.2
 http://usercake.com
 */
 
-$path = getcwd();
+$path = dirname(dirname(__FILE__));
 require_once("$path/models/config.php");
 if (!securePage($_SERVER['PHP_SELF'])){die();}
 $pageId = $_GET['id'];

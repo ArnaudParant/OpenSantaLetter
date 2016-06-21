@@ -4,7 +4,7 @@ UserCake Version: 2.0.2
 http://usercake.com
 */
 
-$path = getcwd();
+$path = dirname(dirname(__FILE__));
 
 //Database Information
 $db_host = "localhost"; //Host address (most likely localhost)

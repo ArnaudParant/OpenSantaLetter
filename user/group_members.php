@@ -1,6 +1,6 @@
 <?php
 
-$path = getcwd();
+$path = dirname(dirname(__FILE__));
 require_once("$path/models/config.php");
 if (!securePage($_SERVER['PHP_SELF'])){die();}
 
