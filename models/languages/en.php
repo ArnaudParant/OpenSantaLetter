@@ -86,8 +86,8 @@ $lang = array_merge($lang,array(
 //Configuration
 $lang = array_merge($lang,array(
 	"CONFIG_NAME_CHAR_LIMIT"		=> "Site name must be between %m1% and %m2% characters in length",
-	"CONFIG_URL_CHAR_LIMIT"			=> "Site name must be between %m1% and %m2% characters in length",
-	"CONFIG_EMAIL_CHAR_LIMIT"		=> "Site name must be between %m1% and %m2% characters in length",
+	"CONFIG_URL_CHAR_LIMIT"			=> "Site url must be between %m1% and %m2% characters in length",
+	"CONFIG_EMAIL_CHAR_LIMIT"		=> "Site email must be between %m1% and %m2% characters in length",
 	"CONFIG_ACTIVATION_TRUE_FALSE"		=> "Email activation must be either `true` or `false`",
 	"CONFIG_ACTIVATION_RESEND_RANGE"	=> "Activation Threshold must be between %m1% and %m2% hours",
 	"CONFIG_LANGUAGE_CHAR_LIMIT"		=> "Language path must be between %m1% and %m2% characters in length",
