@@ -4,6 +4,7 @@ UserCake Version: 2.0.2
 http://usercake.com
 */
 
+$root = preg_replace("/\/+/", "/", $_SERVER['DOCUMENT_ROOT']);
 $path = dirname(dirname(__FILE__));
 require_once("$path/models/db-settings.php"); //Require DB connection
 
@@ -26,7 +27,7 @@ $websiteUrl = $settings['website_url']['value'];
 $emailAddress = $settings['email']['value'];
 $resend_activation_threshold = $settings['resend_activation_threshold']['value'];
 $emailDate = date('dmy');
-$language = $settings['language']['value'];
+$language = $root . $settings['language']['value'];
 $template = $settings['template']['value'];
 
 $master_account = -1;

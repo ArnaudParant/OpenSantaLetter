@@ -119,9 +119,9 @@ $lang = array_merge($lang,array(
 $lang = array_merge($lang,array(
 	"CAPTCHA_FAIL"				=> "Mauvais captcha réponse",
 	"CONFIRM"				=> "Confirmé",
-	"DENY"					=> "Acces interdit",
-	"SUCCESS"				=> "Réussit",
-	"ERROR"					=> "Error",
+	"DENY"					=> "Access interdit",
+	"SUCCESS"				=> "Succès",
+	"ERROR"					=> "Erreur",
 	"NOTHING_TO_UPDATE"			=> "Rien à mettre à jour",
 	"SQL_ERROR"				=> "SQL Fatal erreur",
 	"FEATURE_DISABLED"			=> "Cette fonctionalité est actuellement désactivé",
@@ -144,4 +144,23 @@ $lang = array_merge($lang,array(
 	"CANNOT_DELETE_NEWUSERS"		=> "Vous ne pouvez pas supprimé le groupe 'new user'",
 	"CANNOT_DELETE_ADMIN"			=> "Vous ne pouvez pas supprimé le groupe 'admin'",
 	));
+
+//Naviguation
+$lang = array_merge($lang,array(
+	"NAV_HOME"			=> "Accueil",
+	"NAV_LOGIN"			=> "Connection",
+	"NAV_REGISTER"			=> "S'enregistrer",
+	"NAV_FORGOT_PASSWORD"		=> "Mot de passe oublié",
+	"NAV_RESEND_ACTIVATION_EMAIL"	=> "Renvoyer un email d'activation",
+	"NAV_ACCOUNT_HOME"		=> "Accueil de compte",
+	"NAV_USER_SETTINGS"		=> "Mon compte",
+	"NAV_MY_LIST"   		=> "Ma liste personnelle",
+	"NAV_MY_GROUPS"   		=> "Mes groupes",
+	"NAV_LOGOUT"       		=> "Déconnection",
+	"NAV_ADMIN_SETTINGS"   		=> "Configuration admin",
+	"NAV_ADMIN_USERS"   		=> "Gestion des utilisateurs",
+	"NAV_ADMIN_PERMISSIONS"		=> "Gestion des permissions",
+	"NAV_ADMIN_PAGES"		=> "Gestion des pages",
+));
+
 ?>

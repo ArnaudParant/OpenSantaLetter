@@ -145,4 +145,23 @@ $lang = array_merge($lang,array(
 	"CANNOT_DELETE_NEWUSERS"		=> "You cannot delete the default 'new user' group",
 	"CANNOT_DELETE_ADMIN"			=> "You cannot delete the default 'admin' group",
 	));
+
+//Naviguation
+$lang = array_merge($lang,array(
+	"NAV_HOME"			=> "Home",
+	"NAV_LOGIN"			=> "Login",
+	"NAV_REGISTER"			=> "Registrer",
+	"NAV_FORGOT_PASSWORD"		=> "Forgot password",
+	"NAV_RESEND_ACTIVATION_EMAIL"	=> "Resend activation email",
+	"NAV_ACCOUNT_HOME"		=> "Account home",
+	"NAV_USER_SETTINGS"		=> "User settings",
+	"NAV_MY_LIST"   		=> "My list",
+	"NAV_MY_GROUPS"   		=> "My groups",
+	"NAV_LOGOUT"       		=> "Logout",
+	"NAV_ADMIN_SETTINGS"   		=> "Admin settings",
+	"NAV_ADMIN_USERS"   		=> "Admin users",
+	"NAV_ADMIN_PERMISSIONS"		=> "Admin permissions",
+	"NAV_ADMIN_PAGES"		=> "Admin pages",
+));
+
 ?>

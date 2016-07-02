@@ -6,6 +6,8 @@ http://usercake.com
 
 $root = preg_replace("/\/+/", "/", $_SERVER['DOCUMENT_ROOT']);
 $uri = str_replace($root, "", dirname(dirname(__FILE__)));
+$path = dirname(dirname(__FILE__));
+require_once("$path/models/funcs.php");
 
 if (!securePage($_SERVER['PHP_SELF'])){die();}
 
@@ -25,29 +27,29 @@ function ulGenerator($links)
 }
 
 $loggedLinks = array(
-  array("href" => "$uri/user/index.php", "name" => "Account Home"),
-  array("href" => "$uri/user/settings.php", "name" => "User Settings"),
-  array("href" => "$uri/user/list.php", "name" => "My List"),
-  array("href" => "$uri/user/groups.php", "name" => "My Groups"),
-  array("href" => "$uri/user/logout.php", "name" => "Logout")
+  array("href" => "$uri/user/index.php", "name" => lang("NAV_ACCOUNT_HOME")),
+  array("href" => "$uri/user/settings.php", "name" => lang("NAV_USER_SETTINGS")),
+  array("href" => "$uri/user/list.php", "name" => lang("NAV_MY_LIST")),
+  array("href" => "$uri/user/groups.php", "name" => lang("NAV_MY_GROUPS")),
+  array("href" => "$uri/user/logout.php", "name" => lang("NAV_LOGOUT"))
 );
 
 $adminLinks = array(
-  array("href" => "$uri/admin/configuration.php", "name" => "Admin Configuration"),
-  array("href" => "$uri/admin/users.php", "name" => "Admin Users"),
-  array("href" => "$uri/admin/permissions.php", "name" => "Admin Permissions"),
-  array("href" => "$uri/admin/pages.php", "name" => "Admin Pages")
+  array("href" => "$uri/admin/configuration.php", "name"=>lang("NAV_ADMIN_SETTINGS")),
+  array("href" => "$uri/admin/users.php", "name" => lang("NAV_ADMIN_USERS")),
+  array("href" => "$uri/admin/permissions.php","name"=>lang("NAV_ADMIN_PERMISSIONS")),
+  array("href" => "$uri/admin/pages.php", "name" => lang("NAV_ADMIN_PAGES"))
 );
 
 $notLoggedLinks = array(
-  array("href" => "$uri/index.php", "name" => "Home"),
-  array("href" => "$uri/login.php", "name" => "Login"),
-  array("href" => "$uri/register.php", "name" => "Register"),
-  array("href" => "$uri/forgot-password.php", "name" => "Forgot Password")
+  array("href" => "$uri/index.php", "name" => lang("NAV_HOME")),
+  array("href" => "$uri/login.php", "name" => lang("NAV_LOGIN")),
+  array("href" => "$uri/register.php", "name" => lang("NAV_REGISTER")),
+  array("href" => "$uri/forgot-password.php", "name" => lang("NAV_FORGOT_PASSWORD"))
 );
 if ($emailActivation)
   $notLoggedLinks[] = array("href" => "$uri/resend-activation.php",
-                            "name" => "Resend Activation Email");
+                            "name" => lang("NAV_RESEND_ACTIVATION_EMAIL"));
 
 //Links for logged in user
 if(isUserLoggedIn())

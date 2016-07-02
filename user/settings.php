@@ -1,5 +1,9 @@
 <?php
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 $path = dirname(dirname(__FILE__)));
 require_once("$path/models/config.php");
 if (!securePage($_SERVER['PHP_SELF'])){die();}
