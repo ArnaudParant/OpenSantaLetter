@@ -58,7 +58,7 @@ require_once("$path/models/header.php");
     <?php include("$path/common/top.php") ?>
     <div id='content'>
       <?php include("$path/common/title.php") ?>
-      <h2>My List</h2>
+      <h2><?= lang("NAV_MY_LIST") ?></h2>
       <div id='left-nav'> <?php include("$path/common/left-nav.php"); ?> </div>
 
       <div id='main'>
@@ -67,7 +67,9 @@ require_once("$path/models/header.php");
 
         <table class="table table-striped">
           <tr>
-            <th>Delete</th><th>Item</th><th>Description</th>
+            <th><?= lang("DELETE") ?></th>
+            <th><?= lang("ITEM") ?></th>
+            <th><?= lang("DESCRIPTION") ?></th>
           </tr>
 <?php
 
@@ -101,9 +103,13 @@ foreach ($items as $item) {
           <form name='addItem' action='<?= $_SERVER['PHP_SELF'] ?>' method='post'>
             <p>
               <input type='hidden' name='form' value='addItem' />
-              <input type='text' class="form-control" name='item' placeholder="item name" />
-              <input type='text' class="form-control" name='description' placeholder="description" />
-              <input type='submit' class="btn btn-success" value='Add' class='submit' />
+              <input type='text' class="form-control" name='item'
+                     placeholder="<?= lang("PLACEHOLDER_ITEM_NAME") ?>" />
+              <input type='text' class="form-control" name='description'
+                     placeholder="<?= lang("PLACEHOLDER_DESCRIPTION") ?>" />
+              <input type='submit' class="btn btn-success"
+                     value='<?= lang("ADD") ?>'
+                     class='submit' />
             </p>
           </form>
 

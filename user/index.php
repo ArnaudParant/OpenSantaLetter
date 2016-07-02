@@ -14,11 +14,11 @@ $location = "/user/index.php";
     <?php include("$path/common/top.php") ?>
     <div id='content'>
       <?php include("$path/common/title.php") ?>
-      <h2>Account</h2>
+      <h2><?= lang("NAV_ACCOUNT_HOME") ?></h2>
       <div id='left-nav'> <?php include("$path/common/left-nav.php"); ?> </div>
 
       <div id='main'>
-        Hey, <?=$loggedInUser->displayname ?>.
+        <?= lang("HEY") ?>, <?=$loggedInUser->displayname ?>.
       </div>
       <div id='bottom'></div>
     </div>

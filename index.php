@@ -19,15 +19,14 @@ $location = "/index.php";
     <div id='content'>
 
       <?php require_once("$path/common/title.php"); ?>
-      <h2>version 0.01</h2>
+      <h2><?= lang("VERSION") ?> 0.01</h2>
 
       <div id='left-nav'>
         <?php include("$path/common/left-nav.php"); ?>
       </div>
 
       <div id='main'>
-        <p>SantaLetter is an open source and free of charge project.</p>
-        <p>The goal is to offer an easy way to manager Chritmas (or birthday) wishes list into a familly or a group of friends.</p>
+        <p><?= lang("CONTENT_PRESENTATION") ?></p>
       </div>
       <div id='bottom'></div>
     </div>

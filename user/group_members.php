@@ -92,7 +92,7 @@ require_once("$path/models/header.php");
     <?php include("$path/common/top.php") ?>
     <div id='content'>
       <?php include("$path/common/title.php") ?>
-      <h2>Group <?=$groupData['name'] ?></h2>
+      <h2><?= lang("GROUP") ?> <?=$groupData['name'] ?></h2>
       <center><h3><?=$groupData['description'] ?></h3></center>
       <div id='left-nav'> <?php include("$path/common/left-nav.php"); ?> </div>
 
@@ -102,7 +102,7 @@ require_once("$path/models/header.php");
 
  if (!$groupData)
  {
-  echo "<div class='error'>Invalid group id</div>";
+  echo "<div class='error'>". lang("GROUP_INVALID_ID") ."</div>";
   die();
  }
 
@@ -112,7 +112,7 @@ require_once("$path/models/header.php");
 
         <p>
           <a href="group_list.php?id=<?=$groupId?>">
-            <button class="btn btn-info">Group List</button>
+            <button class="btn btn-info"><?= lang("NAV_GROUP_LIST") ?></button>
           </a>
         </p>
 
@@ -122,8 +122,8 @@ require_once("$path/models/header.php");
           <form name='addUser' action='<?= $_SERVER['PHP_SELF'] ?>?id=<?=$groupId ?>' method='post'>
             <p>
               <input type='hidden' name='form' value='addUser' />
-              <input type='text' class="form-control" name='email' placeholder="user email" />
-              <input type='submit' class="btn btn-success" value='Invite' class='submit' />
+              <input type='text' class="form-control" name='email' placeholder="<?= lang("PLACEHOLDER_USER_EMAIL") ?>" />
+              <input type='submit' class="btn btn-success" value='<?= lang("INVITE") ?>' class='submit' />
             </p>
           </form>
 
@@ -132,8 +132,8 @@ require_once("$path/models/header.php");
 
         <table class="table table-striped">
           <tr>
-            <?php if ($admin) { echo "<th>Unsubscribe</th>"; } ?>
-            <th>Name</th><th>Permissions</th>
+            <?php if ($admin) { echo "<th>". lang("UNSUBSCRIBE") ."</th>"; } ?>
+            <th><?= lang("NAME") ?></th><th><?= lang("PERMISSIONS") ?></th>
           </tr>
 <?php
 

@@ -53,7 +53,7 @@ require_once("$path/models/header.php");
     <?php include("$path/common/top.php") ?>
     <div id='content'>
       <?php include("$path/common/title.php") ?>
-      <h2>Group <?=$groupData['name'] ?></h2>
+      <h2><?= lang("GROUP") ?> <?=$groupData['name'] ?></h2>
       <center><h3><?=$groupData['description'] ?></h3></center>
       <div id='left-nav'> <?php include("$path/common/left-nav.php"); ?> </div>
 
@@ -63,7 +63,7 @@ require_once("$path/models/header.php");
 
  if (!$groupData)
  {
-  echo "<div class='error'>Invalid group id</div>";
+  echo "<div class='error'>". lang("GROUP_INVALID_ID") ."</div>";
   die();
  }
 
@@ -73,7 +73,7 @@ require_once("$path/models/header.php");
 
         <p>
           <a href="group_members.php?id=<?=$groupId?>">
-            <button class="btn btn-info">Group Members</button>
+            <button class="btn btn-info"><?= lang("NAV_GROUP_MEMBERS") ?></button>
           </a>
         </p>
 
@@ -88,7 +88,9 @@ foreach ($lists as $list) {
     <h3><?=$list['name'] ?></h3>
     <table class="table table-striped">
       <tr>
-        <th>Action</th><th>Item</th><th>Description</th>
+        <th><?= lang("ACTION") ?></th>
+        <th><?= lang("ITEM") ?></th>
+        <th><?= lang("DESCRIPTION") ?></th>
       </tr>
 
       <?php
@@ -106,7 +108,7 @@ foreach ($lists as $list) {
             {
               if ($item['booked']['id'] != $loggedInUser->user_id)
               {
-                echo "<div class='booked'>Booked</div>";
+                echo "<div class='booked'>". lang("BOOKED") ."</div>";
               }
               else
               {
@@ -115,7 +117,7 @@ foreach ($lists as $list) {
                   <input type='hidden' name='form' value='unbookItem' />
                   <input type='hidden' name='user_id' value='<?=$list['id'] ?>' />
                   <input type='hidden' name='item_id' value='<?=$item['id'] ?>' />
-                  <input type='submit' class="btn btn-warning" value='Unbook' class='submit' />
+                  <input type='submit' class="btn btn-warning" value='<?= lang("UNBOOK") ?>' class='submit' />
                 </form>
               <?php
               }
@@ -128,7 +130,7 @@ foreach ($lists as $list) {
                 <input type='hidden' name='form' value='bookItem' />
                 <input type='hidden' name='user_id' value='<?=$list['id'] ?>' />
                 <input type='hidden' name='item_id' value='<?=$item['id'] ?>' />
-                <input type='submit' class="btn btn-success" value='Book' class='submit' />
+                <input type='submit' class="btn btn-success" value='<?= lang("BOOK") ?>' class='submit' />
               </form>
             <?php } ?>
           </td>

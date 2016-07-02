@@ -33,7 +33,7 @@ require_once("$path/models/header.php");
     <?php include("$path/common/top.php") ?>
     <div id='content'>
       <?php include("$path/common/title.php") ?>
-      <h2>Groups</h2>
+      <h2><?= lang("NAV_MY_GROUPS") ?></h2>
       <div id='left-nav'> <?php include("$path/common/left-nav.php"); ?> </div>
 
       <div id='main'>
@@ -41,13 +41,16 @@ require_once("$path/models/header.php");
         <?= resultBlock($errors,$successes); ?>
 
         <div><a href="create_group.php">
-          <button class="btn btn-info">Create a group</button>
+          <button class="btn btn-info"><?= lang("NAV_GROUP_CREATION") ?></button>
         </a></div>
         <br />
 
         <table class="table table-striped">
           <tr>
-            <th>Unsubscribe</th><th>Name</th><th>Description</th><th>Permissions</th>
+            <th><?= lang("UNSUBSCRIBE") ?></th>
+            <th><?= lang("NAME") ?></th>
+            <th><?= lang("DESCRIPTION") ?></th>
+            <th><?= lang("PERMISSIONS") ?></th>
           </tr>
 <?php
 

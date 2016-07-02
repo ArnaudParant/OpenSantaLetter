@@ -11,34 +11,34 @@ if(!isUserLoggedIn()) { header("Location: login.php"); die(); }
 
 if(!empty($_POST))
 {
-	$errors = array();
-	$successes = array();
-	$name = $_POST["name"];
-	$description = $_POST["description"];
+  $errors = array();
+  $successes = array();
+  $name = $_POST["name"];
+  $description = $_POST["description"];
 
-        if (empty($name))
-        {
-          $errors[] = lang("GROUP_SPECIFY_NAME");
-        }
+  if (empty($name))
+  {
+    $errors[] = lang("GROUP_SPECIFY_NAME");
+  }
 
-        if (empty($description))
-        {
-          $errors[] = lang("GROUP_SPECIFY_DESCRIPTION");
-        }
-	
-        if(count($errors) == 0)
-        {
-          $id = createGroup($loggedInUser->user_id, $name, $description);
-          if ($id) {
-            $successes[] = lang("GROUP_CREATED");
-          } else {
-            $errors[] = lang("GROUP_CREATION_FAILED");
-          }
-        }
+  if (empty($description))
+  {
+    $errors[] = lang("GROUP_SPECIFY_DESCRIPTION");
+  }
+  
+  if(count($errors) == 0)
+  {
+    $id = createGroup($loggedInUser->user_id, $name, $description);
+    if ($id) {
+      $successes[] = lang("GROUP_CREATED");
+    } else {
+      $errors[] = lang("GROUP_CREATION_FAILED");
+    }
+  }
 
-	if(count($errors) == 0 AND count($successes) == 0){
-		$errors[] = lang("NOTHING_TO_UPDATE");
-	}
+  if(count($errors) == 0 AND count($successes) == 0){
+    $errors[] = lang("NOTHING_TO_UPDATE");
+  }
 }
 
 
@@ -51,7 +51,7 @@ require_once("$path/models/header.php");
     <?php include("$path/common/top.php") ?>
     <div id='content'>
       <?php include("$path/common/title.php") ?>
-      <h2>Create a Group</h2>
+      <h2><?= lang("NAV_GROUP_CREATION") ?></h2>
       <div id='left-nav'> <?php include("$path/common/left-nav.php"); ?> </div>
 
       <div id='main'>
@@ -62,11 +62,11 @@ require_once("$path/models/header.php");
 
           <form name='createGroup' action='<?= $_SERVER['PHP_SELF'] ?>' method='post'>
             <p>
-              <label>Name:</label>
+              <label><?= lang("NAME") ?>:</label>
               <input type='text' class="form-control" name='name' />
             </p>
             <p>
-              <label>Description:</label>
+              <label><?= lang("DESCRIPTION") ?>:</label>
               <input type='text' class="form-control" name='description' />
             </p>
             <p>
