@@ -159,6 +159,7 @@ $lang = array_merge($lang,array(
   "NAV_MY_GROUPS"   		=> "Mes groupes",
   "NAV_GROUP_CREATION" 		=> "Création de groupe",
   "NAV_GROUP_MEMBERS"	        => "Membre du groupe",
+  "NAV_GROUP_LIST"	        => "Liste cadeaux du groupe",
   "NAV_LOGOUT"       		=> "Déconnection",
   "NAV_ADMIN_SETTINGS"   	=> "Configuration admin",
   "NAV_ADMIN_USERS"   		=> "Gestion des utilisateurs",

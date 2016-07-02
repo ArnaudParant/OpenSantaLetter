@@ -169,7 +169,7 @@ foreach ($memberData as $member) {
           <form name='deleteGroup' action='<?= $_SERVER['PHP_SELF'] ?>?id=<?=$groupId ?>' method='post'>
             <p>
               <input type='hidden' name='form' value='deleteGroup' />
-              <input type='submit' class="btn btn-danger" value='Delete' class='submit' /> the group definitively.
+              <input type='submit' class="btn btn-danger" value='<?= lang("DELETE")?>' class='submit' /> the group definitively.
             </p>
           </form>
 
