@@ -1,10 +1,13 @@
-<?php
+OA<?php
 /*
 UserCake Version: 2.0.2
 http://usercake.com
 */
 
+$root = preg_replace("/\/+/", "/", $_SERVER['DOCUMENT_ROOT']);
 $path = dirname(__FILE__);
+$uri = str_replace($root, "", $path);
+
 require_once("$path/models/config.php");
 if (!securePage($_SERVER['PHP_SELF'])){die();}
 
@@ -125,13 +128,15 @@ require_once("$path/models/header.php");
             </p>
             <p>
               <label><?= lang("SECURITY_CODE") ?>:</label>
-              <img src='/models/captcha.php'>
+              <img src='<?= $uri ?>/models/captcha.php'>
             </p>
-            <label><?= lang("ENTER") ?> <?= lang("SECURITY_CODE") ?>:</label>
-            <input name='captcha' class="form-control" type='text'>
+            <p>
+              <label><?= lang("ENTER") ?> <?= lang("SECURITY_CODE") ?>:</label>
+              <input name='captcha' class="form-control" type='text'>
             </p>
-            <label>&nbsp;<br>
-              <input type='submit' class="btn btn-success" value='Register'/>
+            <br />
+            <p>
+              <input type='submit' class="btn btn-success" value="<?= lang("NAV_REGISTER") ?>"/>
             </p>
 
           </form>
