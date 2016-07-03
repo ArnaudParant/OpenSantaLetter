@@ -70,6 +70,7 @@ $lang = array_merge($lang,array(
   "GROUP_USER_UNSUBSCRIBE"                => "Utilisateur correctement désabonné",
   "GROUP_USER_UNSUBSCRIBE_FAILED"         => "Erreur lors du désabonnement de l'utilisateur",
   "GROUP_USERLIST_EMPTY"                  => "Liste de voeux vide",
+  "GROUP_LIST_EMPTY"                      => "Tu ne fait parti d'aucun groupe, crée en un, ou demain à un administrateur de groupe de d'ajouter.",
 ));
 
 //User List
@@ -151,7 +152,7 @@ $lang = array_merge($lang,array(
 //Naviguation
 $lang = array_merge($lang,array(
   "NAV_HOME"			=> "Accueil",
-  "NAV_LOGIN"			=> "Connection",
+  "NAV_LOGIN"			=> "Connexion",
   "NAV_REGISTER"		=> "S'enregistrer",
   "NAV_FORGOT_PASSWORD"		=> "Mot de passe oublié",
   "NAV_RESEND_ACTIVATION_EMAIL"	=> "Renvoyer l'activation",
@@ -161,7 +162,7 @@ $lang = array_merge($lang,array(
   "NAV_GROUP_CREATION" 		=> "Création de groupe",
   "NAV_GROUP_MEMBERS"	        => "Membre du groupe",
   "NAV_GROUP_LIST"	        => "Liste cadeaux du groupe",
-  "NAV_LOGOUT"       		=> "Déconnection",
+  "NAV_LOGOUT"       		=> "Déconnexion",
   "NAV_ADMIN_SETTINGS"   	=> "Configuration admin",
   "NAV_ADMIN_USERS"   		=> "Gestion des utilisateurs",
   "NAV_ADMIN_PERMISSIONS"	=> "Gestion des permissions",

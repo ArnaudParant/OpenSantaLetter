@@ -71,6 +71,7 @@ $lang = array_merge($lang,array(
   "GROUP_USER_UNSUBSCRIBE"                => "User successfuly unsubscribe",
   "GROUP_USER_UNSUBSCRIBE_FAILED"         => "Failed to unsubscribe user",
   "GROUP_USERLIST_EMPTY"                  => "Empty wish list",
+  "GROUP_LIST_EMPTY"                      => "You don't have any group yet, create one or ask to a group administrator to invit you.",
 ));
 
 //User List

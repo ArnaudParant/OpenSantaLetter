@@ -45,6 +45,8 @@ require_once("$path/models/header.php");
         </a></div>
         <br />
 
+<?php if (count($groupData) > 0) { ?>
+
         <table class="table table-striped">
           <tr>
             <th><?= lang("UNSUBSCRIBE") ?></th>
@@ -70,13 +72,9 @@ foreach ($groupData as $group) {
     <td><?= $group['permissions'] ?></td>
   </tr>
 
-<?php
-
-}
-
-?>
+<?php } ?>
         </table>
-
+<?php } else { echo ("<div>".lang("GROUP_LIST_EMPTY")."</div>");} ?>
       </div>
       <div id='bottom'></div>
     </div>
