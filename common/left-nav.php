@@ -15,8 +15,10 @@ function liGenerator($href, $icon, $name)
 {
   $classes = "";
   $location = $GLOBALS["location"];
+  $uri = $GLOBALS["uri"];
   $icon = "<span class='icon $icon'></span>";
-  if (isset($location) and $location == $href) $classes = "active";
+  $relative_href = str_replace($uri, "", $href);
+  if (isset($location) and $location == $relative_href) $classes = "active";
   echo "<li class='$classes'><a href='$href'>$icon$name</a></li>";
 }
 
