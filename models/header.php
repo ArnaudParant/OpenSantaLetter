@@ -9,6 +9,8 @@ $uri = str_replace($root, "", dirname(dirname(__FILE__)));
   <head>
     <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
     <title> <?= $websiteName ?></title>
+    <link href='<?= $uri ?>/css/font-awesome.min.css' rel='stylesheet' type='text/css' />
+    <link href='<?= $uri ?>/css/entypo.css' rel='stylesheet' type='text/css' />
     <link href='<?= $template ?>' rel='stylesheet' type='text/css' />
     <link href='<?= $uri ?>/css/bootstrap.min.css' rel='stylesheet' type='text/css' />
     <link href='<?= $uri ?>/css/santa.css' rel='stylesheet' type='text/css' />

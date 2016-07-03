@@ -1,4 +1,4 @@
-OA<?php
+<?php
 /*
 UserCake Version: 2.0.2
 http://usercake.com
