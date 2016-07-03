@@ -12,13 +12,13 @@ form .btn
 
 #content #left-nav
 {
-    width: 12%;
+    width: 15%;
     margin-right: 25px;
 }
 
 #content #main
 {
-    width: calc(88% - 25px);
+    width: calc(85% - 25px);
 }
 
 .booked
