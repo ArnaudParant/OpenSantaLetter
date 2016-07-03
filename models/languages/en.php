@@ -156,7 +156,6 @@ $lang = array_merge($lang,array(
   "NAV_REGISTER"		=> "Registrer",
   "NAV_FORGOT_PASSWORD"		=> "Forgot password",
   "NAV_RESEND_ACTIVATION_EMAIL"	=> "Resend activation",
-  "NAV_ACCOUNT_HOME"		=> "Account home",
   "NAV_USER_SETTINGS"		=> "User settings",
   "NAV_MY_LIST"   		=> "My list",
   "NAV_MY_GROUPS"   		=> "My groups",
@@ -172,7 +171,6 @@ $lang = array_merge($lang,array(
 
 //Words
 $lang = array_merge($lang,array(
-  "HEY" 		=> "Hey",
   "VERSION"		=> "Version",
   "NAME"		=> "Name",
   "DESCRIPTION"		=> "Description",

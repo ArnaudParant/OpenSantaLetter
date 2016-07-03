@@ -4,7 +4,7 @@ $path = dirname(dirname(__FILE__));
 require_once("$path/models/config.php");
 if (!securePage($_SERVER['PHP_SELF'])){die();}
 
-$location = "/user/groups.php";
+$location = "/user/index.php";
 
 $groupId = $_GET['id'];
 

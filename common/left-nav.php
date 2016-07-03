@@ -30,19 +30,15 @@ function ulGenerator($links)
 $loggedLinks = array(
   array("href" => "$uri/user/index.php",
         "icon" => "icon-home",
-        "name" => lang("NAV_ACCOUNT_HOME")),
-
-  array("href" => "$uri/user/settings.php",
-        "icon" => "icon-cog",
-        "name" => lang("NAV_USER_SETTINGS")),
+        "name" => lang("NAV_MY_GROUPS")),
 
   array("href" => "$uri/user/list.php",
         "icon" => "fa fa-gift",
         "name" => lang("NAV_MY_LIST")),
 
-  array("href" => "$uri/user/groups.php",
-        "icon" => "icon-users",
-        "name" => lang("NAV_MY_GROUPS")),
+  array("href" => "$uri/user/settings.php",
+        "icon" => "icon-cog",
+        "name" => lang("NAV_USER_SETTINGS")),
 
   array("href" => "$uri/user/logout.php",
         "icon" => "icon-logout",

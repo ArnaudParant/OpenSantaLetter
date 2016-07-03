@@ -123,7 +123,7 @@ $lang = array_merge($lang,array(
   "CAPTCHA_FAIL"			=> "Mauvais captcha réponse",
   "CONFIRM"				=> "Confirmé",
   "DENY"				=> "Access interdit",
-  "SUCCESS"				=> "Succès",
+  "SUCCESS"				=> "Bravo",
   "ERROR"				=> "Erreur",
   "NOTHING_TO_UPDATE"			=> "Rien à mettre à jour",
   "SQL_ERROR"				=> "SQL Fatal erreur",
@@ -155,7 +155,6 @@ $lang = array_merge($lang,array(
   "NAV_REGISTER"		=> "S'enregistrer",
   "NAV_FORGOT_PASSWORD"		=> "Mot de passe oublié",
   "NAV_RESEND_ACTIVATION_EMAIL"	=> "Renvoyer l'activation",
-  "NAV_ACCOUNT_HOME"		=> "Accueil de compte",
   "NAV_USER_SETTINGS"		=> "Mon compte",
   "NAV_MY_LIST"   		=> "Ma liste voeux",
   "NAV_MY_GROUPS"   		=> "Mes groupes",
@@ -171,7 +170,6 @@ $lang = array_merge($lang,array(
 
 //Words
 $lang = array_merge($lang,array(
-  "HEY" 		=> "Salut",
   "VERSION"		=> "Version",
   "NAME"		=> "Nom",
   "DESCRIPTION"		=> "Description",

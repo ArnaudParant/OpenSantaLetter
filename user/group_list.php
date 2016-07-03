@@ -7,7 +7,7 @@ if (!securePage($_SERVER['PHP_SELF'])){die();}
 //Prevent the user visiting the logged in page if he is not logged in
 if(!isUserLoggedIn()) { header("Location: login.php"); die(); }
 
-$location = "/user/groups.php";
+$location = "/user/index.php";
 
 if(!empty($_POST))
 {
