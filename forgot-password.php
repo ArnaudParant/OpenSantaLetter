@@ -188,11 +188,11 @@ require_once("$path/models/header.php");
         <div id='regbox'>
           <form name='newLostPass' action='<?= $_SERVER['PHP_SELF'] ?>' method='post'>
             <p>
-              <label><? lang("USERNAME") ?>:</label>
+              <label><?= lang("USERNAME") ?>:</label>
               <input class="form-control" type='text' name='username' />
             </p>
             <p>
-              <label><? lang("EMAIL") ?>:</label>
+              <label><?= lang("EMAIL") ?>:</label>
               <input class="form-control" type='text' name='email' />
             </p>
             <p>

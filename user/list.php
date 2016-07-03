@@ -106,7 +106,6 @@ foreach ($items as $item) {
 <?php } else { ?>
 <div><?= lang("USERLIST_EMPTY") ?></div>
 <?php } ?>
-        
 
         <div id='regbox'>
 

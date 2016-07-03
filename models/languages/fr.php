@@ -69,6 +69,7 @@ $lang = array_merge($lang,array(
   "GROUP_USER_ADD_FAILED"                 => "Erreur lors de l'ajout de l'utilisateur",
   "GROUP_USER_UNSUBSCRIBE"                => "Utilisateur correctement désabonné",
   "GROUP_USER_UNSUBSCRIBE_FAILED"         => "Erreur lors du désabonnement de l'utilisateur",
+  "GROUP_USERLIST_EMPTY"                  => "Liste de voeux vide",
 ));
 
 //User List

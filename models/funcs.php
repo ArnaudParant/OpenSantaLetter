@@ -492,6 +492,7 @@ function fetchGroupMember($group_id)
   $stmt->execute();
   $stmt->bind_result($id, $name, $permissions);
 
+  $row = [];
   while ($stmt->fetch()){
     $row[] = array('id' => $id, 'name' => $name,
                    'permissions' => $permissions);
@@ -721,14 +722,17 @@ function fetchGroupMemberLists($user_id, $group_id)
       );
     }
     
-    array_push($lists[$user_id]["list"], array(
-      'id' => $item_id,
-      'name' => $item_name,
-      'description' => $description,
-      'booked' => array(
-        'id' => $booked_by_id,
-        'name' => $booked_by_name
-      )));
+    if ($item_id != "")
+    {
+      array_push($lists[$user_id]["list"], array(
+        'id' => $item_id,
+        'name' => $item_name,
+        'description' => $description,
+        'booked' => array(
+          'id' => $booked_by_id,
+          'name' => $booked_by_name
+        )));
+    }
   }
 
   $stmt->close();

@@ -70,6 +70,7 @@ $lang = array_merge($lang,array(
   "GROUP_USER_ADD_FAILED"                 => "Failed to add user",
   "GROUP_USER_UNSUBSCRIBE"                => "User successfuly unsubscribe",
   "GROUP_USER_UNSUBSCRIBE_FAILED"         => "Failed to unsubscribe user",
+  "GROUP_USERLIST_EMPTY"                  => "Empty wish list",
 ));
 
 //User List
@@ -82,7 +83,7 @@ $lang = array_merge($lang,array(
   "USERLIST_ITEM_BOOK_FAILED"             => "Failed to book item",
   "USERLIST_ITEM_UNBOOKED"                => "Item successlufy unbooked",
   "USERLIST_ITEM_UNBOOK_FAILED"           => "Failed to unbook item",
-  "USERLIST_EMPTY"                        => "You wish list is empty",
+  "USERLIST_EMPTY"                        => "Your wish list is empty"
 ));
 
 //Configuration

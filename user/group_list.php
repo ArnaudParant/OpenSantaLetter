@@ -86,6 +86,7 @@ foreach ($lists as $list) {
 
   <div>
     <h3><?=$list['name'] ?></h3>
+<?php if (count($list['list']) > 0) { ?>
     <table class="table table-striped">
       <tr>
         <th><?= lang("ACTION") ?></th>
@@ -141,6 +142,7 @@ foreach ($lists as $list) {
       <?php } ?>
 
     </table>
+<?php } else { echo ("<div>". lang("GROUP_USERLIST_EMPTY") ."</div>");} ?>
   </div>
 
 <?php } ?>
