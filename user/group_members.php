@@ -88,6 +88,12 @@ require_once("$path/models/header.php");
 ?>
 
 <body>
+<script>
+  function submiter(user_id)
+  {
+    document.getElementById("user_" + user_id).submit();
+  }
+</script>
   <div id='wrapper'>
     <?php include("$path/common/top.php") ?>
     <div id='content'>
@@ -145,10 +151,14 @@ foreach ($memberData as $member) {
   <tr>
     <?php if ($admin) { ?>
     <td>
-      <form name='deleteUser' action='<?= $_SERVER['PHP_SELF'] ?>?id=<?=$groupId ?>' method='post'>
+      <form name='deleteUser' id='user_<?= $member['id'] ?>'
+            action='<?= $_SERVER['PHP_SELF'] ?>?id=<?=$groupId ?>' method='post'>
         <input type='hidden' name='form' value='deleteUser' />
         <input type='hidden' name='userId' value='<?=$member['id'] ?>' />
-        <input type='submit' class="btn btn-danger" value='X' class='submit' />
+        <button type="button" class="btn btn-danger"
+                onClick="submiter('<?= $member['id'] ?>');">
+          <span class="icon-cancel"></span>
+        </button>
       </form>
     </td>
     <?php } ?>

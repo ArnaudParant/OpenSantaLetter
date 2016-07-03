@@ -29,6 +29,12 @@ require_once("$path/models/header.php");
 ?>
 
 <body>
+<script>
+  function submiter(group_id)
+  {
+    document.getElementById("group_" + group_id).submit();
+  }
+</script>
   <div id='wrapper'>
     <?php include("$path/common/top.php") ?>
     <div id='content'>
@@ -62,9 +68,13 @@ foreach ($groupData as $group) {
 ?>
   <tr>
     <td>
-      <form name='unsubscribe' action='<?= $_SERVER['PHP_SELF'] ?>' method='post'>
+      <form name='unsubscribe' id='group_<?= $group['id'] ?>'
+            action='<?= $_SERVER['PHP_SELF'] ?>' method='post'>
         <input type='hidden' name='groupId' value='<?= $group['id'] ?>' />
-        <input type='submit' class="btn btn-danger" value='X' class='submit' />
+        <button type="button" class="btn btn-danger"
+                onClick="submiter('<?= $group['id'] ?>');">
+          <span class="icon-cancel"></span>
+        </button>
       </form>
     </td>
     <td><a href='group_list.php?id=<?= $group['id'] ?>'><?= $group['name'] ?></a></td>

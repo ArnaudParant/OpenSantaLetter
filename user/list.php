@@ -58,6 +58,12 @@ require_once("$path/models/header.php");
 ?>
 
 <body>
+<script>
+  function submiter(item_id)
+  {
+    document.getElementById("item_" + item_id).submit();
+  }
+</script>
   <div id='wrapper'>
     <?php include("$path/common/top.php") ?>
     <div id='content'>
@@ -90,10 +96,14 @@ foreach ($items as $item) {
 
   <tr>
     <td>
-      <form name='deleteItem' action='<?= $_SERVER['PHP_SELF'] ?>' method='post'>
+      <form name='deleteItem' id='item_<?= $item['id'] ?>'
+            action='<?= $_SERVER['PHP_SELF'] ?>' method='post'>
         <input type='hidden' name='form' value='deleteItem' />
         <input type='hidden' name='item_id' value='<?=$item['id'] ?>' />
-        <input type='submit' class="btn btn-danger" value='X' class='submit' />
+        <button type="button" class="btn btn-danger"
+                onClick="submiter('<?= $item['id'] ?>');">
+          <span class="icon-cancel"></span>
+        </button>
       </form>
 
     </td>
