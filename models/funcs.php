@@ -520,9 +520,9 @@ function createGroup($user_id, $name, $description)
 {
   global $mysqli,$db_table_prefix;
   $stmt = $mysqli->prepare("INSERT
-                                INTO ".$db_table_prefix."groups
+                INTO ".$db_table_prefix."groups
                 (name, description)
-                VALUES ('".$name."','".$description."')
+                VALUES (\"".$name."\",\"".$description."\")
                 ");
   $stmt->execute();
   $group_id = $mysqli->insert_id;
@@ -573,15 +573,16 @@ function fetchUserList($user_id)
 {
   global $mysqli,$db_table_prefix;
   $stmt = $mysqli->prepare("SELECT
-		                id,
-		                name,
-                                description
-		            FROM ".$db_table_prefix."list
+		id,
+		name,
+                description
+		FROM ".$db_table_prefix."list
                 WHERE user_id = ".$user_id."
                 ");
   $stmt->execute();
   $stmt->bind_result($id, $name, $description);
 
+  $row = [];
   while ($stmt->fetch()){
     $row[] = array('id' => $id,
                    'name' => $name,
@@ -596,13 +597,12 @@ function addUserListItem($user_id, $item, $description)
 {
   global $mysqli,$db_table_prefix;
   $stmt = $mysqli->prepare("INSERT
-                                INTO ".$db_table_prefix."list
+                INTO ".$db_table_prefix."list
                 (user_id, name, description)
-                VALUES (".$user_id.",'".$item."','".$description."')
+                VALUES (".$user_id.",\"".$item."\",\"".$description."\")
                 ");
   $added = $stmt->execute();
   $stmt->close();
-
   return $added;
 }
 

@@ -82,6 +82,7 @@ $lang = array_merge($lang,array(
   "USERLIST_ITEM_BOOK_FAILED"             => "Failed to book item",
   "USERLIST_ITEM_UNBOOKED"                => "Item successlufy unbooked",
   "USERLIST_ITEM_UNBOOK_FAILED"           => "Failed to unbook item",
+  "USERLIST_EMPTY"                        => "You wish list is empty",
 ));
 
 //Configuration

@@ -1,5 +1,9 @@
 <?php
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 $path = dirname(dirname(__FILE__));
 require_once("$path/models/config.php");
 if (!securePage($_SERVER['PHP_SELF'])){die();}
@@ -65,6 +69,12 @@ require_once("$path/models/header.php");
 
         <?= resultBlock($errors,$successes); ?>
 
+<?php
+
+if (count($items) > 0)
+{
+
+?>
         <table class="table table-striped">
           <tr>
             <th><?= lang("DELETE") ?></th>
@@ -91,12 +101,12 @@ foreach ($items as $item) {
     <td><?=$item['description'] ?></td>
   </tr>
 
-<?php
-
-}
-
-?>
-        </table>
+<?php } ?>
+</table>
+<?php } else { ?>
+<div><?= lang("USERLIST_EMPTY") ?></div>
+<?php } ?>
+        
 
         <div id='regbox'>
 

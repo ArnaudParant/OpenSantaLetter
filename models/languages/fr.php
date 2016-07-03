@@ -81,6 +81,7 @@ $lang = array_merge($lang,array(
   "USERLIST_ITEM_BOOK_FAILED"             => "Impossible de réserver l'objet",
   "USERLIST_ITEM_UNBOOKED"                => "Object correctement déréservé",
   "USERLIST_ITEM_UNBOOK_FAILED"           => "Impossible de déréserver l'objet",
+  "USERLIST_EMPTY"                        => "Votre list de voeux est vide",
 ));
 
 //Configuration
