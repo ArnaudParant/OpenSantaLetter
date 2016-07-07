@@ -49,6 +49,31 @@ require_once("$path/models/header.php");
 ?>
 
 <body>
+  <script>
+
+   OPENED = {}
+
+   function open_icon(list_id)
+   {
+     OPENED[list_id] = !OPENED[list_id]
+     var dom = $("#open_icon_"+ list_id)[0]
+     
+     if (OPENED[list_id]) dom.className = "icon-minus"
+     else dom.className = "icon-plus"
+   }
+
+   function open_icon_manager(list_id)
+   {
+     if (OPENED[list_id] == undefined) OPENED[list_id] = false
+
+     var dom = $("#list_"+ list_id)[0]
+     if (dom.className.indexOf("collapsing") > 0) return ;
+
+     for (var id in OPENED) { if (id != list_id && OPENED[id]) open_icon(id) }
+     open_icon(list_id)
+   }
+
+  </script>
   <div id='wrapper'>
     <?php include("$path/common/top.php") ?>
     <div id='content'>
@@ -77,32 +102,48 @@ require_once("$path/models/header.php");
           </a>
         </p>
 
+        <div class="panel-group" id="group_list" role="tablist" aria-multiselectable="true">
 <?php
 
+$list_id = -1;
 //Cycle through users' list
 foreach ($lists as $list) {
+  $list_id += 1;
 
 ?>
 
-  <div>
-    <h3><?=$list['name'] ?></h3>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="heading_<?=$list_id ?>">
+      <h3 class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#group_list"
+           href="#list_<?=$list_id ?>" aria-expanded="false"
+           aria-controls="list_<?=$list_id ?>"
+           onclick="open_icon_manager(<?=$list_id ?>)">
+          <span id="open_icon_<?=$list_id ?>" class="icon-plus"></span>
+          <?=$list['name'] ?> - <?=count($list['list']) ?> <?=lang("ITEM") ?>s
+        </a>
+      </h3>
+    </div>
 <?php if (count($list['list']) > 0) { ?>
-    <table class="table table-striped">
-      <tr>
-        <th><?= lang("ACTION") ?></th>
-        <th><?= lang("ITEM") ?></th>
-        <th><?= lang("DESCRIPTION") ?></th>
-      </tr>
+    <div id="list_<?=$list_id ?>" class="panel-collapse collapse"
+         role="tabpanel" aria-labelledby="heading_<?=$list_id ?>">
+      <div class="panel-body">
+        <table class="table table-striped">
+          <tr>
+            <th><?= lang("ACTION") ?></th>
+            <th><?= lang("ITEM") ?></th>
+            <th><?= lang("DESCRIPTION") ?></th>
+          </tr>
 
-      <?php
+       <?php
 
       //Cycle through user' list
       foreach ($list['list'] as $item) {
 
       ?>
 
-        <tr>
-          <td>
+         <tr>
+           <td>
             <?php
 
             if (strlen($item['booked']['id']) > 0)
@@ -141,12 +182,15 @@ foreach ($lists as $list) {
 
       <?php } ?>
 
-    </table>
+        </table>
+      </div>
+    </div>
 <?php } else { echo ("<div>". lang("GROUP_USERLIST_EMPTY") ."</div>");} ?>
   </div>
 
 <?php } ?>
 
+        </div>
       </div>
       <div id='bottom'></div>
     </div>

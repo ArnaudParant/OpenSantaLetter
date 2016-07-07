@@ -32,3 +32,7 @@ form .btn
 }
 
 .icon { margin: 0px 5px; }
+
+#group_list .panel-heading { background-color: #B8E2EF; }
+#group_list .panel-body { padding: 0px; }
+#group_list .panel-body table { margin: 0px; }
