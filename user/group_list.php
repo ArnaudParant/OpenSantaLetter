@@ -57,16 +57,19 @@ require_once("$path/models/header.php");
    {
      OPENED[list_id] = !OPENED[list_id]
      var dom = $("#open_icon_"+ list_id)[0]
-     
+
      if (OPENED[list_id]) dom.className = "icon-minus"
      else dom.className = "icon-plus"
    }
 
    function open_icon_manager(list_id)
    {
+     var dom = $("#list_"+ list_id)
+     if (!dom || dom.length == 0) return null;
+     dom = dom[0]
+
      if (OPENED[list_id] == undefined) OPENED[list_id] = false
 
-     var dom = $("#list_"+ list_id)[0]
      if (dom.className.indexOf("collapsing") > 0) return ;
 
      for (var id in OPENED) { if (id != list_id && OPENED[id]) open_icon(id) }
@@ -106,10 +109,12 @@ require_once("$path/models/header.php");
 <?php
 
 $list_id = -1;
+$length = 0;
+
 //Cycle through users' list
 foreach ($lists as $list) {
   $list_id += 1;
-
+  $length = count($list['list']);
 ?>
 
   <div class="panel panel-default">
@@ -119,12 +124,12 @@ foreach ($lists as $list) {
            href="#list_<?=$list_id ?>" aria-expanded="false"
            aria-controls="list_<?=$list_id ?>"
            onclick="open_icon_manager(<?=$list_id ?>)">
-          <span id="open_icon_<?=$list_id ?>" class="icon-plus"></span>
+          <?php if ($length > 0) echo "<span id='open_icon_$list_id' class='icon-plus'></span>"; ?>
           <?=$list['name'] ?> - <?=count($list['list']) ?> <?=lang("ITEM") ?>s
         </a>
       </h3>
     </div>
-<?php if (count($list['list']) > 0) { ?>
+<?php if ($length > 0) { ?>
     <div id="list_<?=$list_id ?>" class="panel-collapse collapse"
          role="tabpanel" aria-labelledby="heading_<?=$list_id ?>">
       <div class="panel-body">
@@ -185,7 +190,7 @@ foreach ($lists as $list) {
         </table>
       </div>
     </div>
-<?php } else { echo ("<div>". lang("GROUP_USERLIST_EMPTY") ."</div>");} ?>
+<?php }  ?>
   </div>
 
 <?php } ?>

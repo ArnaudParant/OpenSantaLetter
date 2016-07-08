@@ -24,16 +24,15 @@ $mysqli = new mysqli($db_host, $db_user, $db_pass, $db_name);
 GLOBAL $mysqli;
 
 if(mysqli_connect_errno()) {
-	echo "Data base connection failed: " . mysqli_connect_errno();
-	exit();
+  echo "Data base connection failed: " . mysqli_connect_errno();
+  exit();
 }
 
 //Direct to install directory, if it exists
 if(is_dir("$path/install/"))
 {
-	header("Location: install/");
-	die();
-
+  header("Location: install/");
+  die();
 }
 
 ?>
