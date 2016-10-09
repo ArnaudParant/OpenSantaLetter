@@ -171,7 +171,9 @@ $lang = array_merge($lang,array(
 //Words
 $lang = array_merge($lang,array(
   "VERSION"		=> "Version",
+  "TYPE"		=> "Type",
   "NAME"		=> "Nom",
+  "PRICE"		=> "Prix",
   "DESCRIPTION"		=> "Description",
   "USERNAME"		=> "Pseudo",
   "DISPLAY_NAME"	=> "Nom public",
@@ -191,14 +193,31 @@ $lang = array_merge($lang,array(
   "BOOKED"              => "Réservé",
   "INVITE"              => "Inviter",
   "UNSUBSCRIBE"         => "Désincription",
-  "PERMISSIONS"         => "Permissions"
+  "PERMISSIONS"         => "Permissions",
+  "SECOND_HAND"         => "Object d'occasion",
+  "FOOD"                => "Nourriture",
+  "ITEM_BOOK"           => "Livre",
+  "MUSIC"               => "Musique",
+  "MOVIE"               => "Video",
+  "GAME"                => "Jeux",
+  "HIGH-TECH"           => "High-Tech",
+  "HOME-APPLIANCE"      => "Electromenagé",
+  "CLOTHES"             => "Vêtements",
+  "ACCESSORY"           => "Accessoires",
+  "DECORATION"          => "Décoration",
+  "OTHER"               => "Autre",
+  "YES"                 => "Oui",
+  "NO"                  => "Non"
 ));
 
 //Place Holder
 $lang = array_merge($lang,array(
   "PLACEHOLDER_USER_EMAIL"         => "email utilisateur",
-  "PLACEHOLDER_ITEM_NAME"          => "nom d'objet",
-  "PLACEHOLDER_DESCRIPTION"        => "description",
+));
+
+//Boxes Names
+$lang = array_merge($lang,array(
+  "BOX_ITEM_ADD_NAME"   => "Ajouter un object",
 ));
 
 //Content

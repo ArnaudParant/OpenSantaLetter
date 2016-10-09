@@ -136,7 +136,10 @@ foreach ($lists as $list) {
         <table class="table table-striped">
           <tr>
             <th><?= lang("ACTION") ?></th>
-            <th><?= lang("ITEM") ?></th>
+            <th><?= lang("TYPE") ?></th>
+            <th><?= lang("NAME") ?></th>
+            <th><?= lang("PRICE") ?></th>
+            <th><?= lang("SECOND_HAND") ?></th>
             <th><?= lang("DESCRIPTION") ?></th>
           </tr>
 
@@ -181,7 +184,15 @@ foreach ($lists as $list) {
               </form>
             <?php } ?>
           </td>
+          <td>
+            <? if ($item['type'] != null) { echo lang(strtoupper($item['type'])); } ?>
+          </td>
           <td><?=$item['name'] ?></td>
+          <td><?=$item['price'] ?></td>
+          <td>
+            <span class="icon icon-<? if ($item['second_hand'] >= 1) { echo "check"; } else { echo "cancel"; } ?>">
+            </span>
+          </td>
           <td><?=$item['description'] ?></td>
         </tr>
 

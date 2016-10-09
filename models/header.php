@@ -14,6 +14,7 @@ $uri = str_replace($root, "", dirname(dirname(__FILE__)));
     <link href='<?= $template ?>' rel='stylesheet' type='text/css' />
     <link href='<?= $uri ?>/css/bootstrap.min.css' rel='stylesheet' type='text/css' />
     <link href='<?= $uri ?>/css/santa.css' rel='stylesheet' type='text/css' />
+    <link href='<?= $uri ?>/css/user-list.css' rel='stylesheet' type='text/css' />
     <script src='<?= $uri ?>/js/jquery-2.1.4.js' type='text/javascript'></script>
     <script src='<?= $uri ?>/js/bootstrap.min.js' type='text/javascript'></script>
     <script src='<?= $uri ?>/models/funcs.js' type='text/javascript'></script>

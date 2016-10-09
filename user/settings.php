@@ -115,19 +115,19 @@ require_once("$path/models/header.php");
         <div id='regbox'>
           <form name='updateAccount' action='<?= $_SERVER['PHP_SELF'] ?>' method='post'>
             <p>
-              <label><?= lang("PASSWORD") ?>:</label>
+              <label><?= lang("PASSWORD") ?></label>
               <input type='password' class="form-control" name='password' />
             </p>
             <p>
-              <label><?= lang("EMAIL") ?>:</label>
+              <label><?= lang("EMAIL") ?></label>
               <input type='text' class="form-control" name='email' value='<?= $loggedInUser->email ?>' />
             </p>
             <p>
-              <label><?= lang("NEW_PASSWORD") ?>:</label>
+              <label><?= lang("NEW_PASSWORD") ?></label>
               <input type='password' class="form-control" name='passwordc' />
             </p>
             <p>
-              <label><?= lang("CONFIRM_PASSWORD") ?>:</label>
+              <label><?= lang("CONFIRM_PASSWORD") ?></label>
               <input type='password' class="form-control" name='passwordcheck' />
             </p>
             <p>

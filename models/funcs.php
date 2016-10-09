@@ -575,18 +575,24 @@ function fetchUserList($user_id)
   global $mysqli,$db_table_prefix;
   $stmt = $mysqli->prepare("SELECT
 		id,
+                type,
 		name,
+                price,
+                second_hand,
                 description
 		FROM ".$db_table_prefix."list
                 WHERE user_id = ".$user_id."
                 ");
   $stmt->execute();
-  $stmt->bind_result($id, $name, $description);
+  $stmt->bind_result($id, $type, $name, $price, $second_hand, $description);
 
   $row = [];
   while ($stmt->fetch()){
     $row[] = array('id' => $id,
+                   'type' => $type,
                    'name' => $name,
+                   'price' => $price,
+                   'second_hand' => $second_hand,
                    'description' => $description);
   }
   $stmt->close();
@@ -594,13 +600,13 @@ function fetchUserList($user_id)
 }
 
 //Add a user list Item
-function addUserListItem($user_id, $item, $description)
+function addUserListItem($user_id, $item)
 {
   global $mysqli,$db_table_prefix;
   $stmt = $mysqli->prepare("INSERT
                 INTO ".$db_table_prefix."list
-                (user_id, name, description)
-                VALUES (".$user_id.",\"".$item."\",\"".$description."\")
+                (user_id, type, name, price, second_hand, description)
+                VALUES (".$user_id.",\"".$item["type"]."\",\"".$item["name"]."\",".$item["price"].",".$item["second_hand"].",\"".$item["description"]."\")
                 ");
   $added = $stmt->execute();
   $stmt->close();
@@ -693,7 +699,10 @@ function fetchGroupMemberLists($user_id, $group_id)
                                 users.id AS 'user_id',
                                 users.display_name,
 		                list.id,
+		                list.type,
 		                list.name,
+		                list.price,
+		                list.second_hand,
                                 list.description,
                                 book.booked_by_id,
                                 book.booked_by_name
@@ -708,7 +717,7 @@ function fetchGroupMemberLists($user_id, $group_id)
                 AND ".$db_table_prefix."group_member.user_id != ".$user_id."
                 ");
   $stmt->execute();
-  $stmt->bind_result($user_id, $display_name, $item_id, $item_name, $description, $booked_by_id, $booked_by_name);
+  $stmt->bind_result($user_id, $display_name, $item_id, $type, $item_name, $price, $second_hand, $description, $booked_by_id, $booked_by_name);
 
   $lists = array();
   while ($stmt->fetch())
@@ -726,7 +735,10 @@ function fetchGroupMemberLists($user_id, $group_id)
     {
       array_push($lists[$user_id]["list"], array(
         'id' => $item_id,
+        "type" => $type,
         'name' => $item_name,
+        "price" => $price,
+        "second_hand" => $second_hand,
         'description' => $description,
         'booked' => array(
           'id' => $booked_by_id,

@@ -1,0 +1,22 @@
+.add-item-box
+{
+    background-color: #eee;
+    padding: 1px 10px !important;
+    margin-bottom: 20px;
+}
+
+.add-item-box .small_title
+{
+    margin: -10px;
+    margin-top: -1px;
+    padding: 10px;
+    color: white;
+    margin-bottom: 10px;
+    background-color: #999;
+}
+
+.add-item-box input[type="submit"]
+{
+    margin-top: 10px;
+    width: 100px;
+}
