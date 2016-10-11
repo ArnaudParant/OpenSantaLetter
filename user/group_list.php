@@ -42,41 +42,13 @@ if(!empty($_POST))
 //Fetch information of specific group
 $groupId = $_GET['id'];
 $groupData = fetchGroupDetail($loggedInUser->user_id, $groupId);
-$lists = fetchGroupMemberLists($loggedInUser->user_id, $groupData['id']);
+$list = fetchGroupList($loggedInUser->user_id, $groupData['id']);
 
 require_once("$path/models/header.php");
 
 ?>
 
 <body>
-  <script>
-
-   OPENED = {}
-
-   function open_icon(list_id)
-   {
-     OPENED[list_id] = !OPENED[list_id]
-     var dom = $("#open_icon_"+ list_id)[0]
-
-     if (OPENED[list_id]) dom.className = "icon-minus"
-     else dom.className = "icon-plus"
-   }
-
-   function open_icon_manager(list_id)
-   {
-     var dom = $("#list_"+ list_id)
-     if (!dom || dom.length == 0) return null;
-     dom = dom[0]
-
-     if (OPENED[list_id] == undefined) OPENED[list_id] = false
-
-     if (dom.className.indexOf("collapsing") > 0) return ;
-
-     for (var id in OPENED) { if (id != list_id && OPENED[id]) open_icon(id) }
-     open_icon(list_id)
-   }
-
-  </script>
   <div id='wrapper'>
     <?php include("$path/common/top.php") ?>
     <div id='content'>
@@ -106,36 +78,11 @@ require_once("$path/models/header.php");
         </p>
 
         <div class="panel-group" id="group_list" role="tablist" aria-multiselectable="true">
-<?php
 
-$list_id = -1;
-$length = 0;
-
-//Cycle through users' list
-foreach ($lists as $list) {
-  $list_id += 1;
-  $length = count($list['list']);
-?>
-
-  <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="heading_<?=$list_id ?>">
-      <h3 class="panel-title">
-        <a role="button" data-toggle="collapse" data-parent="#group_list"
-           href="#list_<?=$list_id ?>" aria-expanded="false"
-           aria-controls="list_<?=$list_id ?>"
-           onclick="open_icon_manager(<?=$list_id ?>)">
-          <?php if ($length > 0) echo "<span id='open_icon_$list_id' class='icon-plus'></span>"; ?>
-          <?=$list['name'] ?> - <?=count($list['list']) ?> <?=lang("ITEM") ?>s
-        </a>
-      </h3>
-    </div>
-<?php if ($length > 0) { ?>
-    <div id="list_<?=$list_id ?>" class="panel-collapse collapse"
-         role="tabpanel" aria-labelledby="heading_<?=$list_id ?>">
-      <div class="panel-body">
         <table class="table table-striped">
           <tr>
             <th><?= lang("ACTION") ?></th>
+            <th><?= lang("USERNAME") ?></th>
             <th><?= lang("TYPE") ?></th>
             <th><?= lang("NAME") ?></th>
             <th><?= lang("PRICE") ?></th>
@@ -145,8 +92,8 @@ foreach ($lists as $list) {
 
        <?php
 
-      //Cycle through user' list
-      foreach ($list['list'] as $item) {
+      //Cycle through the group list
+      foreach ($list as $item) {
 
       ?>
 
@@ -165,7 +112,7 @@ foreach ($lists as $list) {
               ?>
                 <form name='unbookItem' action='<?= $_SERVER['PHP_SELF'] ?>?id=<?=$groupId?>' method='post'>
                   <input type='hidden' name='form' value='unbookItem' />
-                  <input type='hidden' name='user_id' value='<?=$list['id'] ?>' />
+                  <input type='hidden' name='user_id' value='<?=$item['user']["id"] ?>' />
                   <input type='hidden' name='item_id' value='<?=$item['id'] ?>' />
                   <input type='submit' class="btn btn-warning" value='<?= lang("UNBOOK") ?>' class='submit' />
                 </form>
@@ -178,12 +125,13 @@ foreach ($lists as $list) {
             ?>
               <form name='bookItem' action='<?= $_SERVER['PHP_SELF'] ?>?id=<?=$groupId?>' method='post'>
                 <input type='hidden' name='form' value='bookItem' />
-                <input type='hidden' name='user_id' value='<?=$list['id'] ?>' />
+                <input type='hidden' name='user_id' value='<?=$item['user']["id"] ?>' />
                 <input type='hidden' name='item_id' value='<?=$item['id'] ?>' />
                 <input type='submit' class="btn btn-success" value='<?= lang("BOOK") ?>' class='submit' />
               </form>
             <?php } ?>
           </td>
+          <td><?=$item['user']["name"] ?></td>
           <td>
             <? if ($item['type'] != null) { echo lang(strtoupper($item['type'])); } ?>
           </td>
@@ -199,12 +147,6 @@ foreach ($lists as $list) {
       <?php } ?>
 
         </table>
-      </div>
-    </div>
-<?php }  ?>
-  </div>
-
-<?php } ?>
 
         </div>
       </div>

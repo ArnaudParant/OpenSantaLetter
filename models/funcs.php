@@ -692,7 +692,7 @@ function unbookItem($user_id, $item_id, $booked_by_id, $booked_by_name)
 }
 
 //Retrieve information of a group member's lists
-function fetchGroupMemberLists($user_id, $group_id)
+function fetchGroupList($user_id, $group_id)
 {
   global $mysqli,$db_table_prefix;
   $stmt = $mysqli->prepare("SELECT
@@ -722,18 +722,12 @@ function fetchGroupMemberLists($user_id, $group_id)
   $lists = array();
   while ($stmt->fetch())
   {
-    if (!array_key_exists($user_id, $lists))
-    {
-      $lists[$user_id] = array(
-        "id" => $user_id,
-        "name" => $display_name,
-        "list" => array()
-      );
-    }
-    
     if ($item_id != "")
     {
-      array_push($lists[$user_id]["list"], array(
+      array_push($lists, array(
+        "user" => array(
+          "id" => $user_id,
+          "name" => $display_name),
         'id' => $item_id,
         "type" => $type,
         'name' => $item_name,
