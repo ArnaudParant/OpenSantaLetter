@@ -61,19 +61,147 @@ if(!empty($_POST))
 
 }
 
-$items = fetchUserList($loggedInUser->user_id);
+class Utils
+{
+  static function icon($name)
+  {
+    return "<span class=\"icon icon-$name\"></span>";
+  }
 
-require_once("$path/models/header.php");
+  static function icon_fa($name)
+  {
+    return "<span class=\"icon fa fa-$name\"></span>";
+  }
+
+  static function table_line($header, $cols)
+  {
+    $balise = "td";
+    if ($header == true) { $balise = "th"; }
+
+    $line = "<tr>";
+    foreach ($cols as $col)
+    {
+      $line .= "<$balise>$col</$balise>";
+    }
+    $line .= "</tr>";
+    return $line;
+  }
+
+  static function select($name, $options)
+  {
+    $select = "<select name='$name'>";
+    foreach ($options as $option)
+    {
+      $name = $option["name"];
+      $value = $option["value"];
+      $select .= "<option value='$value'>$name</option>";
+    }
+    $select .= "</select>";
+    return $select;
+  }
+}
+
+class ItemUtils
+{
+  static function type($type)
+  {
+    if ($type == null) { return ""; }
+    return lang(strtoupper($type));
+  }
+
+  static function second_hand($second_hand)
+  {
+    if ($second_hand >= 1) { return Utils::icon("check"); }
+    return Utils::icon("cancel");
+  }
+
+}
+
+class Item
+{
+  private static function delete_action($id)
+  {
+    $php_self = $_SERVER['PHP_SELF'];
+    $icon_cancel = Utils::icon("cancel");
+    return (
+      "<form name='deleteItem' id='item_$id' action='$php_self' method='post'>
+         <input type='hidden' name='form' value='deleteItem' />
+         <input type='hidden' name='item_id' value='$id' />
+         <button type='button' class='btn btn-danger' onClick='submiter('$id');'>
+           $icon_cancel
+         </button>
+       </form>");
+  }
+
+  private static function header()
+  {
+    $cols = [lang("DELETE"),
+             lang("TYPE"),
+             lang("NAME"),
+             lang("PRICE"),
+             lang("SECOND_HAND"),
+             lang("DESCRIPTION")];
+    echo Utils::table_line(true, $cols);
+  }
+
+  private static function display($item)
+  {
+    $cols = [Item::delete_action($item["id"]),
+             ItemUtils::type($item["type"]),
+             $item['name'],
+             $item['price'],
+             ItemUtils::second_hand($item["second_hand"]),
+             $item['description']];
+    echo Utils::table_line(false, $cols);
+  }
+
+  static function table($items)
+  {
+    if (count($items) > 0)
+    {
+      echo "<table class='table table-striped'>";
+      Item::header();
+      foreach ($items as $item) { Item::display($item); }
+      echo "</table>";
+    }
+    else
+    {
+      echo ("<div>" .lang("USERLIST_EMPTY") . "</div>");
+    }
+  }
+
+  static function select()
+  {
+    $options = [
+       array("value" => "", "name" => "-"),
+       array("value" => "food", "name" => lang("FOOD")),
+       array("value" => "item_book", "name" => lang("ITEM_BOOK")),
+       array("value" => "music", "name" => lang("MUSIC")),
+       array("value" => "movie", "name" => lang("MOVIE")),
+       array("value" => "game", "name" => lang("GAME")),
+       array("value" => "high-tech", "name" => lang("HIGH-TECH")),
+       array("value" => "home-appliance", "name" => lang("HOME-APPLIANCE")),
+       array("value" => "clothes", "name" => lang("CLOTHES")),
+       array("value" => "accessory", "name" => lang("ACCESSORY")),
+       array("value" => "decoration", "name" => lang("DECORATION")),
+       array("value" => "other", "name" => lang("OTHER"))
+    ];
+    return Utils::select("type", $options);
+  }
+}
+
+$items = fetchUserList($loggedInUser->user_id);
 
 ?>
 
+<? require_once("$path/models/header.php"); ?>
 <body>
-<script>
-  function submiter(item_id)
-  {
-    document.getElementById("item_" + item_id).submit();
-  }
-</script>
+  <script>
+   function submiter(item_id)
+   {
+     document.getElementById("item_" + item_id).submit();
+   }
+  </script>
   <div id='wrapper'>
     <?php include("$path/common/top.php") ?>
     <div id='content'>
@@ -85,58 +213,7 @@ require_once("$path/models/header.php");
 
         <?= resultBlock($errors,$successes); ?>
 
-<?php
-
-if (count($items) > 0)
-{
-
-?>
-        <table class="table table-striped">
-          <tr>
-            <th><?= lang("DELETE") ?></th>
-            <th><?= lang("TYPE") ?></th>
-            <th><?= lang("NAME") ?></th>
-            <th><?= lang("PRICE") ?></th>
-            <th><?= lang("SECOND_HAND") ?></th>
-            <th><?= lang("DESCRIPTION") ?></th>
-          </tr>
-<?php
-
-//Cycle through users data
-foreach ($items as $item) {
-
-?>
-
-  <tr>
-    <td>
-      <form name='deleteItem' id='item_<?= $item['id'] ?>'
-            action='<?= $_SERVER['PHP_SELF'] ?>' method='post'>
-        <input type='hidden' name='form' value='deleteItem' />
-        <input type='hidden' name='item_id' value='<?=$item['id'] ?>' />
-        <button type="button" class="btn btn-danger"
-                onClick="submiter('<?= $item['id'] ?>');">
-          <span class="icon-cancel"></span>
-        </button>
-      </form>
-
-    </td>
-    <td>
-      <? if ($item['type'] != null) { echo lang(strtoupper($item['type'])); } ?>
-    </td>
-    <td><?=$item['name'] ?></td>
-    <td><?=$item['price'] ?></td>
-    <td>
-      <span class="icon icon-<? if ($item['second_hand'] >= 1) { echo "check"; } else { echo "cancel"; } ?>">
-      </span>
-    </td>
-    <td><?=$item['description'] ?></td>
-  </tr>
-
-<?php } ?>
-</table>
-<?php } else { ?>
-<div><?= lang("USERLIST_EMPTY") ?></div>
-<?php } ?>
+        <?= Item::table($items) ?>
 
         <div id='regbox' class='add-item-box'>
 
@@ -148,20 +225,7 @@ foreach ($items as $item) {
 
             <p>
               <label><?= lang("TYPE") ?></label>
-              <select name="type">
-                <option value="">-</option>
-                <option value="food"><?= lang("FOOD") ?></option>
-                <option value="item_book"><?= lang("ITEM_BOOK") ?></option>
-                <option value="music"><?= lang("MUSIC") ?></option>
-                <option value="movie"><?= lang("MOVIE") ?></option>
-                <option value="game"><?= lang("GAME") ?></option>
-                <option value="high-tech"><?= lang("HIGH-TECH") ?></option>
-                <option value="home-appliance"><?= lang("HOME-APPLIANCE") ?></option>
-                <option value="clothes"><?= lang("CLOTHES") ?></option>
-                <option value="accessory"><?= lang("ACCESSORY") ?></option>
-                <option value="decoration"><?= lang("DECORATION") ?></option>
-                <option value="other"><?= lang("OTHER") ?></option>
-              </select>
+              <?= Item::select() ?>
             </p>
 
             <p>
