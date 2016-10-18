@@ -1,166 +1,72 @@
 <?php
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+/* ini_set('display_errors', 1);
+   ini_set('display_startup_errors', 1);
+   error_reporting(E_ALL); */
 
 $path = dirname(dirname(__FILE__));
-require_once("$path/models/config.php");
-if (!securePage($_SERVER['PHP_SELF'])){die();}
+$root = preg_replace("/\/+/", "/", $_SERVER['DOCUMENT_ROOT']);
+$uri = str_replace($root, "", $path);
 
+require_once("$path/models/config.php");
+require_once("$path/common/utils.php");
+if (!securePage($_SERVER['PHP_SELF'])){die();}
 $location = "/user/list.php";
 
 //Prevent the user visiting the logged in page if he is not logged in
-if(!isUserLoggedIn()) { header("Location: login.php"); die(); }
+UserUtils::redirect_if_not_logged_in($uri);
 
-if(!empty($_POST))
+class FormManager
 {
-
-  $errors = array();
-  $successes = array();
-  $form = $_POST["form"];
-
-  if ($form == "addItem")
+  static function sender($user_id, $post)
   {
+    if(empty($post)) return null;
 
+    $messages = array("errors" => array(), "successes" => array());
+
+    if ($post["form"] == "addItem") return self::add_item($user_id, $post);
+    else if ($post["form"] == "deleteItem") return self::delete_item($user_id, $post);
+
+    return null;
+  }
+
+  static function add_item($user_id, $post)
+  {
     $second_hand = 0;
-    if (isset($_POST["second_hand"])) $second_hand = 1;
+    if (isset($post["second_hand"])) $second_hand = 1;
 
     $price = 0;
-    if (strlen($_POST["price"]) > 0) $price = $_POST["price"];
+    if (strlen($post["price"]) > 0) $price = $post["price"];
 
     $item = array(
-      "type" => $_POST["type"],
-      "name" => $_POST["name"],
+      "type" => $post["type"],
+      "name" => $post["name"],
       "price" => $price,
       "second_hand" => $second_hand,
-      "description" => $_POST["description"]);
-    $added = addUserListItem($loggedInUser->user_id, $item);
+      "description" => $post["description"]);
+    $added = addUserListItem($user_id, $item);
 
-    if ($added) {
-      $successes[] = lang("USERLIST_ITEM_ADDED");
-    } else {
-      $errors[] = lang("USERLIST_ITEM_ADD_FAILED");
-    }
-
-
+    if ($added) return array("successes" => array(lang("USERLIST_ITEM_ADDED")));
+    return array("errors" => array(lang("USERLIST_ITEM_ADD_FAILED")));
   }
-  else if ($form == "deleteItem")
+
+  static function delete_item($user_id, $post)
   {
-    $item_id = $_POST["item_id"];
+    $deleted = deleteUserListItem($user_id, $post["item_id"]);
 
-    $deleted = deleteUserListItem($loggedInUser->user_id, $item_id);
-
-    if ($deleted) {
-      $successes[] = lang("USERLIST_ITEM_DELETED");
-    } else {
-      $errors[] = lang("USERLIST_ITEM_DELETE_FAILED");
-    }
-
+    if ($deleted) return array("successes" => array(lang("USERLIST_ITEM_DELETED")));
+    return array("errors" => array(lang("USERLIST_ITEM_DELETE_FAILED")));
   }
-
-}
-
-class Utils
-{
-  static function icon($name)
-  {
-    return "<span class=\"icon icon-$name\"></span>";
-  }
-
-  static function icon_fa($name)
-  {
-    return "<span class=\"icon fa fa-$name\"></span>";
-  }
-
-  static function table_line($header, $cols)
-  {
-    $balise = "td";
-    if ($header == true) { $balise = "th"; }
-
-    $line = "<tr>";
-    foreach ($cols as $col)
-    {
-      $line .= "<$balise>$col</$balise>";
-    }
-    $line .= "</tr>";
-    return $line;
-  }
-
-  static function select($name, $options)
-  {
-    $select = "<select name='$name'>";
-    foreach ($options as $option)
-    {
-      $name = $option["name"];
-      $value = $option["value"];
-      $select .= "<option value='$value'>$name</option>";
-    }
-    $select .= "</select>";
-    return $select;
-  }
-}
-
-class ItemUtils
-{
-  static function type($type)
-  {
-    if ($type == null) { return ""; }
-    return lang(strtoupper($type));
-  }
-
-  static function second_hand($second_hand)
-  {
-    if ($second_hand >= 1) { return Utils::icon("check"); }
-    return Utils::icon("cancel");
-  }
-
 }
 
 class Item
 {
-  private static function delete_action($id)
-  {
-    $php_self = $_SERVER['PHP_SELF'];
-    $icon_cancel = Utils::icon("cancel");
-    return (
-      "<form name='deleteItem' id='item_$id' action='$php_self' method='post'>
-         <input type='hidden' name='form' value='deleteItem' />
-         <input type='hidden' name='item_id' value='$id' />
-         <button type='button' class='btn btn-danger' onClick='submiter('$id');'>
-           $icon_cancel
-         </button>
-       </form>");
-  }
-
-  private static function header()
-  {
-    $cols = [lang("DELETE"),
-             lang("TYPE"),
-             lang("NAME"),
-             lang("PRICE"),
-             lang("SECOND_HAND"),
-             lang("DESCRIPTION")];
-    echo Utils::table_line(true, $cols);
-  }
-
-  private static function display($item)
-  {
-    $cols = [Item::delete_action($item["id"]),
-             ItemUtils::type($item["type"]),
-             $item['name'],
-             $item['price'],
-             ItemUtils::second_hand($item["second_hand"]),
-             $item['description']];
-    echo Utils::table_line(false, $cols);
-  }
-
   static function table($items)
   {
     if (count($items) > 0)
     {
-      echo "<table class='table table-striped'>";
-      Item::header();
+      echo "<table class='table table-striped item-user-list'>";
+      self::header();
       foreach ($items as $item) { Item::display($item); }
       echo "</table>";
     }
@@ -168,6 +74,49 @@ class Item
     {
       echo ("<div>" .lang("USERLIST_EMPTY") . "</div>");
     }
+  }
+
+  private static function header()
+  {
+    $cols = [lang("ACTION"),
+             lang("TYPE"),
+             lang("NAME"),
+             lang("PRICE"),
+             lang("SECOND_HAND"),
+             lang("DESCRIPTION"),
+             lang("DELETE")];
+    echo Utils::table_line(true, $cols);
+  }
+
+  private static function display($item)
+  {
+    $cols = [self::edit($item["id"]),
+             ItemUtils::type($item["type"]),
+             $item['name'],
+             $item['price'],
+             ItemUtils::second_hand($item["second_hand"]),
+             $item['description'],
+             self::delete($item["id"])];
+    echo Utils::table_line(false, $cols);
+  }
+
+  private static function edit($id)
+  {
+    $php_self = $_SERVER['PHP_SELF'];
+    $icon = Utils::icon("pencil edit");
+    return "<div>$icon</div>";
+  }
+
+  private static function delete($id)
+  {
+    $php_self = $_SERVER['PHP_SELF'];
+    $icon = Utils::icon("erase delete", "submiter('$id')");
+    return (
+      "<form name='deleteItem' id='item_$id' action='$php_self' method='post'>
+         <input type='hidden' name='form' value='deleteItem' />
+         <input type='hidden' name='item_id' value='$id' />
+         $icon
+       </form>");
   }
 
   static function select()
@@ -188,8 +137,30 @@ class Item
     ];
     return Utils::select("type", $options);
   }
+
+  static function form()
+  {
+    $name = "addItem";
+    $class = "add-item-box";
+    $title = lang("BOX_ITEM_ADD_NAME");
+    $submit_text = lang("ADD");
+
+    $fields = array(
+       array("name" => lang("TYPE"), "value" => self::select()),
+       array("name" => lang("NAME"), "value" => FormUtils::text("name")),
+       array("name" => lang("PRICE"), "value" => FormUtils::number("price")),
+       array("name" => lang("SECOND_HAND"),
+             "value" => FormUtils::checkbox("second_hand", 1)),
+       array("name" => lang("DECORATION"), "value" => FormUtils::text("description")),
+       array("value" => FormUtils::submit($submit_text))
+    );
+
+    return FormUtils::generator($name, $class, $title, $fields);
+  }
+
 }
 
+$messages = FormManager::sender($loggedInUser->user_id, $_POST);
 $items = fetchUserList($loggedInUser->user_id);
 
 ?>
@@ -211,55 +182,11 @@ $items = fetchUserList($loggedInUser->user_id);
 
       <div id='main'>
 
-        <?= resultBlock($errors,$successes); ?>
+        <?= Utils::message_block($messages) ?>
 
         <?= Item::table($items) ?>
 
-        <div id='regbox' class='add-item-box'>
-
-          <div class="small_title"><?= lang("BOX_ITEM_ADD_NAME") ?></div>
-
-          <form name='addItem' action='<?= $_SERVER['PHP_SELF'] ?>' method='post'>
-
-            <input type='hidden' name='form' value='addItem' />
-
-            <p>
-              <label><?= lang("TYPE") ?></label>
-              <?= Item::select() ?>
-            </p>
-
-            <p>
-              <label><?= lang("NAME") ?></label>
-              <input type='text' class="form-control" name='name' />
-            </p>
-
-            <p>
-              <label><?= lang("PRICE") ?></label>
-              <input type='number' class="form-control" name='price'
-                     min="0" placeholder="0" />
-            </p>
-
-            <p>
-              <label><?= lang("SECOND_HAND") ?></label>
-              <input type='checkbox' name='second_hand' value="1" />
-            </p>
-
-
-            <p>
-              <label><?= lang("DESCRIPTION") ?></label>
-              <input type='text' class="form-control" name='description' />
-            </p>
-
-            <p>
-              <input type='submit' class="btn btn-success"
-                     value='<?= lang("ADD") ?>'
-                     class='submit' />
-            </p>
-
-          </form>
-
-        </div>
-
+        <?= Item::form() ?>
 
       </div>
       <div id='bottom'></div>

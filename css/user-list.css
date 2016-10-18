@@ -20,3 +20,6 @@
     margin-top: 10px;
     width: 100px;
 }
+
+.item-user-list th:first-child { width: 20px; }
+.item-user-list th:last-child { width: 20px; }
