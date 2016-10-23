@@ -617,14 +617,6 @@ function addUserListItem($user_id, $item)
 function editUserListItem($item_id, $item)
 {
   global $mysqli,$db_table_prefix;
-  echo ("UPDATE {$db_table_prefix}list SET
-                type=\"{$item['type']}\",
-                name=\"{$item['name']}\",
-                price={$item['price']},
-                second_hand={$item['second_hand']},
-                description=\"{$item['description']}\"
-                WHERE id=$item_id
-                ");
   $stmt = $mysqli->prepare("UPDATE {$db_table_prefix}list SET
                 type=\"{$item['type']}\",
                 name=\"{$item['name']}\",
