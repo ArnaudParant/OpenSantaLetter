@@ -188,6 +188,7 @@ $lang = array_merge($lang,array(
   "GROUP"		=> "Groupe",
   "ACTION"              => "Action",
   "DELETE"              => "Supprimer",
+  "SEARCH"              => "Chercher",
   "ADD"                 => "Ajouter",
   "EDIT"                => "Editer",
   "ITEM"                => "Objet",

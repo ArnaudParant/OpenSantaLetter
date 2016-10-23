@@ -19,6 +19,7 @@ select
     border-radius: 4px;
     border: 1px solid #ccc;
     padding: 6px 12px;
+    color: black;
 }
 
 #content #left-nav
@@ -31,6 +32,8 @@ select
 {
     width: calc(85% - 25px);
 }
+
+#content #main #regbox label { width: 150px; }
 
 .booked
 {
@@ -58,3 +61,13 @@ select
 
 .action { cursor: pointer; }
 .action:hover { color: #ddd; }
+
+.group-list-table select { width: auto; }
+.group-list-table input { width: 80px; }
+
+table.group-list-table>tbody>tr.header { background-color: #555; color: white; }
+.group-list-table .search-line
+{
+    background-color: #888;
+    color: white;
+}

@@ -25,7 +25,7 @@ class FormManager
     $messages = array("errors" => array(), "successes" => array());
 
     if ($post["form"] == "addItem") return self::add_item($user_id, $post);
-    else if ($post["form"] == "editItem") return self::edit_item($post);
+    else if ($post["form"] == "editItem") return self::edit_item($user_id, $post);
     else if ($post["form"] == "deleteItem") return self::delete_item($user_id, $post);
 
     return null;
@@ -51,7 +51,7 @@ class FormManager
     return array("errors" => array(lang("USERLIST_ITEM_ADD_FAILED")));
   }
 
-  static function edit_item($post)
+  static function edit_item($user_id, $post)
   {
     $second_hand = 0;
     if (isset($post["second_hand"])) $second_hand = 1;
@@ -65,7 +65,7 @@ class FormManager
       "price" => $price,
       "second_hand" => $second_hand,
       "description" => $post["description"]);
-    $added = editUserListItem($post["item_id"], $item);
+    $added = editUserListItem($user_id, $post["item_id"], $item);
 
     if ($added) return array("successes" => array(lang("USERLIST_ITEM_EDITED")));
     return array("errors" => array(lang("USERLIST_ITEM_EDIT_FAILED")));
@@ -166,7 +166,7 @@ class Item
     if ($closable) { $title .= self::close_control(); }
 
     $fields = array(
-       array("name" => lang("TYPE"), "value" => self::select()),
+       array("name" => lang("TYPE"), "value" => self::type_select()),
        array("name" => lang("NAME"), "value" => FormUtils::text("name")),
        array("name" => lang("PRICE"), "value" => FormUtils::number("price"),
              "description" => lang("DESCRIPTION_ESTIMATED_PRICE")),
@@ -179,28 +179,11 @@ class Item
     return FormUtils::generator(null, $name, $class, $title, $fields);
   }
 
-  private static function select()
+  private static function type_select()
   {
-    return Utils::select("type", self::select_options());
+    return Utils::select("type", ItemUtils::types_options());
   }
 
-  private static function select_options()
-  {
-    return [
-       array("value" => "", "name" => "-"),
-       array("value" => "food", "name" => lang("FOOD")),
-       array("value" => "item_book", "name" => lang("ITEM_BOOK")),
-       array("value" => "music", "name" => lang("MUSIC")),
-       array("value" => "movie", "name" => lang("MOVIE")),
-       array("value" => "game", "name" => lang("GAME")),
-       array("value" => "high-tech", "name" => lang("HIGH-TECH")),
-       array("value" => "home-appliance", "name" => lang("HOME-APPLIANCE")),
-       array("value" => "clothes", "name" => lang("CLOTHES")),
-       array("value" => "accessory", "name" => lang("ACCESSORY")),
-       array("value" => "decoration", "name" => lang("DECORATION")),
-       array("value" => "other", "name" => lang("OTHER"))
-    ];
-  }
 }
 
 $messages = FormManager::sender($loggedInUser->user_id, $_POST);

@@ -128,6 +128,24 @@ class ItemUtils
     return Utils::icon("cancel");
   }
 
+  static function types_options()
+  {
+    return [
+       array("value" => "", "name" => "-"),
+       array("value" => "food", "name" => lang("FOOD")),
+       array("value" => "item_book", "name" => lang("ITEM_BOOK")),
+       array("value" => "music", "name" => lang("MUSIC")),
+       array("value" => "movie", "name" => lang("MOVIE")),
+       array("value" => "game", "name" => lang("GAME")),
+       array("value" => "high-tech", "name" => lang("HIGH-TECH")),
+       array("value" => "home-appliance", "name" => lang("HOME-APPLIANCE")),
+       array("value" => "clothes", "name" => lang("CLOTHES")),
+       array("value" => "accessory", "name" => lang("ACCESSORY")),
+       array("value" => "decoration", "name" => lang("DECORATION")),
+       array("value" => "other", "name" => lang("OTHER"))
+    ];
+  }
+
 }
 
 ?>

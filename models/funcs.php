@@ -614,7 +614,7 @@ function addUserListItem($user_id, $item)
 }
 
 //Edit a user list Item
-function editUserListItem($item_id, $item)
+function editUserListItem($user_id, $item_id, $item)
 {
   global $mysqli,$db_table_prefix;
   $stmt = $mysqli->prepare("UPDATE {$db_table_prefix}list SET
@@ -623,7 +623,7 @@ function editUserListItem($item_id, $item)
                 price={$item['price']},
                 second_hand={$item['second_hand']},
                 description=\"{$item['description']}\"
-                WHERE id=$item_id
+                WHERE id=$item_id AND user_id=$user_id
                 ");
   $edited = $stmt->execute();
   $stmt->close();

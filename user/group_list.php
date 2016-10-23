@@ -2,6 +2,7 @@
 
 $path = dirname(dirname(__FILE__));
 require_once("$path/models/config.php");
+require_once("$path/common/utils.php");
 if (!securePage($_SERVER['PHP_SELF'])){die();}
 
 //Prevent the user visiting the logged in page if he is not logged in
@@ -39,9 +40,44 @@ if(!empty($_POST))
   }
 }
 
-//Fetch information of specific group
+class Search
+{
+  static function user_select($user_id, $members)
+  {
+    $options = [array("value"=>"","name"=>"-")];
+    foreach ($members as $member)
+    {
+      if ($member["id"] != $user_id)
+        $options[] = array("value" => $member["name"],
+                           "name" => $member["name"]);
+    }
+    return Utils::select("username", $options);
+  }
+
+  static function type_select()
+  {
+    return Utils::select("type", ItemUtils::types_options());
+  }
+
+  static function second_hand_select()
+  {
+    $options = array(
+      array("value"=>"", "name"=>"-"),
+      array("value"=>"1", "name"=>lang("YES")),
+      array("value"=>"0", "name"=>lang("NO"))
+    );
+    return Utils::select("second_hand", $options);
+  }
+
+  static function price_select()
+  {
+    return FormUtils::number("price");
+  }
+}
+
 $groupId = $_GET['id'];
 $groupData = fetchGroupDetail($loggedInUser->user_id, $groupId);
+$members = fetchGroupMember($groupId);
 $list = fetchGroupList($loggedInUser->user_id, $groupData['id']);
 
 require_once("$path/models/header.php");
@@ -71,7 +107,7 @@ require_once("$path/models/header.php");
 
         <?= resultBlock($errors,$successes); ?>
 
-        <p>
+        <p class="right">
           <a href="group_members.php?id=<?=$groupId?>">
             <button class="btn btn-info"><?= lang("NAV_GROUP_MEMBERS") ?></button>
           </a>
@@ -79,15 +115,26 @@ require_once("$path/models/header.php");
 
         <div class="panel-group" id="group_list" role="tablist" aria-multiselectable="true">
 
-        <table class="table table-striped">
-          <tr>
-            <th><?= lang("ACTION") ?></th>
+        <table class="table table-striped group-list-table">
+          <tr class="header">
             <th><?= lang("USERNAME") ?></th>
             <th><?= lang("TYPE") ?></th>
             <th><?= lang("NAME") ?></th>
             <th><?= lang("PRICE") ?></th>
             <th><?= lang("SECOND_HAND") ?></th>
             <th><?= lang("DESCRIPTION") ?></th>
+            <th class="text-right"><?= lang("ACTION") ?></th>
+          </tr>
+          <tr class="search-line">
+            <th><?=Search::user_select($loggedInUser->user_id, $members); ?></th>
+            <th><?=Search::type_select(); ?></th>
+            <th></th>
+            <th><?=Search::price_select() ?></th>
+            <th><?=Search::second_hand_select(); ?></th>
+            <th></th>
+            <th class="text-right">
+              <button class="btn btn-info"><?= Utils::icon("search") ?><?= lang("SEARCH") ?></button>
+            </th>
           </tr>
 
        <?php
@@ -98,7 +145,13 @@ require_once("$path/models/header.php");
       ?>
 
          <tr>
-           <td>
+          <td><?=$item['user']["name"] ?></td>
+          <td><?=ItemUtils::type($item["type"]) ?></td>
+          <td><?=$item['name'] ?></td>
+          <td><?=$item['price'] ?></td>
+          <td><?=ItemUtils::second_hand($item["second_hand"]) ?></td>
+          <td><?=$item['description'] ?></td>
+          <td class="text-right">
             <?php
 
             if (strlen($item['booked']['id']) > 0)
@@ -131,17 +184,6 @@ require_once("$path/models/header.php");
               </form>
             <?php } ?>
           </td>
-          <td><?=$item['user']["name"] ?></td>
-          <td>
-            <? if ($item['type'] != null) { echo lang(strtoupper($item['type'])); } ?>
-          </td>
-          <td><?=$item['name'] ?></td>
-          <td><?=$item['price'] ?></td>
-          <td>
-            <span class="icon icon-<? if ($item['second_hand'] >= 1) { echo "check"; } else { echo "cancel"; } ?>">
-            </span>
-          </td>
-          <td><?=$item['description'] ?></td>
         </tr>
 
       <?php } ?>

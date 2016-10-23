@@ -8,6 +8,7 @@
 .edit:hover { color: #32ED32; }
 
 .right { float: right; }
+.text-right { text-align: right; }
 
 .description { color: #777; }
 

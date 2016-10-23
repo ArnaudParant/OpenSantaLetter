@@ -189,6 +189,7 @@ $lang = array_merge($lang,array(
   "GROUP"		=> "Group",
   "ACTION"              => "Action",
   "DELETE"              => "Delete",
+  "SEARCH"              => "Search",
   "ADD"                 => "Add",
   "EDIT"                => "Edit",
   "ITEM"                => "Item",
@@ -208,10 +209,10 @@ $lang = array_merge($lang,array(
   "HOME-APPLIANCE"      => "Home-Appliance",
   "CLOTHES"             => "Clothes",
   "ACCESSORY"           => "Accessory",
-  "DESCORATION"         => "Decoration",
+  "DECORATION"          => "Decoration",
   "OTHER"               => "Other",
-  "YES"                 => "Oui",
-  "NO"                  => "Non"
+  "YES"                 => "Yes",
+  "NO"                  => "No"
 ));
 
 //Place Holder
