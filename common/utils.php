@@ -44,6 +44,13 @@ class Utils
     return resultBlock($messages["errors"], $messages["successes"]);
   }
 
+  static function escape_special_char($str)
+  {
+    $found = array("'", '"');
+    $replace = array("\'", '\"');
+    return str_replace($found, $replace, $str);
+  }
+
 }
 
 class FormUtils

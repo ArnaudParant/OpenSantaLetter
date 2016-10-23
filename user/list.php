@@ -135,8 +135,10 @@ class Item
   {
     $php_self = $_SERVER['PHP_SELF'];
     $icon = Utils::icon("pencil edit");
-    $type = strtolower($item["type"]);
-    $click = "editer('{$item['id']}', '{$type}', '{$item['name']}', '{$item['price']}', '{$item['second_hand']}', '{$item['description']}');";
+    $name = Utils::escape_special_char($item['name']);
+    $type = Utils::escape_special_char(strtolower($item["type"]));
+    $description = Utils::escape_special_char($item['description']);
+    $click = "editer('{$item['id']}', '{$type}', '{$name}', '{$item['price']}', '{$item['second_hand']}', '{$description}');";
     return "<div onClick=\"$click\">$icon</div>";
   }
 
