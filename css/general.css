@@ -6,3 +6,33 @@
 
 .edit { color: #62AD62; font-size: 18px; cursor: pointer; }
 .edit:hover { color: #32ED32; }
+
+.right { float: right; }
+
+.description { color: #777; }
+
+.over
+{
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    visibility: hidden;
+}
+
+.over .opacity
+{
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    opacity: 0.8;
+}
+
+.over .content
+{
+    position: fixed;
+    width: 50%;
+    left: 25%;
+    top: calc(50% - 164px);
+}

@@ -25,6 +25,7 @@ class FormManager
     $messages = array("errors" => array(), "successes" => array());
 
     if ($post["form"] == "addItem") return self::add_item($user_id, $post);
+    else if ($post["form"] == "editItem") return self::edit_item($post);
     else if ($post["form"] == "deleteItem") return self::delete_item($user_id, $post);
 
     return null;
@@ -48,6 +49,26 @@ class FormManager
 
     if ($added) return array("successes" => array(lang("USERLIST_ITEM_ADDED")));
     return array("errors" => array(lang("USERLIST_ITEM_ADD_FAILED")));
+  }
+
+  static function edit_item($post)
+  {
+    $second_hand = 0;
+    if (isset($post["second_hand"])) $second_hand = 1;
+
+    $price = 0;
+    if (strlen($post["price"]) > 0) $price = $post["price"];
+
+    $item = array(
+      "type" => $post["type"],
+      "name" => $post["name"],
+      "price" => $price,
+      "second_hand" => $second_hand,
+      "description" => $post["description"]);
+    $added = editUserListItem($post["item_id"], $item);
+
+    if ($added) return array("successes" => array(lang("USERLIST_ITEM_EDITED")));
+    return array("errors" => array(lang("USERLIST_ITEM_EDIT_FAILED")));
   }
 
   static function delete_item($user_id, $post)
@@ -76,6 +97,16 @@ class Item
     }
   }
 
+  static function add_form()
+  {
+    return self::form("addItem", lang("BOX_ITEM_ADD_NAME"), lang("ADD"), false);
+  }
+
+  static function edit_form()
+  {
+    return self::form("editItem", lang("BOX_ITEM_EDIT_NAME"), lang("EDIT"), true);
+  }
+
   private static function header()
   {
     $cols = [lang("ACTION"),
@@ -90,7 +121,7 @@ class Item
 
   private static function display($item)
   {
-    $cols = [self::edit($item["id"]),
+    $cols = [self::edit($item),
              ItemUtils::type($item["type"]),
              $item['name'],
              $item['price'],
@@ -100,17 +131,19 @@ class Item
     echo Utils::table_line(false, $cols);
   }
 
-  private static function edit($id)
+  private static function edit($item)
   {
     $php_self = $_SERVER['PHP_SELF'];
     $icon = Utils::icon("pencil edit");
-    return "<div>$icon</div>";
+    $type = strtolower($item["type"]);
+    $click = "editer('{$item['id']}', '{$type}', '{$item['name']}', '{$item['price']}', '{$item['second_hand']}', '{$item['description']}');";
+    return "<div onClick=\"$click\">$icon</div>";
   }
 
   private static function delete($id)
   {
     $php_self = $_SERVER['PHP_SELF'];
-    $icon = Utils::icon("erase delete", "submiter('$id')");
+    $icon = Utils::icon("erase delete", "submiter('$id');");
     return (
       "<form name='deleteItem' id='item_$id' action='$php_self' method='post'>
          <input type='hidden' name='form' value='deleteItem' />
@@ -119,9 +152,39 @@ class Item
        </form>");
   }
 
-  static function select()
+  private static function close_control()
   {
-    $options = [
+    $icon = Utils::icon("cancel-circled action", "close_editer();");
+    return "<span class='right'>$icon</span>";
+  }
+
+  private static function form($name, $title, $submit_text, $closable)
+  {
+    $class = "add-item-box";
+    if ($closable) { $title .= self::close_control(); }
+
+    $fields = array(
+       array("name" => lang("TYPE"), "value" => self::select()),
+       array("name" => lang("NAME"), "value" => FormUtils::text("name")),
+       array("name" => lang("PRICE"), "value" => FormUtils::number("price"),
+             "description" => lang("DESCRIPTION_ESTIMATED_PRICE")),
+       array("name" => lang("SECOND_HAND"),
+             "value" => FormUtils::checkbox("second_hand", 1)),
+       array("name" => lang("DESCRIPTION"),"value" => FormUtils::text("description")),
+       array("value" => FormUtils::submit($submit_text))
+    );
+
+    return FormUtils::generator(null, $name, $class, $title, $fields);
+  }
+
+  private static function select()
+  {
+    return Utils::select("type", self::select_options());
+  }
+
+  private static function select_options()
+  {
+    return [
        array("value" => "", "name" => "-"),
        array("value" => "food", "name" => lang("FOOD")),
        array("value" => "item_book", "name" => lang("ITEM_BOOK")),
@@ -135,29 +198,7 @@ class Item
        array("value" => "decoration", "name" => lang("DECORATION")),
        array("value" => "other", "name" => lang("OTHER"))
     ];
-    return Utils::select("type", $options);
   }
-
-  static function form()
-  {
-    $name = "addItem";
-    $class = "add-item-box";
-    $title = lang("BOX_ITEM_ADD_NAME");
-    $submit_text = lang("ADD");
-
-    $fields = array(
-       array("name" => lang("TYPE"), "value" => self::select()),
-       array("name" => lang("NAME"), "value" => FormUtils::text("name")),
-       array("name" => lang("PRICE"), "value" => FormUtils::number("price")),
-       array("name" => lang("SECOND_HAND"),
-             "value" => FormUtils::checkbox("second_hand", 1)),
-       array("name" => lang("DECORATION"), "value" => FormUtils::text("description")),
-       array("value" => FormUtils::submit($submit_text))
-    );
-
-    return FormUtils::generator($name, $class, $title, $fields);
-  }
-
 }
 
 $messages = FormManager::sender($loggedInUser->user_id, $_POST);
@@ -171,6 +212,23 @@ $items = fetchUserList($loggedInUser->user_id);
    function submiter(item_id)
    {
      document.getElementById("item_" + item_id).submit();
+   }
+   function close_editer()
+   {
+     var box = document.getElementById("edit-box");
+     box.style.visibility = "hidden";
+   }
+   function editer(id, type, name, price, second_hand, description)
+   {
+     var box = document.getElementById("edit-box");
+     var inputs = box.getElementsByTagName("input");
+     inputs[1].value = id;
+     box.getElementsByTagName("select")[0].value = type;
+     inputs[2].value = name;
+     inputs[3].value = price;
+     inputs[4].checked = (second_hand >= 1);
+     inputs[5].value = description;
+     box.style.visibility = "visible";
    }
   </script>
   <div id='wrapper'>
@@ -186,7 +244,12 @@ $items = fetchUserList($loggedInUser->user_id);
 
         <?= Item::table($items) ?>
 
-        <?= Item::form() ?>
+        <?= Item::add_form() ?>
+
+        <div class="over" id="edit-box">
+          <div class="opacity" onClick="close_editer();"></div>
+          <div class="content"><?= Item::edit_form() ?></div>
+        </div>
 
       </div>
       <div id='bottom'></div>

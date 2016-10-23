@@ -48,18 +48,20 @@ class Utils
 
 class FormUtils
 {
-  static function generator($name, $class, $title, $fields)
+  static function generator($id, $name, $class, $title, $fields)
   {
     $php_self = $_SERVER['PHP_SELF'];
     $form = "<div id='regbox' class='$class'>
              <div class='small_title'>$title</div>
              <form name='$name' action='$php_self' method='post'>
-             <input type='hidden' name='form' value='$name' />";
+             <input type='hidden' name='form' value='$name' />
+             <input type='hidden' name='item_id' value='$id' />";
 
     foreach ($fields as $field)
     {
       if (isset($field["name"]))
-        $form .= FormUtils::labeled_field($field["name"], $field["value"]);
+        $form .= FormUtils::labeled_field($field["name"], $field["value"],
+                                          $field["description"]);
       else
         $form .= "<p>". $field["value"] ."</p>";
     }
@@ -68,9 +70,10 @@ class FormUtils
     return $form;
   }
 
-  static function labeled_field($name, $value)
+  static function labeled_field($name, $value, $description)
   {
-    return "<p><label>$name</label>$value</p>";
+    if ($description) $description = "<span class='description'>$description</span>";
+    return "<p><label>$name</label>$value $description</p>";
   }
 
   static function text($name)

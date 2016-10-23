@@ -76,6 +76,8 @@ $lang = array_merge($lang,array(
 $lang = array_merge($lang,array(
   "USERLIST_ITEM_ADDED"                   => "Objet correctement ajouté",
   "USERLIST_ITEM_ADD_FAILED"              => "Impossible d'ajouter l'objet",
+  "USERLIST_ITEM_EDITED"                  => "Objet correctement edité",
+  "USERLIST_ITEM_EDIT_FAILED"             => "Impossible d'editer l'objet",
   "USERLIST_ITEM_DELETED"                 => "Objet correctement supprimé",
   "USERLIST_ITEM_DELETE_FAILED"           => "Impossible de supprimer l'objet",
   "USERLIST_ITEM_BOOKED"                  => "Objet correctement réservé",
@@ -187,6 +189,7 @@ $lang = array_merge($lang,array(
   "ACTION"              => "Action",
   "DELETE"              => "Supprimer",
   "ADD"                 => "Ajouter",
+  "EDIT"                => "Editer",
   "ITEM"                => "Objet",
   "BOOK"                => "Réserver",
   "UNBOOK"              => "Déreserver",
@@ -204,7 +207,7 @@ $lang = array_merge($lang,array(
   "HOME-APPLIANCE"      => "Electromenagé",
   "CLOTHES"             => "Vêtements",
   "ACCESSORY"           => "Accessoires",
-  "DECORATION"          => "Décoration",
+  "DECORATION"          => "Déscription",
   "OTHER"               => "Autre",
   "YES"                 => "Oui",
   "NO"                  => "Non"
@@ -215,9 +218,15 @@ $lang = array_merge($lang,array(
   "PLACEHOLDER_USER_EMAIL"         => "email utilisateur",
 ));
 
+//Field Description
+$lang = array_merge($lang,array(
+  "DESCRIPTION_ESTIMATED_PRICE"    => "prix estimé",
+));
+
 //Boxes Names
 $lang = array_merge($lang,array(
   "BOX_ITEM_ADD_NAME"   => "Ajouter un object",
+  "BOX_ITEM_EDIT_NAME"  => "Edition d'object",
 ));
 
 //Content
