@@ -7,10 +7,10 @@ http://usercake.com
 $path = dirname(dirname(__FILE__));
 
 //Database Information
-$db_host = "localhost"; //Host address (most likely localhost)
+$db_host = "mysql"; //Host address (most likely localhost)
 $db_name = "santa"; //Name of Database
 $db_user = "santa"; //Name of database user
-$db_pass = "chips56#"; //Password for database user
+$db_pass = "santa"; //Password for database user
 $db_table_prefix = "santa_";
 
 GLOBAL $errors;
