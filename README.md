@@ -7,6 +7,11 @@ accessible on http://localhost
 
 `./compose.py latest restart`
 
+### Stop
+
+`./compose.py latest srm`  
+Shortcut for stop and rm
+
 ### Account
 
 Default account name 'Santa', password 'santa123'
