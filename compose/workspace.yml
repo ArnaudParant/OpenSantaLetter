@@ -4,6 +4,8 @@ santa-letter:
     - "80:80"
   links:
     - mysql
+  volumes:
+    - /home/nox/works/perso/santaLetter/src:/var/www/html
 
 mysql:
   image: mysql:5.7
