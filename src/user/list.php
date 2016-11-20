@@ -88,7 +88,7 @@ class Item
     {
       echo "<table class='table table-striped item-user-list'>";
       self::header();
-      foreach ($items as $item) { Item::display($item); }
+      foreach ($items as $item) { self::display($item); }
       echo "</table>";
     }
     else
@@ -116,7 +116,7 @@ class Item
              lang("SECOND_HAND"),
              lang("DESCRIPTION"),
              lang("DELETE")];
-    echo Utils::table_line(true, $cols);
+    echo Utils::table_line(true, "", $cols);
   }
 
   private static function display($item)
@@ -128,7 +128,7 @@ class Item
              ItemUtils::second_hand($item["second_hand"]),
              $item['description'],
              self::delete($item["id"])];
-    echo Utils::table_line(false, $cols);
+    echo Utils::table_line(false, "", $cols);
   }
 
   private static function edit($item)
@@ -165,23 +165,22 @@ class Item
     $class = "add-item-box";
     if ($closable) { $title .= self::close_control(); }
 
-    $fields = array(
+    $fields = [
        array("name" => lang("TYPE"), "value" => self::type_select()),
        array("name" => lang("NAME"), "value" => FormUtils::text("name")),
-       array("name" => lang("PRICE"), "value" => FormUtils::number("price"),
+       array("name" => lang("PRICE"), "value" => FormUtils::number("price", NULL),
              "description" => lang("DESCRIPTION_ESTIMATED_PRICE")),
        array("name" => lang("SECOND_HAND"),
              "value" => FormUtils::checkbox("second_hand", 1)),
        array("name" => lang("DESCRIPTION"),"value" => FormUtils::text("description")),
-       array("value" => FormUtils::submit($submit_text))
-    );
+       FormUtils::submit("btn-success", $submit_text)];
 
     return FormUtils::generator(null, $name, $class, $title, $fields);
   }
 
   private static function type_select()
   {
-    return Utils::select("type", ItemUtils::types_options());
+    return Utils::select("type", ItemUtils::types_options(NULL));
   }
 
 }

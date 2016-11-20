@@ -42,43 +42,154 @@ if(!empty($_POST))
 
 class Search
 {
-  static function user_select($user_id, $members)
+  static function user_select($user_id, $value, $members)
   {
     $options = [array("value"=>"","name"=>"-")];
     foreach ($members as $member)
     {
       if ($member["id"] != $user_id)
         $options[] = array("value" => $member["name"],
-                           "name" => $member["name"]);
+                           "name" => $member["name"],
+                           "selected" => $value == $member["name"]);
     }
     return Utils::select("username", $options);
   }
 
-  static function type_select()
+  static function type_select($value)
   {
-    return Utils::select("type", ItemUtils::types_options());
+    return Utils::select("type", ItemUtils::types_options($value));
   }
 
-  static function second_hand_select()
+  static function second_hand_select($value)
   {
     $options = array(
       array("value"=>"", "name"=>"-"),
-      array("value"=>"1", "name"=>lang("YES")),
-      array("value"=>"0", "name"=>lang("NO"))
+      array("value"=>"1", "name"=>lang("YES"), "selected" => $value == 1),
+      array("value"=>"0", "name"=>lang("NO"), "selected" => $value == 0 && $value != NULL)
     );
     return Utils::select("second_hand", $options);
   }
 
-  static function price_select()
+  static function price_select($value)
   {
-    return FormUtils::number("price");
+    return FormUtils::number("price", $value);
   }
+
+  static function button()
+  {
+    $icon = Utils::icon("search");
+    $value = lang("SEARCH");
+    return "<button class='btn btn-info'>$icon $value</button>";
+  }
+}
+
+class GroupList
+{
+  static function table($user_id, $group_id, $members, $search, $items)
+  {
+    $table  = "<table class='table table-striped group-list-table'>";
+    $table .= self::header();
+    $table .= self::search_line($user_id, $group_id, $members, $search);
+    foreach ($items as $item)
+    {
+      $table .= self::display($user_id, $group_id, $search, $item);
+    }
+    $table .= "</table>";
+
+    return $table;
+  }
+
+  private static function header()
+  {
+    $cols = [lang("USERNAME"),
+             lang("TYPE"),
+             lang("NAME"),
+             lang("PRICE"),
+             lang("SECOND_HAND"),
+             lang("DESCRIPTION"),
+             array("value" => lang("ACTION"), "class" => "text-right")];
+    return Utils::table_line(true, "header", $cols);
+  }
+
+  private static function search_line($user_id, $group_id, $members, $search)
+  {
+    $cols = [Search::user_select($user_id, $search["username"], $members),
+             Search::type_select($search["type"]),
+             NULL,
+             Search::price_select($search["price"]),
+             Search::second_hand_select($search["second_hand"]),
+             NULL,
+             array("value" => Search::button(), "class" => "text-right")];
+
+    $fields = [FormUtils::hidden("id", $group_id),
+               Utils::table_line(true, "search-line", $cols)];
+    return FormUtils::form("search", $url, "get", $fields);
+  }
+
+  private static function display($user_id, $group_id, $search, $item)
+  {
+    $cols = [$item['user']["name"],
+             ItemUtils::type($item["type"]),
+             $item['name'],
+             $item['price'],
+             ItemUtils::second_hand($item["second_hand"]),
+             $item['description'],
+             array("value" => self::book_form($user_id, $group_id, $search, $item),
+                   "class" => "text-right")];
+    return Utils::table_line(false, NULL, $cols);
+  }
+
+  private static function book_form($user_id, $group_id, $search, $item)
+  {
+    $php_self = $_SERVER['PHP_SELF'];
+    $url = "$php_self?id=$group_id";
+    if ($search["username"] != NULL)
+      $url .= "&username=". $search["username"];
+    if ($search["type"] != NULL)
+      $url .= "&type=". $search["type"];
+    if ($search["price"] != NULL)
+      $url .= "&price". $search["price"];
+    if ($search["second_hand"] != NULL)
+      $url .= "&second_hand=". $search["second_hand"];
+
+    $item_user_id = $item['user']["id"];
+    $item_id = $item['id'];
+
+    if (strlen($item['booked']['id']) > 0)
+    {
+      if ($item['booked']['id'] != $user_id)
+      {
+        return "<div class='booked'>". lang("BOOKED") ."</div>";
+      }
+      else
+      {
+        $fields = [FormUtils::hidden("user_id", $item_user_id),
+                   FormUtils::hidden("item_id", $item_id),
+                   FormUtils::submit("btn-warning", lang("UNBOOK"))];
+        return FormUtils::form("unbookItem", $url, "post", $fields);
+      }
+    }
+
+    $fields = [FormUtils::hidden("user_id", $item_user_id),
+               FormUtils::hidden("item_id", $item_id),
+               FormUtils::submit("btn-success", lang("BOOK"))];
+    return FormUtils::form("bookItem", $url, "post", $fields);
+  }
+
 }
 
 $groupId = $_GET['id'];
 $groupData = fetchGroupDetail($loggedInUser->user_id, $groupId);
 $members = fetchGroupMember($groupId);
-$list = fetchGroupList($loggedInUser->user_id, $groupData['id']);
+
+$search = array(
+  "username" => Utils::safe_get($_GET, "username"),
+  "type" => Utils::safe_get($_GET, "type"),
+  "price" => Utils::safe_get($_GET, "price"),
+  "second_hand" => Utils::safe_get($_GET, "second_hand"),
+);
+
+$list = fetchGroupList($loggedInUser->user_id, $groupData['id'], $search);
 
 require_once("$path/models/header.php");
 
@@ -105,7 +216,7 @@ require_once("$path/models/header.php");
 
 ?>
 
-        <?= resultBlock($errors,$successes); ?>
+        <?= resultBlock($errors, $successes); ?>
 
         <p class="right">
           <a href="group_members.php?id=<?=$groupId?>">
@@ -115,80 +226,7 @@ require_once("$path/models/header.php");
 
         <div class="panel-group" id="group_list" role="tablist" aria-multiselectable="true">
 
-        <table class="table table-striped group-list-table">
-          <tr class="header">
-            <th><?= lang("USERNAME") ?></th>
-            <th><?= lang("TYPE") ?></th>
-            <th><?= lang("NAME") ?></th>
-            <th><?= lang("PRICE") ?></th>
-            <th><?= lang("SECOND_HAND") ?></th>
-            <th><?= lang("DESCRIPTION") ?></th>
-            <th class="text-right"><?= lang("ACTION") ?></th>
-          </tr>
-          <tr class="search-line">
-            <th><?=Search::user_select($loggedInUser->user_id, $members); ?></th>
-            <th><?=Search::type_select(); ?></th>
-            <th></th>
-            <th><?=Search::price_select() ?></th>
-            <th><?=Search::second_hand_select(); ?></th>
-            <th></th>
-            <th class="text-right">
-              <button class="btn btn-info"><?= Utils::icon("search") ?><?= lang("SEARCH") ?></button>
-            </th>
-          </tr>
-
-       <?php
-
-      //Cycle through the group list
-      foreach ($list as $item) {
-
-      ?>
-
-         <tr>
-          <td><?=$item['user']["name"] ?></td>
-          <td><?=ItemUtils::type($item["type"]) ?></td>
-          <td><?=$item['name'] ?></td>
-          <td><?=$item['price'] ?></td>
-          <td><?=ItemUtils::second_hand($item["second_hand"]) ?></td>
-          <td><?=$item['description'] ?></td>
-          <td class="text-right">
-            <?php
-
-            if (strlen($item['booked']['id']) > 0)
-            {
-              if ($item['booked']['id'] != $loggedInUser->user_id)
-              {
-                echo "<div class='booked'>". lang("BOOKED") ."</div>";
-              }
-              else
-              {
-              ?>
-                <form name='unbookItem' action='<?= $_SERVER['PHP_SELF'] ?>?id=<?=$groupId?>' method='post'>
-                  <input type='hidden' name='form' value='unbookItem' />
-                  <input type='hidden' name='user_id' value='<?=$item['user']["id"] ?>' />
-                  <input type='hidden' name='item_id' value='<?=$item['id'] ?>' />
-                  <input type='submit' class="btn btn-warning" value='<?= lang("UNBOOK") ?>' class='submit' />
-                </form>
-              <?php
-              }
-            }
-            else
-            {
-
-            ?>
-              <form name='bookItem' action='<?= $_SERVER['PHP_SELF'] ?>?id=<?=$groupId?>' method='post'>
-                <input type='hidden' name='form' value='bookItem' />
-                <input type='hidden' name='user_id' value='<?=$item['user']["id"] ?>' />
-                <input type='hidden' name='item_id' value='<?=$item['id'] ?>' />
-                <input type='submit' class="btn btn-success" value='<?= lang("BOOK") ?>' class='submit' />
-              </form>
-            <?php } ?>
-          </td>
-        </tr>
-
-      <?php } ?>
-
-        </table>
+        <?= GroupList::table($loggedInUser->user_id, $groupId, $members, $search, $list); ?>
 
         </div>
       </div>

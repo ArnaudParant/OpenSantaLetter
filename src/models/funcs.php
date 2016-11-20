@@ -709,21 +709,36 @@ function unbookItem($user_id, $item_id, $booked_by_id, $booked_by_name)
 }
 
 //Retrieve information of a group member's lists
-function fetchGroupList($user_id, $group_id)
+function fetchGroupList($user_id, $group_id, $search)
 {
-  global $mysqli,$db_table_prefix;
+  global $mysqli, $db_table_prefix;
+
+  $filters = "";
+  if ($search["username"] != NULL)
+    $filters .= " AND users.display_name = '". $search["username"] ."'";
+  if ($search["type"] != NULL)
+    $filters .= " AND list.type = '". $search["type"] ."'";
+  if ($search["price"] != NULL)
+  {
+    $min = 0;
+    $max = $search["price"] + 10;
+    $filters .= " AND list.price >= $min AND list.price <= $max";
+  }
+  if ($search["second_hand"] != NULL)
+    $filters .= " AND list.second_hand = ". $search["second_hand"];
+
   $stmt = $mysqli->prepare("SELECT
-                                users.id AS 'user_id',
-                                users.display_name,
-		                list.id,
-		                list.type,
-		                list.name,
-		                list.price,
-		                list.second_hand,
-                                list.description,
-                                book.booked_by_id,
-                                book.booked_by_name
-                            FROM ".$db_table_prefix."group_member
+                users.id AS 'user_id',
+                users.display_name,
+		        list.id,
+		        list.type,
+		        list.name,
+		        list.price,
+		        list.second_hand,
+                list.description,
+                book.booked_by_id,
+                book.booked_by_name
+                FROM ".$db_table_prefix."group_member
                 LEFT JOIN ".$db_table_prefix."users AS users
                 ON ".$db_table_prefix."group_member.user_id = users.id
                 LEFT JOIN ".$db_table_prefix."list AS list
@@ -732,7 +747,7 @@ function fetchGroupList($user_id, $group_id)
                 ON list.id = book.item_id
                 WHERE group_id = ".$group_id."
                 AND ".$db_table_prefix."group_member.user_id != ".$user_id."
-                ");
+                ". $filters);
   $stmt->execute();
   $stmt->bind_result($user_id, $display_name, $item_id, $type, $item_name, $price, $second_hand, $description, $booked_by_id, $booked_by_name);
 

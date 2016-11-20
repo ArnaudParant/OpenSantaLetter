@@ -1,7 +1,7 @@
 ### Launch
 
 `make docker run`  
-accessible on http://localhost
+available on http://localhost
 
 ### Restart
 
