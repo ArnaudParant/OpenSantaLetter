@@ -5,7 +5,7 @@ santa-letter:
   links:
     - mysql
   volumes:
-    - /home/nox/works/perso/santaLetter/src:/var/www/html
+    - ./src:/var/www/html
 
 mysql:
   image: mysql:5.7
@@ -16,7 +16,7 @@ mysql:
     MYSQL_PASSWORD: santa
   volumes:
     - /srv/data/mysql/latest:/var/lib/mysql
-    - /home/nox/works/perso/santaLetter/database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
 
 phpmyadmin:
   image: phpmyadmin/phpmyadmin

@@ -14,7 +14,7 @@ mysql:
     MYSQL_PASSWORD: santa
   volumes:
     - /srv/data/mysql/latest:/var/lib/mysql
-    - /home/nox/works/perso/santaLetter/database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
 
 phpmyadmin:
   image: phpmyadmin/phpmyadmin
