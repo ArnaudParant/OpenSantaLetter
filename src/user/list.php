@@ -126,7 +126,7 @@ class Item
              $item['name'],
              $item['price'],
              ItemUtils::second_hand($item["second_hand"]),
-             $item['description'],
+             TextUtils::url_manager($item["description"]),
              self::delete($item["id"])];
     echo Utils::table_line(false, "", $cols);
   }
@@ -134,7 +134,7 @@ class Item
   private static function edit($item)
   {
     $php_self = $_SERVER['PHP_SELF'];
-    $icon = Utils::icon("pencil edit");
+    $icon = Utils::icon("pencil edit", null);
     $name = Utils::escape_special_char($item['name']);
     $type = Utils::escape_special_char(strtolower($item["type"]));
     $description = Utils::escape_special_char($item['description']);

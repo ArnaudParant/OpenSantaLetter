@@ -40,7 +40,8 @@ class Utils
     {
       $name = $option["name"];
       $selected = "";
-      if ($option["selected"]) $selected = "selected";
+      if (Utils::exists("selected", $option) && $option["selected"])
+        $selected = "selected";
       $value = $option["value"];
       $select .= "<option value='$value' $selected>$name</option>";
     }
@@ -55,8 +56,8 @@ class Utils
 
   static function escape_special_char($str)
   {
-    $found = array("'", '"');
-    $replace = array("\'", '\"');
+    $found = array("'", "\"");
+    $replace = array("'", "\"");
     return str_replace($found, $replace, $str);
   }
 
@@ -66,6 +67,28 @@ class Utils
     return NULL;
   }
 
+  static function exists($value, $arr)
+  {
+    return array_key_exists($value, $arr);
+  }
+
+}
+
+class TextUtils
+{
+  static function url_manager($text)
+  {
+    preg_match_all("/[^[:space:]]+:\/\/[^[:space:]]+/", $text, $matches);
+    foreach ($matches as $link)
+    {
+      $link = $link[0];
+      $no_protocol = preg_replace("/[^[:space:]]+:\/\//", "", $link);
+      $domain = preg_replace("/\/.*$/", "", $no_protocol);
+      $a = "<a href='$link' target='_blank'>$domain</a>";
+      $text = str_replace($link, $a, $text);
+    }
+    return $text;
+  }
 }
 
 class FormUtils
@@ -84,8 +107,8 @@ class FormUtils
       {
         if (isset($field["name"]))
         {
-           $form .= FormUtils::labeled_field($field["name"], $field["value"],
-                                             $field["description"]);
+           $desc = (Utils::exists("description", $field)) ? $field["description"] : "";
+           $form .= FormUtils::labeled_field($field["name"], $field["value"], $desc);
         }
         else
            $form .= "<p>". $field["value"] ."</p>";
@@ -171,8 +194,8 @@ class ItemUtils
 
   static function second_hand($second_hand)
   {
-    if ($second_hand >= 1) { return Utils::icon("check green"); }
-    return Utils::icon("cancel");
+    if ($second_hand >= 1) { return Utils::icon("check green", null); }
+    return Utils::icon("cancel", null);
   }
 
   static function types_options($value)

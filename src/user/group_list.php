@@ -133,7 +133,7 @@ class GroupList
              $item['name'],
              $item['price'],
              ItemUtils::second_hand($item["second_hand"]),
-             $item['description'],
+             TextUtils::url_manager($item["description"]),
              array("value" => self::book_form($user_id, $group_id, $search, $item),
                    "class" => "text-right")];
     return Utils::table_line(false, NULL, $cols);
